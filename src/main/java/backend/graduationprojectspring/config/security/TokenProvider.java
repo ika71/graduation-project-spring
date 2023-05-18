@@ -18,6 +18,11 @@ public class TokenProvider {
     private final byte[] keyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
     private final Key key = Keys.hmacShaKeyFor(keyBytes);
 
+    /**
+     * member 정보를 토대로 토큰 생성
+     * @param member
+     * @return
+     */
     public String createToken(Member member){
         //기한 하루
         Date expiryDate = Date.from(Instant.now().plus(1, ChronoUnit.DAYS));
@@ -34,6 +39,12 @@ public class TokenProvider {
                 .setExpiration(expiryDate)
                 .compact();
     }
+
+    /**
+     * 토큰의 유효성을 확인 유효하지 않을 시 에러 발생
+     * @param token
+     * @return Claims
+     */
     public Claims validateToken(String token){
         return (Claims) Jwts.parserBuilder()
                 .setSigningKey(key)
