@@ -34,13 +34,11 @@ public class TokenProvider {
                 .setExpiration(expiryDate)
                 .compact();
     }
-    public String validateToken(String token){
-        Claims claims = (Claims) Jwts.parserBuilder()
+    public Claims validateToken(String token){
+        return (Claims) Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parse(token)
                 .getBody();
-
-        return claims.getSubject();
     }
 }
