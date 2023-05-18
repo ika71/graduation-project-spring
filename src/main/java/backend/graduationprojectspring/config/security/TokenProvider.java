@@ -4,7 +4,7 @@ import backend.graduationprojectspring.entity.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-@Component
+@Service
 public class TokenProvider {
     private final String SECRET_KEY = "mysecretkeyaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     private final byte[] keyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
