@@ -1,5 +1,6 @@
 package backend.graduationprojectspring.service;
 
+import backend.graduationprojectspring.constant.Role;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ class MemberServiceTest {
 
     @Test
     void create() {
-        Member member1 = new Member("test@test.com", "test", "password");
+        Member member1 = new Member("test@test.com", "test", "password", Role.USER);
 
         Member createdMember = memberService.create(member1);
 
@@ -29,9 +30,9 @@ class MemberServiceTest {
         assertThat(createdMember.getName()).isEqualTo(findMember.getName());
         assertThat(createdMember.getPassword()).isEqualTo(findMember.getPassword());
 
-        Member member2 = new Member("test@test.com", "test", "password");
-        Member member3 = new Member("member3@member.com", "test", "password");
-        Member member4 = new Member("test@test.com", "member4", "password");
+        Member member2 = new Member("test@test.com", "test", "password", Role.USER);
+        Member member3 = new Member("member3@member.com", "test", "password", Role.USER);
+        Member member4 = new Member("test@test.com", "member4", "password", Role.USER);
 
         assertThatThrownBy(()->memberService.create(member2)).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(()->memberService.create(member3)).isInstanceOf(IllegalArgumentException.class);

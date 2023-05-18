@@ -1,5 +1,6 @@
 package backend.graduationprojectspring.entity;
 
+import backend.graduationprojectspring.constant.Role;
 import backend.graduationprojectspring.entity.Base.Base;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -26,9 +27,14 @@ public class Member extends Base {
 
     private String password;
 
-    public Member(String email, String name, String password) {
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public Member(String email, String name, String password, Role role) {
         this.email = email;
         this.name = name;
         this.password = password;
+        this.role = role;
     }
 }

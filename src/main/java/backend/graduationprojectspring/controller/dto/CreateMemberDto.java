@@ -1,5 +1,6 @@
 package backend.graduationprojectspring.controller.dto;
 
+import backend.graduationprojectspring.constant.Role;
 import backend.graduationprojectspring.entity.Member;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -15,6 +16,6 @@ public class CreateMemberDto {
     private String password;
 
     public Member toMember(){
-        return new Member(email, name, password);
+        return new Member(email, name, password, Role.USER);
     }
 }
