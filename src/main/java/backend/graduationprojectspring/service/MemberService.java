@@ -1,5 +1,6 @@
 package backend.graduationprojectspring.service;
 
+import backend.graduationprojectspring.config.security.TokenProvider;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TokenProvider tokenProvider;
 
     /**
      * 회원가입
@@ -33,4 +35,19 @@ public class MemberService {
         return memberRepository.save(passwordEncodedMember);
     }
 
+    /**
+     * email을 가지고 있는 아이디가 존재하고 비밀번호가 일치하면 토큰을 반환
+     * @param email
+     * @param password
+     * @return JWT or null
+     */
+    @Transactional
+    public String getToken(String email, String password){
+        Member findMember = memberRepository.findByEmail(email);
+
+        if(findMember != null && passwordEncoder.matches(password, findMember.getPassword())){
+            return tokenProvider.createToken(findMember);
+        }
+        return null;
+    }
 }

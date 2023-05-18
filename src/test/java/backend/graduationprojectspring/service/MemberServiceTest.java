@@ -5,11 +5,13 @@ import backend.graduationprojectspring.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
+@Transactional
 class MemberServiceTest {
     @Autowired
     MemberService memberService;
@@ -36,5 +38,19 @@ class MemberServiceTest {
         assertThatThrownBy(()->memberService.create(member2)).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(()->memberService.create(member3)).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(()->memberService.create(member4)).isInstanceOf(IllegalArgumentException.class);
+    }
+    @Test
+    void getToken(){
+        Member member = new Member("test@test.com", "test", "password");
+        memberService.create(member);
+
+        String token = memberService.getToken(member.getEmail(), member.getPassword());
+        assertThat(token).isNotNull();
+
+        String expectNull = memberService.getToken("noEmail", member.getPassword());
+        assertThat(expectNull).isNull();
+
+        expectNull = memberService.getToken(member.getEmail(), "1234");
+        assertThat(expectNull).isNull();
     }
 }
