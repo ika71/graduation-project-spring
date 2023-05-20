@@ -50,4 +50,18 @@ public class MemberService {
         }
         return null;
     }
+
+    /**
+     * 어드민 생성용 메소드
+     * @return
+     */
+    @Transactional
+    public Member createAdmin(){
+        Member member = new Member("admin@admin.com", "admin", "admin");
+        String password = passwordEncoder.encode(member.getPassword());
+
+        Member passwordEncodedMember = new Member(member.getEmail(), member.getName(), password);
+
+        return memberRepository.save(passwordEncodedMember.toAdmin());
+    }
 }

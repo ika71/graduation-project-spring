@@ -37,4 +37,13 @@ public class Member extends Base {
         this.password = password;
         this.role = Role.USER;
     }
+
+    /**
+     * 어드민 생성용 메소드
+     * @return
+     */
+    public Member toAdmin(){
+        this.role = Role.ADMIN;
+        return this;
+    }
 }
