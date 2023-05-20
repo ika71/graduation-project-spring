@@ -15,5 +15,13 @@ public class Evaluation extends Base {
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.ORDINAL)
-    private EvaluationScore evaluation;
+    private EvaluationScore evaluationScore;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "evaluation_item_id", nullable = false)
+    private EvaluationItem evaluationItem;
 }

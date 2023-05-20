@@ -15,5 +15,7 @@ public class EvaluationItem extends Base {
     @Column(nullable = false, unique = true)
     private String name;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "electronic_device_id", nullable = false)
+    private ElectronicDevice electronicDevice;
 }
