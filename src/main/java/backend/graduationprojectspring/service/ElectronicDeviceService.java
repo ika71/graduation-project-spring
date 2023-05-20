@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ElectronicDeviceService {
     private final ElectronicDeviceRepository electronicDeviceRepository;
     private final CategoryService categoryService;
 
-    @Transactional
     public ElectronicDevice create(ElectronicDevice electronicDevice, Long categoryId){
         Category category = categoryService.findById(categoryId).orElseThrow();
         electronicDevice.setCategory(category);

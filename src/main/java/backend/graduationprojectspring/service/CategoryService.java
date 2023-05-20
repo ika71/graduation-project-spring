@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CategoryService {
     private final CategoryRepository categoryRepository;
@@ -18,7 +19,6 @@ public class CategoryService {
      * @param category
      * @return
      */
-    @Transactional
     public Category create(Category category){
         return categoryRepository.save(category);
     }
@@ -28,7 +28,6 @@ public class CategoryService {
      * @param categoryId
      * @return
      */
-    @Transactional
     public Optional<Category> findById(Long categoryId){
         return categoryRepository.findById(categoryId);
     }

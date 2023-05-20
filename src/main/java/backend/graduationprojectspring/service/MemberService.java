@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class MemberService {
@@ -23,7 +24,6 @@ public class MemberService {
      * @return 저장된 member
      * @throws IllegalArgumentException email이나 name이 데이터 베이스에 중복
      */
-    @Transactional
     public Member create(Member member){
         if(memberRepository.existsByEmailOrName(member.getEmail(), member.getName())){
             throw new IllegalArgumentException("이미 존재하는 이메일 또는 이름으로 회원가입을 시도하고 있습니다.");
@@ -41,7 +41,6 @@ public class MemberService {
      * @param password
      * @return JWT or null
      */
-    @Transactional
     public String getToken(String email, String password){
         Member findMember = memberRepository.findByEmail(email);
 
@@ -55,7 +54,6 @@ public class MemberService {
      * 어드민 생성용 메소드
      * @return
      */
-    @Transactional
     public Member createAdmin(){
         Member member = new Member("admin@admin.com", "admin", "admin");
         String password = passwordEncoder.encode(member.getPassword());
