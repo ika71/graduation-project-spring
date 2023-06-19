@@ -5,10 +5,15 @@ import backend.graduationprojectspring.repository.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
+@Transactional
 class CategoryServiceTest {
     @Autowired
     CategoryService categoryService;
@@ -23,5 +28,22 @@ class CategoryServiceTest {
 
         assertThat(savedCategory.getId()).isEqualTo(findCategory.getId());
         assertThat(savedCategory.getName()).isEqualTo(findCategory.getName());
+    }
+    @Test
+    void pagingCategory(){
+        Category category1 = new Category("노트북");
+        Category category2 = new Category("컴퓨터");
+        Category category3 = new Category("스마트폰");
+        categoryService.create(category1);
+        categoryService.create(category2);
+        categoryService.create(category3);
+
+        List<Category> categories1 = categoryService.pagingCategory(1, 2);
+        assertThat(categories1.get(0).getName()).isEqualTo("노트북");
+        assertThat(categories1.get(1).getName()).isEqualTo("스마트폰");
+
+        List<Category> categories2 = categoryService.pagingCategory(2, 2);
+        assertThat(categories2.get(0).getName()).isEqualTo("컴퓨터");
+        assertThatThrownBy(()->categories2.get(1)).isInstanceOf(IndexOutOfBoundsException.class);
     }
 }
