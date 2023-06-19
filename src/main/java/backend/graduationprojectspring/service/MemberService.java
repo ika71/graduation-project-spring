@@ -55,7 +55,7 @@ public class MemberService {
      * @return
      */
     public Member createAdmin(){
-        Member member = new Member("admin@admin.com", "admin", "admin");
+        Member member = new Member("admin@admin.com", "admin", "admin@");
         String password = passwordEncoder.encode(member.getPassword());
 
         Member passwordEncodedMember = new Member(member.getEmail(), member.getName(), password);
