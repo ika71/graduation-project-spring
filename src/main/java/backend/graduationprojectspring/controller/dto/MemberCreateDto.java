@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 
 @Getter
-public class CreateMemberDto {
+public class MemberCreateDto {
     @Email
     private String email;
     @NotEmpty

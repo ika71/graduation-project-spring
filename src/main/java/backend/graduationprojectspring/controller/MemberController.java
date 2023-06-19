@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller;
 
-import backend.graduationprojectspring.controller.dto.CreateMemberDto;
-import backend.graduationprojectspring.controller.dto.LoginMemberDto;
+import backend.graduationprojectspring.controller.dto.MemberCreateDto;
+import backend.graduationprojectspring.controller.dto.MemberLoginDto;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.service.MemberService;
 import lombok.Getter;
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final MemberService memberService;
     @PostMapping("/signup")
-    public ResponseEntity<?> createMember(@RequestBody @Validated CreateMemberDto createMemberDto){
-        Member createdMember = memberService.create(createMemberDto.toMember());
+    public ResponseEntity<?> createMember(@RequestBody @Validated MemberCreateDto memberCreateDto){
+        Member createdMember = memberService.create(memberCreateDto.toMember());
 
         return ResponseEntity.ok().body(createdMember.getName());
     }
     @PostMapping("/signin")
-    public ResponseEntity<?> loginMember(@RequestBody @Validated LoginMemberDto loginMemberDto){
-        String token = memberService.getToken(loginMemberDto.getEmail(), loginMemberDto.password);
+    public ResponseEntity<?> loginMember(@RequestBody @Validated MemberLoginDto memberLoginDto){
+        String token = memberService.getToken(memberLoginDto.getEmail(), memberLoginDto.password);
 
         if(token == null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증 실패");
