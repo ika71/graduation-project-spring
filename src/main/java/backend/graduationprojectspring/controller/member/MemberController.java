@@ -1,7 +1,7 @@
-package backend.graduationprojectspring.controller;
+package backend.graduationprojectspring.controller.member;
 
-import backend.graduationprojectspring.controller.dto.MemberCreateDto;
-import backend.graduationprojectspring.controller.dto.MemberLoginDto;
+import backend.graduationprojectspring.controller.member.dto.MemberCreateDto;
+import backend.graduationprojectspring.controller.member.dto.MemberLoginDto;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.service.MemberService;
 import lombok.Getter;

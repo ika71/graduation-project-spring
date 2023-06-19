@@ -1,6 +1,6 @@
-package backend.graduationprojectspring.controller.admin;
+package backend.graduationprojectspring.controller.admin.category;
 
-import backend.graduationprojectspring.controller.admin.dto.CreateCategoryDto;
+import backend.graduationprojectspring.controller.admin.category.dto.CreateCategoryDto;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.service.CategoryService;
 import lombok.RequiredArgsConstructor;

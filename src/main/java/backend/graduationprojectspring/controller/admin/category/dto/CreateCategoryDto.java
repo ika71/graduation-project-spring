@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.controller.admin.dto;
+package backend.graduationprojectspring.controller.admin.category.dto;
 
 import backend.graduationprojectspring.entity.Category;
 import jakarta.validation.constraints.NotEmpty;

@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.controller.dto;
+package backend.graduationprojectspring.controller.member.dto;
 
 import backend.graduationprojectspring.entity.Member;
 import jakarta.validation.constraints.Email;
