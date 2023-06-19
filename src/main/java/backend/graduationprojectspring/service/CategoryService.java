@@ -34,6 +34,13 @@ public class CategoryService {
     public Optional<Category> findById(Long categoryId){
         return categoryRepository.findById(categoryId);
     }
+
+    /**
+     * 카테고리 페이지 조회
+     * @param page 현재 보여줄 페이지 위치
+     * @param size 얼마만큼 보여줄지 크기
+     * @return 조회된 List<Category> 반환
+     */
     public List<Category> pagingCategory(int page, int size){
         return categoryQueryRepository.pagingCategory(page, size);
     }
