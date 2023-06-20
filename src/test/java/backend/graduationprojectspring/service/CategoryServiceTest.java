@@ -38,12 +38,25 @@ class CategoryServiceTest {
         categoryService.create(category2);
         categoryService.create(category3);
 
-        List<Category> categories1 = categoryService.pagingCategory(1, 2);
+        List<Category> categories1 = categoryService.paging(1, 2);
         assertThat(categories1.get(0).getName()).isEqualTo("노트북");
         assertThat(categories1.get(1).getName()).isEqualTo("스마트폰");
 
-        List<Category> categories2 = categoryService.pagingCategory(2, 2);
+        List<Category> categories2 = categoryService.paging(2, 2);
         assertThat(categories2.get(0).getName()).isEqualTo("컴퓨터");
         assertThatThrownBy(()->categories2.get(1)).isInstanceOf(IndexOutOfBoundsException.class);
+    }
+    @Test
+    void total(){
+        assertThat(categoryService.totalCount()).isEqualTo(0);
+
+        Category category1 = new Category("노트북");
+        Category category2 = new Category("컴퓨터");
+        Category category3 = new Category("스마트폰");
+        categoryService.create(category1);
+        categoryService.create(category2);
+        categoryService.create(category3);
+
+        assertThat(categoryService.totalCount()).isEqualTo(3);
     }
 }

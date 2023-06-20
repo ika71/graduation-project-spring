@@ -31,7 +31,15 @@ public class CategoryService {
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 List<Category> 반환
      */
-    public List<Category> pagingCategory(int page, int size){
+    public List<Category> paging(int page, int size){
         return categoryQueryRepository.pagingCategory(page, size);
+    }
+
+    /**
+     * 전체 카테고리 개수 반환
+     * @return Long 타입 전체 카테고리 수
+     */
+    public Long totalCount(){
+        return categoryRepository.countBy();
     }
 }
