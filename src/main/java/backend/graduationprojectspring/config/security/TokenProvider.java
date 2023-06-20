@@ -4,6 +4,7 @@ import backend.graduationprojectspring.entity.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -14,9 +15,12 @@ import java.util.Date;
 
 @Service
 public class TokenProvider {
-    private final String SECRET_KEY = "mysecretkeyaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    private final byte[] keyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
-    private final Key key = Keys.hmacShaKeyFor(keyBytes);
+    private final Key key;
+
+    private TokenProvider(@Value("${secretkey}") final String SECRET_KEY) {
+        byte[] keyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
+        this.key = Keys.hmacShaKeyFor(keyBytes);
+    }
 
     /**
      * member 정보를 토대로 토큰 생성
