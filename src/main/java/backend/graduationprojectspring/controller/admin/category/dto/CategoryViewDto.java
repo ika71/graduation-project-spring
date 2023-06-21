@@ -5,9 +5,11 @@ import lombok.Getter;
 
 @Getter
 public class CategoryViewDto {
+    private Long id;
     private String name;
 
     public CategoryViewDto(Category category) {
+        this.id = category.getId();
         this.name = category.getName();
     }
 }
