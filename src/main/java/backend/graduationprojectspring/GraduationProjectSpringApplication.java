@@ -24,11 +24,14 @@ public class GraduationProjectSpringApplication {
         memberService.createAdmin();
 
         //카테고리 데이터 추가
-        Category category1 = new Category("노트북");
-        Category category2 = new Category("컴퓨터");
-        Category category3 = new Category("스마트폰");
-        categoryService.create(category1);
-        categoryService.create(category2);
-        categoryService.create(category3);
+        for(int i=0; i<20; i++){
+            Category category1 = new Category("노트북"+i);
+            Category category2 = new Category("컴퓨터"+i);
+            Category category3 = new Category("스마트폰"+i);
+            categoryService.create(category1);
+            categoryService.create(category2);
+            categoryService.create(category3);
+        }
+
     }
 }
