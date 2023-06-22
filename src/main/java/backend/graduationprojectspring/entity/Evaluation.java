@@ -1,8 +1,8 @@
 package backend.graduationprojectspring.entity;
 
-import backend.graduationprojectspring.constant.EvaluationScore;
 import backend.graduationprojectspring.entity.Base.Base;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Entity
@@ -14,8 +14,8 @@ public class Evaluation extends Base {
     private Long id;
 
     @Column(nullable = false)
-    @Enumerated(value = EnumType.ORDINAL)
-    private EvaluationScore evaluationScore;
+    @Size(min = 1, max = 5)
+    private int evaluationScore;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
