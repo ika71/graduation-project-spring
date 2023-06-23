@@ -47,4 +47,10 @@ public class AdminCategoryController {
                 categoryUpdateDto.toCategory());
         return ResponseEntity.ok().body(categoryUpdateDto.getName());
     }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteCategory(@RequestParam (name = "id")Long id){
+        categoryService.delete(id);
+        return ResponseEntity.ok().body("");
+    }
 }

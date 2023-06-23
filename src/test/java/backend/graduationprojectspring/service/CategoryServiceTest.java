@@ -70,4 +70,13 @@ class CategoryServiceTest {
         Category findCategory = categoryRepository.findById(createdCategory.getId()).orElseThrow();
         assertThat(findCategory.getName()).isEqualTo(updateCategory.getName());
     }
+    @Test
+    void delete(){
+        Category category = new Category("노트북");
+        Category createdCategory = categoryService.create(category);
+
+        categoryService.delete(createdCategory.getId());
+
+        assertThat(categoryService.totalCount()).isEqualTo(0);
+    }
 }

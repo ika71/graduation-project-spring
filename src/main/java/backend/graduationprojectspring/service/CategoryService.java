@@ -55,4 +55,13 @@ public class CategoryService {
         Category findCategory = findCategoryOptional.orElseThrow();
         findCategory.update(category);
     }
+
+    /**
+     * 카테고리 삭제
+     * @param id 삭제할 카테고리의 id
+     * @throws IllegalArgumentException id에 해당하는 카테고리가 없으면 예외 반환
+     */
+    public void delete(Long id){
+        categoryRepository.deleteById(id);
+    }
 }
