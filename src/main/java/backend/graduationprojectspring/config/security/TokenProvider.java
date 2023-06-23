@@ -46,6 +46,7 @@ public class TokenProvider {
 
     /**
      * 토큰의 유효성을 확인 유효하지 않을 시 에러 발생
+     * TODO 토큰이 유효하지 않을 시 프론트에 응답을 보내 재로그인을 유도해야 함
      * @param token
      * @return Claims
      */
