@@ -59,4 +59,15 @@ class CategoryServiceTest {
 
         assertThat(categoryService.totalCount()).isEqualTo(3);
     }
+
+    @Test
+    void update(){
+        Category category = new Category("노트북");
+        Category createdCategory = categoryService.create(category);
+
+        Category updateCategory = new Category("스마트폰");
+        categoryService.update(createdCategory.getId(), updateCategory);
+        Category findCategory = categoryRepository.findById(createdCategory.getId()).orElseThrow();
+        assertThat(findCategory.getName()).isEqualTo(updateCategory.getName());
+    }
 }

@@ -21,4 +21,8 @@ public class Category extends Base {
     public Category(String name) {
         this.name = name;
     }
+
+    public void update(Category category){
+        this.name = category.getName();
+    }
 }

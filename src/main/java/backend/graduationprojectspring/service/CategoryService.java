@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -41,5 +42,17 @@ public class CategoryService {
      */
     public Long totalCount(){
         return categoryRepository.countBy();
+    }
+
+    /**
+     * 카테고리 수정
+     * @param id 수정할 카테고리의 id
+     * @param category 수정할 내용을 가지고 있는 카테고리
+     * @throws java.util.NoSuchElementException id에 해당하는 카테고리가 없으면 예외 반환
+     */
+    public void update(Long id, Category category){
+        Optional<Category> findCategoryOptional = categoryRepository.findById(id);
+        Category findCategory = findCategoryOptional.orElseThrow();
+        findCategory.update(category);
     }
 }

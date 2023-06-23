@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.controller.admin.category;
 
 import backend.graduationprojectspring.controller.admin.category.dto.CategoryCreateDto;
+import backend.graduationprojectspring.controller.admin.category.dto.CategoryUpdateDto;
 import backend.graduationprojectspring.controller.admin.category.dto.CategoryViewDto;
 import backend.graduationprojectspring.controller.admin.category.dto.CategoryViewListAndTotalCountDto;
 import backend.graduationprojectspring.entity.Category;
@@ -38,5 +39,12 @@ public class AdminCategoryController {
         Category category = categoryCreateDto.toCategory();
         Category createdCategory = categoryService.create(category);
         return ResponseEntity.ok().body(createdCategory.getName());
+    }
+
+    @PatchMapping
+    public ResponseEntity<?> updateCategory(@RequestBody @Validated CategoryUpdateDto categoryUpdateDto){
+        categoryService.update(categoryUpdateDto.getId(),
+                categoryUpdateDto.toCategory());
+        return ResponseEntity.ok().body(categoryUpdateDto.getName());
     }
 }
