@@ -22,11 +22,12 @@ public class ElectronicDevice extends Base {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    public ElectronicDevice(String name) {
+    public ElectronicDevice(String name, Category category) {
         this.name = name;
-    }
-
-    public void setCategory(Category category) {
         this.category = category;
+    }
+    public void update(ElectronicDevice electronicDevice){
+        this.name = electronicDevice.getName();
+        this.category = electronicDevice.getCategory();
     }
 }
