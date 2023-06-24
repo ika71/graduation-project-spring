@@ -19,8 +19,8 @@ public class CategoryService {
 
     /**
      * category 데이터 베이스에 저장
-     * @param category
-     * @return
+     * @param category 저장할 카테고리
+     * @return 저장된 카테고리 반환
      */
     public Category create(Category category){
         return categoryRepository.save(category);
@@ -41,7 +41,7 @@ public class CategoryService {
      * @return Long 타입 전체 카테고리 수
      */
     public Long totalCount(){
-        return categoryRepository.countBy();
+        return categoryRepository.count();
     }
 
     /**
