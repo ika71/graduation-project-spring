@@ -33,7 +33,7 @@ public class CategoryService {
      * @return 조회된 List<Category> 반환
      */
     public List<Category> paging(int page, int size){
-        return categoryQueryRepository.pagingCategory(page, size);
+        return categoryQueryRepository.paging(page, size);
     }
 
     /**

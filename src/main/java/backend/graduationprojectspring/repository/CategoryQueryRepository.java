@@ -20,7 +20,7 @@ public class CategoryQueryRepository {
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 CategoryList 반환
      */
-    public List<Category> pagingCategory(int page, int size){
+    public List<Category> paging(int page, int size){
         return queryFactory
                 .selectFrom(category)
                 .orderBy(category.name.asc())
