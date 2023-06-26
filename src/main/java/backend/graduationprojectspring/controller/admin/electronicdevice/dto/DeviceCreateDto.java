@@ -14,7 +14,7 @@ public class DeviceCreateDto {
     private String name;
 
     public ElectronicDevice toElectronicDevice(){
-        Category category = new Category(categoryId, name);
+        Category category = new Category(categoryId);
         return new ElectronicDevice(name, category);
     }
 }

@@ -18,9 +18,8 @@ public class Category extends Base {
     @Column(nullable = false, unique = true)
     private String name;
 
-    public Category(Long id, String name) {
+    public Category(Long id) {
         this.id = id;
-        this.name = name;
     }
 
     public Category(String name) {
