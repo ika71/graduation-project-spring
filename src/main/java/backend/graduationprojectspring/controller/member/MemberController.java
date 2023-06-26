@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final MemberService memberService;
     @PostMapping("/signup")
-    public ResponseEntity<?> createMember(@RequestBody @Validated MemberCreateDto memberCreateDto){
+    public ResponseEntity<?> memberCreate(@RequestBody @Validated MemberCreateDto memberCreateDto){
         Member createdMember = memberService.create(memberCreateDto.toMember());
 
         return ResponseEntity.ok().body(createdMember.getName());
     }
     @PostMapping("/signin")
-    public ResponseEntity<?> loginMember(@RequestBody @Validated MemberLoginDto memberLoginDto){
+    public ResponseEntity<?> memberLogin(@RequestBody @Validated MemberLoginDto memberLoginDto){
         String token = memberService.getToken(memberLoginDto.getEmail(), memberLoginDto.password);
 
         if(token == null){

@@ -1,9 +1,9 @@
 package backend.graduationprojectspring.controller.admin.electronicdevice;
 
-import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DeviceViewDto;
-import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DeviceViewListAndTotalCountDto;
+import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DevicePagingDto;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,18 +19,29 @@ public class AdminElectronicDeviceController {
     private final ElectronicDeviceService deviceService;
 
     @GetMapping
-    public DeviceViewListAndTotalCountDto pagingDevice(
+    public DevicePagingResultDto pagingDevice(
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size
     ){
         List<ElectronicDevice> deviceList = deviceService.paging(page, size);
         Long deviceTotalCount = deviceService.totalCount();
 
-        List<DeviceViewDto> deviceViewDtoList = deviceList
+        List<DevicePagingDto> devicePagingDtoList = deviceList
                 .stream()
-                .map(DeviceViewDto::new)
+                .map(DevicePagingDto::new)
                 .toList();
 
-        return new DeviceViewListAndTotalCountDto(deviceViewDtoList, deviceTotalCount);
+        return new DevicePagingResultDto(devicePagingDtoList, deviceTotalCount);
+    }
+
+    @Getter
+    public static class DevicePagingResultDto{
+        private final List<DevicePagingDto> devicePagingDtoList;
+        private final Long totalCount;
+
+        public DevicePagingResultDto(List<DevicePagingDto> devicePagingDto, Long totalCount) {
+            this.devicePagingDtoList = devicePagingDto;
+            this.totalCount = totalCount;
+        }
     }
 }

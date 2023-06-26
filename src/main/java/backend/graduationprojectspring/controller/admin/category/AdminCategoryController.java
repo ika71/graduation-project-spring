@@ -1,11 +1,11 @@
 package backend.graduationprojectspring.controller.admin.category;
 
 import backend.graduationprojectspring.controller.admin.category.dto.CategoryCreateDto;
+import backend.graduationprojectspring.controller.admin.category.dto.CategoryPagingDto;
 import backend.graduationprojectspring.controller.admin.category.dto.CategoryUpdateDto;
-import backend.graduationprojectspring.controller.admin.category.dto.CategoryViewDto;
-import backend.graduationprojectspring.controller.admin.category.dto.CategoryViewListAndTotalCountDto;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.service.CategoryService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -20,37 +20,48 @@ public class AdminCategoryController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public CategoryViewListAndTotalCountDto pagingCategory(
+    public categoryPagingResultDto categoryPaging(
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size
     ){
         List<Category> categoryList = categoryService.paging(page, size);
         Long categoryTotalCount = categoryService.totalCount();
 
-        List<CategoryViewDto> categoryViewDtoList = categoryList
+        List<CategoryPagingDto> categoryPagingDtoList = categoryList
                 .stream()
-                .map(CategoryViewDto::new)
+                .map(CategoryPagingDto::new)
                 .toList();
-        return new CategoryViewListAndTotalCountDto(categoryViewDtoList, categoryTotalCount);
+        return new categoryPagingResultDto(categoryPagingDtoList, categoryTotalCount);
     }
 
     @PostMapping
-    public ResponseEntity<?> createCategory(@RequestBody @Validated CategoryCreateDto categoryCreateDto){
+    public ResponseEntity<?> categoryCreate(@RequestBody @Validated CategoryCreateDto categoryCreateDto){
         Category category = categoryCreateDto.toCategory();
         Category createdCategory = categoryService.create(category);
         return ResponseEntity.ok().body(createdCategory.getName());
     }
 
     @PatchMapping
-    public ResponseEntity<?> updateCategory(@RequestBody @Validated CategoryUpdateDto categoryUpdateDto){
+    public ResponseEntity<?> categoryUpdate(@RequestBody @Validated CategoryUpdateDto categoryUpdateDto){
         categoryService.update(categoryUpdateDto.getId(),
                 categoryUpdateDto.toCategory());
         return ResponseEntity.ok().body(categoryUpdateDto.getName());
     }
 
     @DeleteMapping
-    public ResponseEntity<?> deleteCategory(@RequestParam (name = "id")Long id){
+    public ResponseEntity<?> categoryDelete(@RequestParam (name = "id")Long id){
         categoryService.delete(id);
         return ResponseEntity.ok().body("");
+    }
+
+    @Getter
+    private static class categoryPagingResultDto {
+        List<CategoryPagingDto> categoryPagingDtoList;
+        Long totalCount;
+
+        public categoryPagingResultDto(List<CategoryPagingDto> categoryPagingDtoList, Long totalCount) {
+            this.categoryPagingDtoList = categoryPagingDtoList;
+            this.totalCount = totalCount;
+        }
     }
 }

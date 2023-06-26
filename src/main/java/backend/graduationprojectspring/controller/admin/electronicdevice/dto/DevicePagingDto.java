@@ -4,12 +4,12 @@ import backend.graduationprojectspring.entity.ElectronicDevice;
 import lombok.Getter;
 
 @Getter
-public class DeviceViewDto {
-    private Long id;
-    private String name;
-    private CategoryDto categoryDto;
+public class DevicePagingDto {
+    private final Long id;
+    private final String name;
+    private final CategoryDto categoryDto;
 
-    public DeviceViewDto(ElectronicDevice device) {
+    public DevicePagingDto(ElectronicDevice device) {
         this.id = device.getId();
         this.name = device.getName();
         this.categoryDto = new CategoryDto(
@@ -19,8 +19,8 @@ public class DeviceViewDto {
 
     @Getter
     private static class CategoryDto{
-        private Long id;
-        private String name;
+        private final Long id;
+        private final String name;
 
         public CategoryDto(Long id, String name) {
             this.id = id;
