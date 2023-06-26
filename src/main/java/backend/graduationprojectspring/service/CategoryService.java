@@ -27,7 +27,8 @@ public class CategoryService {
     }
 
     /**
-     * 카테고리 페이지 조회
+     * 카테고리 페이지 조회<br>
+     * 카테고리 이름으로 정렬됨
      * @param page 현재 보여줄 페이지 위치
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 List<Category> 반환
@@ -63,5 +64,13 @@ public class CategoryService {
      */
     public void delete(Long id){
         categoryRepository.deleteById(id);
+    }
+
+    /**
+     * 모든 카테고리 반환
+     * @return 모든 카테고리 리스트 반환
+     */
+    public List<Category> findAll(){
+        return categoryRepository.findAllByOrderByName();
     }
 }

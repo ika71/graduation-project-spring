@@ -1,14 +1,14 @@
 package backend.graduationprojectspring.controller.admin.electronicdevice;
 
+import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DeviceCreateDto;
 import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DevicePagingDto;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +32,13 @@ public class AdminElectronicDeviceController {
                 .toList();
 
         return new DevicePagingResultDto(devicePagingDtoList, deviceTotalCount);
+    }
+    @PostMapping
+    public ResponseEntity<?> deviceCreate(@RequestBody @Validated DeviceCreateDto deviceCreateDto){
+        ElectronicDevice device = deviceCreateDto.toElectronicDevice();
+        ElectronicDevice createdDevice = deviceService.create(device);
+        return ResponseEntity.ok().body(createdDevice.getName());
+
     }
 
     @Getter

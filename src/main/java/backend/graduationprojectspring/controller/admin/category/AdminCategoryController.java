@@ -1,5 +1,6 @@
 package backend.graduationprojectspring.controller.admin.category;
 
+import backend.graduationprojectspring.controller.admin.category.dto.CategoryAllDto;
 import backend.graduationprojectspring.controller.admin.category.dto.CategoryCreateDto;
 import backend.graduationprojectspring.controller.admin.category.dto.CategoryPagingDto;
 import backend.graduationprojectspring.controller.admin.category.dto.CategoryUpdateDto;
@@ -18,6 +19,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminCategoryController {
     private final CategoryService categoryService;
+
+    @GetMapping("/all")
+    public categoryAllResultDto categoryAll(){
+        List<Category> categoryAllList = categoryService.findAll();
+        List<CategoryAllDto> categoryAllDtoList = categoryAllList
+                .stream()
+                .map(CategoryAllDto::new)
+                .toList();
+        return new categoryAllResultDto(categoryAllDtoList);
+    }
 
     @GetMapping
     public categoryPagingResultDto categoryPaging(
@@ -62,6 +73,14 @@ public class AdminCategoryController {
         public categoryPagingResultDto(List<CategoryPagingDto> categoryPagingDtoList, Long totalCount) {
             this.categoryPagingDtoList = categoryPagingDtoList;
             this.totalCount = totalCount;
+        }
+    }
+    @Getter
+    private static class categoryAllResultDto{
+        List<CategoryAllDto> categoryAllDtoList;
+
+        public categoryAllResultDto(List<CategoryAllDto> categoryAllDtoList) {
+            this.categoryAllDtoList = categoryAllDtoList;
         }
     }
 }
