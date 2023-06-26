@@ -15,7 +15,8 @@ public class CategoryQueryRepository {
     private final JPAQueryFactory queryFactory;
 
     /**
-     * 카테고리 페이지 조회
+     * 카테고리 페이지 조회<br>
+     * 카테고리 이름으로 정렬됨
      * @param page 현재 보여줄 페이지 위치
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 CategoryList 반환

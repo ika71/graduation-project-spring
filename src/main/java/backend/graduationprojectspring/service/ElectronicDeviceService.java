@@ -28,6 +28,7 @@ public class ElectronicDeviceService {
 
     /**
      * 전자제품 페이지 조회<br>
+     * 전자제품 이름으로 정렬됨<br>
      * 전자제품 카테고리 정보도 들어있음
      * @param page 현재 보여줄 페이지 위치
      * @param size 얼마만큼 보여줄지 크기
