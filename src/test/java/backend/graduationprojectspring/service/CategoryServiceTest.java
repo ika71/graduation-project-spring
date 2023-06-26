@@ -79,4 +79,19 @@ class CategoryServiceTest {
 
         assertThat(categoryService.totalCount()).isEqualTo(0);
     }
+
+    @Test
+    void findAll(){
+        Category category1 = new Category("노트북");
+        Category category2 = new Category("컴퓨터");
+        Category category3 = new Category("스마트폰");
+        categoryService.create(category1);
+        categoryService.create(category2);
+        categoryService.create(category3);
+
+        List<Category> all = categoryService.findAll();
+        assertThat(all.get(0).getName()).isEqualTo(category1.getName());
+        assertThat(all.get(1).getName()).isEqualTo(category3.getName());
+        assertThat(all.get(2).getName()).isEqualTo(category2.getName());
+    }
 }
