@@ -2,7 +2,7 @@ package backend.graduationprojectspring.controller.admin.electronicdevice.dto;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
@@ -10,7 +10,7 @@ import lombok.Getter;
 public class DeviceCreateDto {
     @NotNull
     private Long categoryId;
-    @NotEmpty
+    @NotBlank
     private String name;
 
     public ElectronicDevice toElectronicDevice(){
