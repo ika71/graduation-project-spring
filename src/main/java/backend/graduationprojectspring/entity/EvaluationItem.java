@@ -2,10 +2,13 @@ package backend.graduationprojectspring.entity;
 
 import backend.graduationprojectspring.entity.Base.Base;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EvaluationItem extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,4 +21,9 @@ public class EvaluationItem extends Base {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "electronic_device_id", nullable = false)
     private ElectronicDevice electronicDevice;
+
+    public EvaluationItem(String name, ElectronicDevice electronicDevice) {
+        this.name = name;
+        this.electronicDevice = electronicDevice;
+    }
 }
