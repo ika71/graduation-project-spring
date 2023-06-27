@@ -52,6 +52,14 @@ public class AdminElectronicDeviceController {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
+    @DeleteMapping
+    public ResponseEntity<?> deviceDelete(@RequestParam(name = "id")Long id){
+        deviceService.delete(id);
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
     @Getter
     public static class DevicePagingResultDto{
         private final List<DevicePagingDto> devicePagingDtoList;
