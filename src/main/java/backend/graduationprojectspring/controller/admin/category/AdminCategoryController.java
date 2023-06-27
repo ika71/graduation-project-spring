@@ -8,6 +8,7 @@ import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.service.CategoryService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -49,20 +50,26 @@ public class AdminCategoryController {
     public ResponseEntity<?> categoryCreate(@RequestBody @Validated CategoryCreateDto categoryCreateDto){
         Category category = categoryCreateDto.toCategory();
         Category createdCategory = categoryService.create(category);
-        return ResponseEntity.ok().body(createdCategory.getName());
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(createdCategory.getName());
     }
 
     @PatchMapping
     public ResponseEntity<?> categoryUpdate(@RequestBody @Validated CategoryUpdateDto categoryUpdateDto){
         categoryService.update(categoryUpdateDto.getId(),
                 categoryUpdateDto.toCategory());
-        return ResponseEntity.ok().body(categoryUpdateDto.getName());
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 
     @DeleteMapping
     public ResponseEntity<?> categoryDelete(@RequestParam (name = "id")Long id){
         categoryService.delete(id);
-        return ResponseEntity.ok().body("");
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 
     @Getter

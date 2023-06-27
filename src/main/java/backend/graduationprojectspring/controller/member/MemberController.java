@@ -23,7 +23,9 @@ public class MemberController {
     public ResponseEntity<?> memberCreate(@RequestBody @Validated MemberCreateDto memberCreateDto){
         Member createdMember = memberService.create(memberCreateDto.toMember());
 
-        return ResponseEntity.ok().body(createdMember.getName());
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(createdMember.getName());
     }
     @PostMapping("/signin")
     public ResponseEntity<?> memberLogin(@RequestBody @Validated MemberLoginDto memberLoginDto){

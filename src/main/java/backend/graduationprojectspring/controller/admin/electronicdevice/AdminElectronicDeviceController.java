@@ -7,6 +7,7 @@ import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -38,14 +39,18 @@ public class AdminElectronicDeviceController {
     public ResponseEntity<?> deviceCreate(@RequestBody @Validated DeviceCreateDto deviceCreateDto){
         ElectronicDevice device = deviceCreateDto.toElectronicDevice();
         ElectronicDevice createdDevice = deviceService.create(device);
-        return ResponseEntity.ok().body(createdDevice.getName());
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(createdDevice.getName());
 
     }
     @PatchMapping
     public ResponseEntity<?> deviceUpdate(@RequestBody @Validated DeviceUpdateDto deviceUpdateDto){
         deviceService.update(deviceUpdateDto.getId(),
                 deviceUpdateDto.toElectronicDevice());
-        return ResponseEntity.ok().body("");
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
     @Getter
     public static class DevicePagingResultDto{
