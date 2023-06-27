@@ -66,7 +66,7 @@ public class AdminElectronicDeviceController {
                 .build();
     }
     @Getter
-    public static class DevicePagingResultDto{
+    private static class DevicePagingResultDto{
         private final List<DevicePagingDto> devicePagingDtoList;
         private final Long totalCount;
 
