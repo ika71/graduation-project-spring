@@ -3,7 +3,9 @@ package backend.graduationprojectspring.controller.admin.electronicdevice;
 import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DeviceCreateDto;
 import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DevicePagingDto;
 import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DeviceUpdateDto;
+import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
+import backend.graduationprojectspring.service.CategoryService;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminElectronicDeviceController {
     private final ElectronicDeviceService deviceService;
+    private final CategoryService categoryService;
 
     @GetMapping
     public DevicePagingResultDto pagingDevice(
@@ -37,17 +40,19 @@ public class AdminElectronicDeviceController {
     }
     @PostMapping
     public ResponseEntity<?> deviceCreate(@RequestBody @Validated DeviceCreateDto deviceCreateDto){
-        ElectronicDevice device = deviceCreateDto.toElectronicDevice();
+        Category category = categoryService.getReferenceById(deviceCreateDto.getCategoryId());
+        ElectronicDevice device = deviceCreateDto.toElectronicDevice(category);
         ElectronicDevice createdDevice = deviceService.create(device);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(createdDevice.getName());
-
     }
     @PatchMapping
     public ResponseEntity<?> deviceUpdate(@RequestBody @Validated DeviceUpdateDto deviceUpdateDto){
+        Category category = categoryService.getReferenceById(deviceUpdateDto.getCategoryId());
+
         deviceService.update(deviceUpdateDto.getId(),
-                deviceUpdateDto.toElectronicDevice());
+                deviceUpdateDto.toElectronicDevice(category));
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();

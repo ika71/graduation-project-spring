@@ -15,7 +15,7 @@ public class DeviceUpdateDto {
     @NotNull
     private Long categoryId;
 
-    public ElectronicDevice toElectronicDevice(){
-        return new ElectronicDevice(name, new Category(categoryId));
+    public ElectronicDevice toElectronicDevice(Category category){
+        return new ElectronicDevice(name, category);
     }
 }

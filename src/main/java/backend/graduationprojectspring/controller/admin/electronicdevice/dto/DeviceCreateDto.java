@@ -13,8 +13,7 @@ public class DeviceCreateDto {
     @NotBlank
     private String name;
 
-    public ElectronicDevice toElectronicDevice(){
-        Category category = new Category(categoryId);
+    public ElectronicDevice toElectronicDevice(Category category){
         return new ElectronicDevice(name, category);
     }
 }
