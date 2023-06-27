@@ -1,8 +1,8 @@
-package backend.graduationprojectspring.controller.admin.electronicdevice;
+package backend.graduationprojectspring.controller.admin.electronic_device;
 
-import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DeviceCreateDto;
-import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DevicePagingDto;
-import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DeviceUpdateDto;
+import backend.graduationprojectspring.controller.admin.electronic_device.dto.DeviceCreateDto;
+import backend.graduationprojectspring.controller.admin.electronic_device.dto.DevicePagingDto;
+import backend.graduationprojectspring.controller.admin.electronic_device.dto.DeviceUpdateDto;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.service.CategoryService;

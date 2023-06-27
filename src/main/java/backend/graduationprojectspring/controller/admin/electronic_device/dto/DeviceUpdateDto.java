@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.controller.admin.electronicdevice.dto;
+package backend.graduationprojectspring.controller.admin.electronic_device.dto;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
