@@ -2,6 +2,7 @@ package backend.graduationprojectspring.controller.admin.electronicdevice;
 
 import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DeviceCreateDto;
 import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DevicePagingDto;
+import backend.graduationprojectspring.controller.admin.electronicdevice.dto.DeviceUpdateDto;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
 import lombok.Getter;
@@ -40,7 +41,12 @@ public class AdminElectronicDeviceController {
         return ResponseEntity.ok().body(createdDevice.getName());
 
     }
-
+    @PatchMapping
+    public ResponseEntity<?> deviceUpdate(@RequestBody @Validated DeviceUpdateDto deviceUpdateDto){
+        deviceService.update(deviceUpdateDto.getId(),
+                deviceUpdateDto.toElectronicDevice());
+        return ResponseEntity.ok().body("");
+    }
     @Getter
     public static class DevicePagingResultDto{
         private final List<DevicePagingDto> devicePagingDtoList;
