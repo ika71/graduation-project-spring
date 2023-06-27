@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.config.security;
+package backend.graduationprojectspring.config;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
