@@ -1,14 +1,16 @@
 package backend.graduationprojectspring.controller.admin.evaluation_item;
 
+import backend.graduationprojectspring.controller.admin.evaluation_item.dto.EvaluationItemCreateDto;
 import backend.graduationprojectspring.controller.admin.evaluation_item.dto.EvaluationItemViewDto;
+import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
+import backend.graduationprojectspring.service.ElectronicDeviceService;
 import backend.graduationprojectspring.service.EvaluationItemService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminEvaluationItemController {
     private final EvaluationItemService itemService;
+    private final ElectronicDeviceService deviceService;
 
     @GetMapping
     public EvaluationItemViewResult evaluationItemView(
@@ -29,7 +32,18 @@ public class AdminEvaluationItemController {
 
         return new EvaluationItemViewResult(itemViewDtoList);
     }
+    @PostMapping
+    public ResponseEntity<?> evaluationItemCreate(
+            @RequestBody EvaluationItemCreateDto createDto){
+        ElectronicDevice electronicDevice = deviceService.getReferenceById(createDto.getElectronicDeviceId());
+        EvaluationItem evaluationItem = createDto.toEvaluationItem(electronicDevice);
 
+        itemService.create(evaluationItem);
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
     @Getter
     private static class EvaluationItemViewResult{
         private final List<EvaluationItemViewDto> evaluationItemList;

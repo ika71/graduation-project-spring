@@ -65,4 +65,13 @@ public class ElectronicDeviceService {
     public void delete(Long id){
         deviceRepository.deleteById(id);
     }
+
+    /**
+     * Id 값을 가지고 있는 전자제품 프록시 객체 반환
+     * @param id 프록시 객체가 가지고 있을 id 값
+     * @return ElectronicDevice 프록시 객체 반환
+     */
+    public ElectronicDevice  getReferenceById(Long id){
+        return deviceRepository.getReferenceById(id);
+    }
 }
