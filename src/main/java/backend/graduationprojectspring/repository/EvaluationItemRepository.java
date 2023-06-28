@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EvaluationItemRepository extends JpaRepository<EvaluationItem, Long> {
-    List<EvaluationItem> findAllByElectronicDevice_Id(Long electronicDeviceId);
+    List<EvaluationItem> findAllByElectronicDevice_IdOrderByName(Long electronicDeviceId);
 }

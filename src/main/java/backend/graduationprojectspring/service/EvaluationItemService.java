@@ -24,11 +24,12 @@ public class EvaluationItemService {
     }
 
     /**
-     * 전자제품 Id를 외래키로 갖는 모든 평가 항목 반환
+     * 전자제품 Id를 외래키로 갖는 모든 평가 항목 반환<br>
+     * 평가항목 이름으로 정렬
      * @param electronicDeviceId 전자제품 Id
      * @return 전자제품 Id를 외래키로 갖는 모든 평가 항목 반환
      */
     public List<EvaluationItem> findAllByElectronicDeviceId(Long electronicDeviceId){
-        return itemRepository.findAllByElectronicDevice_Id(electronicDeviceId);
+        return itemRepository.findAllByElectronicDevice_IdOrderByName(electronicDeviceId);
     }
 }
