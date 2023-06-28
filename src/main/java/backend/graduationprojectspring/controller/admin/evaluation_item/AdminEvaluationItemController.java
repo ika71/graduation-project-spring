@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class AdminEvaluationItemController {
     }
     @PostMapping
     public ResponseEntity<?> evaluationItemCreate(
-            @RequestBody EvaluationItemCreateDto createDto){
+            @RequestBody @Validated EvaluationItemCreateDto createDto){
         ElectronicDevice electronicDevice = deviceService.getReferenceById(createDto.getElectronicDeviceId());
         EvaluationItem evaluationItem = createDto.toEvaluationItem(electronicDevice);
 
