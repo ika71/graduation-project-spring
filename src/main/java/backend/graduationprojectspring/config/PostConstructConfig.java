@@ -2,8 +2,10 @@ package backend.graduationprojectspring.config;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
+import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.service.CategoryService;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
+import backend.graduationprojectspring.service.EvaluationItemService;
 import backend.graduationprojectspring.service.MemberService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class PostConstructConfig {
     private final MemberService memberService;
     private final CategoryService categoryService;
     private final ElectronicDeviceService deviceService;
+    private final EvaluationItemService itemService;
 
     @PostConstruct
     public void post(){
@@ -33,7 +36,7 @@ public class PostConstructConfig {
         ElectronicDevice device1 = new ElectronicDevice("갤럭시", savedCategory1);
         ElectronicDevice device2 = new ElectronicDevice("아이폰", savedCategory1);
         ElectronicDevice device3 = new ElectronicDevice("픽셀", savedCategory1);
-        deviceService.create(device1);
+        ElectronicDevice savedDevice1 = deviceService.create(device1);
         deviceService.create(device2);
         deviceService.create(device3);
 
@@ -43,5 +46,14 @@ public class PostConstructConfig {
         deviceService.create(device4);
         deviceService.create(device5);
         deviceService.create(device6);
+
+        //평가 항목 추가
+        EvaluationItem evaluationItem1 = new EvaluationItem("가격", savedDevice1);
+        EvaluationItem evaluationItem2 = new EvaluationItem("디스플레이", savedDevice1);
+        EvaluationItem evaluationItem3 = new EvaluationItem("성능", savedDevice1);
+
+        itemService.create(evaluationItem1);
+        itemService.create(evaluationItem2);
+        itemService.create(evaluationItem3);
     }
 }
