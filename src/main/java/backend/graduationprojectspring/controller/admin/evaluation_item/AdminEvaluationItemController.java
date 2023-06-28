@@ -41,7 +41,7 @@ public class AdminEvaluationItemController {
         itemService.create(evaluationItem);
 
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
+                .status(HttpStatus.CREATED)
                 .build();
     }
     @Getter
