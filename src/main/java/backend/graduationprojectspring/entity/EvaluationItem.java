@@ -26,4 +26,8 @@ public class EvaluationItem extends Base {
         this.name = name;
         this.electronicDevice = electronicDevice;
     }
+
+    public void updateName(String name){
+        this.name = name;
+    }
 }

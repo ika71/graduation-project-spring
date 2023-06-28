@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.controller.admin.evaluation_item;
 
 import backend.graduationprojectspring.controller.admin.evaluation_item.dto.EvaluationItemCreateDto;
+import backend.graduationprojectspring.controller.admin.evaluation_item.dto.EvaluationItemUpdateDto;
 import backend.graduationprojectspring.controller.admin.evaluation_item.dto.EvaluationItemViewDto;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
@@ -43,6 +44,24 @@ public class AdminEvaluationItemController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
+                .build();
+    }
+    @PatchMapping
+    public ResponseEntity<?> evaluationItemUpdateName(
+            @RequestBody @Validated EvaluationItemUpdateDto updateDto){
+
+        itemService.updateName(updateDto.getId(), updateDto.getName());
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
+    @DeleteMapping
+    public ResponseEntity<?> evaluationItemDelete(@RequestParam Long id){
+        itemService.delete(id);
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
                 .build();
     }
     @Getter
