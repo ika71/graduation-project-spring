@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ImageStoreService {
+public class ImageService {
     @Value("${file.dir}")
     private String fileDir; //저장될 폴더 위치
     private final ImageRepository imageRepository;

@@ -9,7 +9,7 @@ import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.service.CategoryService;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
-import backend.graduationprojectspring.service.ImageStoreService;
+import backend.graduationprojectspring.service.ImageService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ import java.util.List;
 public class AdminElectronicDeviceController {
     private final ElectronicDeviceService deviceService;
     private final CategoryService categoryService;
-    private final ImageStoreService imageStoreService;
+    private final ImageService imageService;
 
     @GetMapping
     public DevicePagingResultDto pagingDevice(
@@ -52,7 +52,7 @@ public class AdminElectronicDeviceController {
                 .body(createdDevice.getName());
     }
     @PostMapping("/image") ResponseEntity<?> deviceImageSet(@RequestBody @Validated DeviceImageSetDto deviceImageSetDto){
-        Image image = imageStoreService.getReferenceById(deviceImageSetDto.getImageId());
+        Image image = imageService.getReferenceById(deviceImageSetDto.getImageId());
         deviceService.setImage(deviceImageSetDto.getDeviceId(), image);
 
         return ResponseEntity

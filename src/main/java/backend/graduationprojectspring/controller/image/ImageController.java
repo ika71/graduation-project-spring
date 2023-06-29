@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller.image;
 
 import backend.graduationprojectspring.entity.Image;
-import backend.graduationprojectspring.service.ImageStoreService;
+import backend.graduationprojectspring.service.ImageService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,12 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/image")
 @RequiredArgsConstructor
 public class ImageController {
-    private final ImageStoreService imageStoreService;
+    private final ImageService imageService;
 
     @PostMapping
     public ResponseEntity<?> imageCreate(
             @RequestParam(name = "imageFile") MultipartFile imageFile) {
-        Image savedImage = imageStoreService.storeFile(imageFile);
+        Image savedImage = imageService.storeFile(imageFile);
         Long imageId = savedImage.getId();
         String originName = savedImage.getOriginName();
 
