@@ -22,11 +22,13 @@ public class ImageStoreService {
 
     /**
      * 파일 저장
+     *
      * @param multipartFile 저장할 파일
+     * @return
      * @throws ImageStoreFailException 파일 저장 과정 중에 IOException 발생 시 예외 던짐
      */
     @Transactional
-    public void storeFile(MultipartFile multipartFile) {
+    public Image storeFile(MultipartFile multipartFile) {
         String originName = multipartFile.getOriginalFilename();
         String storeName = createStoreName(originName);
 
@@ -35,9 +37,18 @@ public class ImageStoreService {
         } catch (IOException e) {
             throw new ImageStoreFailException("이미지 저장에 실패 하였습니다.", e);
         }
-        imageRepository.save(new Image(originName, storeName));
+        return imageRepository.save(new Image(originName, storeName));
     }
 
+    /**
+     * id에 해당하는 이미지 프록시 객체 반환
+     * @param id 프록시 객체의 id 값
+     * @return id에 해당하는 Image 프록시 객체
+     */
+    @Transactional
+    public Image getReferenceById(Long id){
+        return imageRepository.getReferenceById(id);
+    }
     /**
      * 파일의 저장 이름 생성<br>
      * @param originName 저장할 파일의 이름

@@ -22,10 +22,18 @@ public class ElectronicDevice extends Base {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    private Image image;
     public ElectronicDevice(String name, Category category) {
         this.name = name;
         this.category = category;
     }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     public void update(ElectronicDevice electronicDevice){
         this.name = electronicDevice.getName();
         this.category = electronicDevice.getCategory();

@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.ElectronicDevice;
+import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.repository.ElectronicDeviceQueryRepository;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
 import lombok.RequiredArgsConstructor;
@@ -73,5 +74,15 @@ public class ElectronicDeviceService {
      */
     public ElectronicDevice  getReferenceById(Long id){
         return deviceRepository.getReferenceById(id);
+    }
+
+    /**
+     * 전자제품의 이미지를 설정
+     * @param id 이미지를 설정할 전자제품의 id
+     * @param image 전자제품에 설정할 이미지
+     */
+    public void setImage(Long id, Image image){
+        ElectronicDevice device = deviceRepository.findById(id).orElseThrow();
+        device.setImage(image);
     }
 }
