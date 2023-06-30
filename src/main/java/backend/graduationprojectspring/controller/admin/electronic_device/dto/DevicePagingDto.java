@@ -8,6 +8,7 @@ public class DevicePagingDto {
     private final Long id;
     private final String name;
     private final CategoryDto categoryDto;
+    private final Long imageId;
 
     public DevicePagingDto(ElectronicDevice device) {
         this.id = device.getId();
@@ -15,6 +16,12 @@ public class DevicePagingDto {
         this.categoryDto = new CategoryDto(
                 device.getCategory().getId(),
                 device.getCategory().getName());
+        if(device.getImage() != null){
+            this.imageId = device.getImage().getId();
+        }
+        else{
+            this.imageId = null;
+        }
     }
 
     @Getter
