@@ -4,19 +4,36 @@ import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.service.ImageService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.net.MalformedURLException;
 
 @RestController
 @RequestMapping("/image")
 @RequiredArgsConstructor
 public class ImageController {
     private final ImageService imageService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> imageView(@PathVariable(name = "id")Long id) throws MalformedURLException {
+        String fullPath = imageService.fullPath(id);
+
+        UrlResource urlResource = new UrlResource("file:"+fullPath);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(urlResource);
+    }
 
     @PostMapping
     public ResponseEntity<?> imageCreate(

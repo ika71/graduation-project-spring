@@ -49,6 +49,18 @@ public class ImageService {
     public Image getReferenceById(Long id){
         return imageRepository.getReferenceById(id);
     }
+
+    /**
+     * id에 해당하는 이미지의 저장 경로를 반환
+     * @param id 저장 경로를 확인할 이미지의 id
+     * @return 이미지의 저장 경로
+     */
+    @Transactional
+    public String fullPath(Long id){
+        Image image = imageRepository.findById(id).orElseThrow();
+
+        return storePath(image.getStoreName());
+    }
     /**
      * 파일의 저장 이름 생성<br>
      * @param originName 저장할 파일의 이름
