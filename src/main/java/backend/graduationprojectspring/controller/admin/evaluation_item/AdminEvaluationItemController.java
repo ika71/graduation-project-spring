@@ -46,18 +46,19 @@ public class AdminEvaluationItemController {
                 .status(HttpStatus.CREATED)
                 .build();
     }
-    @PatchMapping
+    @PatchMapping("/{id}")
     public ResponseEntity<?> evaluationItemUpdateName(
+            @PathVariable(name = "id")Long id,
             @RequestBody @Validated EvaluationItemUpdateDto updateDto){
 
-        itemService.updateName(updateDto.getId(), updateDto.getName());
+        itemService.updateName(id, updateDto.getName());
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
-    @DeleteMapping
-    public ResponseEntity<?> evaluationItemDelete(@RequestParam Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> evaluationItemDelete(@PathVariable(name = "id") Long id){
         itemService.delete(id);
 
         return ResponseEntity

@@ -8,8 +8,6 @@ import lombok.Getter;
 
 @Getter
 public class DeviceUpdateDto {
-    @NotNull
-    private Long id;
     @NotBlank
     private String name;
     @NotNull

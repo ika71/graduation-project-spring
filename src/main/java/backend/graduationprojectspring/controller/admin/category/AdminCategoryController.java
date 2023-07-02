@@ -55,17 +55,18 @@ public class AdminCategoryController {
                 .body(createdCategory.getName());
     }
 
-    @PatchMapping
-    public ResponseEntity<?> categoryUpdate(@RequestBody @Validated CategoryUpdateDto categoryUpdateDto){
-        categoryService.update(categoryUpdateDto.getId(),
-                categoryUpdateDto.toCategory());
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> categoryUpdate(
+            @PathVariable(name = "id")Long id,
+            @RequestBody @Validated CategoryUpdateDto categoryUpdateDto){
+        categoryService.update(id, categoryUpdateDto.toCategory());
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<?> categoryDelete(@RequestParam (name = "id")Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> categoryDelete(@PathVariable (name = "id")Long id){
         categoryService.delete(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)

@@ -59,18 +59,20 @@ public class AdminElectronicDeviceController {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
-    @PatchMapping
-    public ResponseEntity<?> deviceUpdate(@RequestBody @Validated DeviceUpdateDto deviceUpdateDto){
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> deviceUpdate(
+            @PathVariable(name = "id")Long id,
+            @RequestBody @Validated DeviceUpdateDto deviceUpdateDto){
         Category category = categoryService.getReferenceById(deviceUpdateDto.getCategoryId());
 
-        deviceService.update(deviceUpdateDto.getId(),
+        deviceService.update(id,
                 deviceUpdateDto.toElectronicDevice(category));
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
-    @DeleteMapping
-    public ResponseEntity<?> deviceDelete(@RequestParam(name = "id")Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deviceDelete(@PathVariable(name = "id")Long id){
         deviceService.delete(id);
 
         return ResponseEntity
