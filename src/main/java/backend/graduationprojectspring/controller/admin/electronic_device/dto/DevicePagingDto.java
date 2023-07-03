@@ -1,7 +1,10 @@
 package backend.graduationprojectspring.controller.admin.electronic_device.dto;
 
 import backend.graduationprojectspring.entity.ElectronicDevice;
+import backend.graduationprojectspring.entity.Image;
 import lombok.Getter;
+
+import java.util.Optional;
 
 @Getter
 public class DevicePagingDto {
@@ -16,12 +19,9 @@ public class DevicePagingDto {
         this.categoryDto = new CategoryDto(
                 device.getCategory().getId(),
                 device.getCategory().getName());
-        if(device.getImage() != null){
-            this.imageId = device.getImage().getId();
-        }
-        else{
-            this.imageId = null;
-        }
+        this.imageId = Optional.ofNullable(device.getImage())
+                .map(Image::getId)
+                .orElse(null);
     }
 
     @Getter
