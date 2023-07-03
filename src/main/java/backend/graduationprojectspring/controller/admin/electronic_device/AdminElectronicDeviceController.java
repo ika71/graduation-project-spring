@@ -28,7 +28,7 @@ public class AdminElectronicDeviceController {
     private final ImageService imageService;
 
     @GetMapping
-    public DevicePagingResultDto pagingDevice(
+    public DevicePagingResultDto devicePaging(
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size
     ){
