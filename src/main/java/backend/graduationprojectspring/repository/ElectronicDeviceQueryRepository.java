@@ -9,6 +9,7 @@ import java.util.List;
 
 import static backend.graduationprojectspring.entity.QCategory.category;
 import static backend.graduationprojectspring.entity.QElectronicDevice.electronicDevice;
+import static backend.graduationprojectspring.entity.QEvaluationItem.evaluationItem;
 
 @Repository
 @RequiredArgsConstructor
@@ -31,6 +32,22 @@ public class ElectronicDeviceQueryRepository {
                 .orderBy(electronicDevice.name.asc())
                 .offset((long)(page - 1)*size)
                 .limit(size)
+                .fetch();
+    }
+
+    /**
+     * deviceList에 있는 device들의 evaluationList를 fetchjoin함<br>
+     * evaluationList의 크기가 0이어서 조인 대상이 되지 않은
+     * device들은 원본 상태 그대로 놔둠(left join)
+     * @param deviceList
+     * @return
+     */
+    public List<ElectronicDevice> fetchJoinEvaluationItem(List<ElectronicDevice> deviceList){
+        return queryFactory
+                .selectFrom(electronicDevice)
+                .leftJoin(electronicDevice.evaluationItemList, evaluationItem)
+                .fetchJoin()
+                .where(electronicDevice.in(deviceList))
                 .fetch();
     }
 }
