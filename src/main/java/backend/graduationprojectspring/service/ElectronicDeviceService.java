@@ -33,7 +33,7 @@ public class ElectronicDeviceService {
      * 전자제품 카테고리 정보도 들어있음
      * @param page 현재 보여줄 페이지 위치
      * @param size 얼마만큼 보여줄지 크기
-     * @return 조회된 List<ElectronicDevice> 반환
+     * @return 조회된 ElectronicDevice List 반환
      */
     public List<ElectronicDevice> paging(int page, int size){
         return deviceQueryRepository.paging(page, size);
@@ -89,7 +89,8 @@ public class ElectronicDeviceService {
     /**
      * deviceList에 있는 device들의 evaluationList를 fetchjoin함<br>
      * evaluationList의 크기가 0이어서 조인 대상이 되지 않은
-     * device들은 원본 상태 그대로 놔둠(left join)
+     * device들은 원본 상태 그대로 놔둠(left join)<br>
+     * 순서는 바뀔 수 있음
      * @param deviceList
      * @return
      */

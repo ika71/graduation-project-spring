@@ -31,7 +31,7 @@ public class CategoryService {
      * 카테고리 이름으로 정렬됨
      * @param page 현재 보여줄 페이지 위치
      * @param size 얼마만큼 보여줄지 크기
-     * @return 조회된 List<Category> 반환
+     * @return 조회된 category List 반환
      */
     public List<Category> paging(int page, int size){
         return categoryQueryRepository.paging(page, size);

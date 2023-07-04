@@ -38,7 +38,8 @@ public class ElectronicDeviceQueryRepository {
     /**
      * deviceList에 있는 device들의 evaluationList를 fetchjoin함<br>
      * evaluationList의 크기가 0이어서 조인 대상이 되지 않은
-     * device들은 원본 상태 그대로 놔둠(left join)
+     * device들은 원본 상태 그대로 놔둠(left join)<br>
+     * 순서는 바뀔 수 있음
      * @param deviceList
      * @return
      */
