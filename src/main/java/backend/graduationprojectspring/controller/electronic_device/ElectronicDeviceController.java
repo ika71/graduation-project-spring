@@ -29,6 +29,7 @@ public class ElectronicDeviceController {
 
         List<ElectronicDevice> pagingDevice = deviceService.paging(page, size);
         List<ElectronicDevice> deviceList = deviceService.fetchJoinEvaluationItem(pagingDevice);
+        Long totalCount = deviceService.totalCount();
 
         List<DevicePagingDto> devicePagingDtoList = new ArrayList<>(deviceList.size());
         for (ElectronicDevice device : deviceList) {
@@ -46,7 +47,7 @@ public class ElectronicDeviceController {
 
             devicePagingDtoList.add(devicePagingDto);
         }
-        return new PagingResult(devicePagingDtoList);
+        return new PagingResult(devicePagingDtoList, totalCount);
     }
 
     /**
@@ -75,9 +76,11 @@ public class ElectronicDeviceController {
     @Getter
     private static class PagingResult{
         private final List<DevicePagingDto> devicePagingDtoList;
+        private final Long totalCount;
 
-        public PagingResult(List<DevicePagingDto> devicePagingDtoList) {
+        public PagingResult(List<DevicePagingDto> devicePagingDtoList, Long totalCount) {
             this.devicePagingDtoList = devicePagingDtoList;
+            this.totalCount = totalCount;
         }
     }
 }
