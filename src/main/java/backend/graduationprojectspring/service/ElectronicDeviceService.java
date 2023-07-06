@@ -92,7 +92,7 @@ public class ElectronicDeviceService {
      * device들은 원본 상태 그대로 놔둠(left join)<br>
      * 이름 순 정렬
      * @param deviceList
-     * @return
+     * @return evaluationList를 fetch join한 ElectronicDevice 리스트 반환
      */
     public List<ElectronicDevice> fetchJoinEvaluationItem(List<ElectronicDevice> deviceList){
         return deviceQueryRepository.fetchJoinEvaluationItem(deviceList);

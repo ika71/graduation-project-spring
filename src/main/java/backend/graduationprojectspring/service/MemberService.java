@@ -52,7 +52,7 @@ public class MemberService {
 
     /**
      * 어드민 생성용 메소드
-     * @return
+     * @return 저장된 어드민 계정
      */
     public Member createAdmin(){
         Member member = new Member("admin@admin.com", "admin", "admin@");

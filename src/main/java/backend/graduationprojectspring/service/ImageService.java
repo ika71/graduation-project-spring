@@ -24,7 +24,7 @@ public class ImageService {
      * 파일 저장
      *
      * @param multipartFile 저장할 파일
-     * @return
+     * @return 데이터베이스에 저장한 Image
      * @throws ImageStoreFailException 파일 저장 과정 중에 IOException 발생 시 예외 던짐
      */
     @Transactional
