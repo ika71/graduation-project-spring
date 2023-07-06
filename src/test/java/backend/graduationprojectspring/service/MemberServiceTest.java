@@ -2,6 +2,7 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.repository.MemberRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,18 +19,24 @@ class MemberServiceTest {
     @Autowired
     MemberRepository memberRepository;
 
+    //저장된 데이터
+    Member member;
+    @BeforeEach
+    void beforeEach(){
+        member = memberService.create(new Member(
+                "test@test.com",
+                "test",
+                "password"));
+    }
+
     @Test
     void create() {
-        Member member1 = new Member("test@test.com", "test", "password");
+        Member findMember = memberRepository.findById(member.getId()).orElseThrow();
 
-        Member createdMember = memberService.create(member1);
-
-        Member findMember = memberRepository.findById(createdMember.getId()).orElseThrow();
-
-        assertThat(createdMember.getId()).isEqualTo(findMember.getId());
-        assertThat(createdMember.getEmail()).isEqualTo(findMember.getEmail());
-        assertThat(createdMember.getName()).isEqualTo(findMember.getName());
-        assertThat(createdMember.getPassword()).isEqualTo(findMember.getPassword());
+        assertThat(member.getId()).isEqualTo(findMember.getId());
+        assertThat(member.getEmail()).isEqualTo(findMember.getEmail());
+        assertThat(member.getName()).isEqualTo(findMember.getName());
+        assertThat(member.getPassword()).isEqualTo(findMember.getPassword());
 
         Member member2 = new Member("test@test.com", "test", "password");
         Member member3 = new Member("member3@member.com", "test", "password");
@@ -41,16 +48,13 @@ class MemberServiceTest {
     }
     @Test
     void getToken(){
-        Member member = new Member("test@test.com", "test", "password");
-        memberService.create(member);
-
-        String token = memberService.getToken(member.getEmail(), member.getPassword());
+        String token = memberService.getToken("test@test.com", "password");
         assertThat(token).isNotNull();
 
-        String expectNull = memberService.getToken("noEmail", member.getPassword());
+        String expectNull = memberService.getToken("noEmail", "password");
         assertThat(expectNull).isNull();
 
-        expectNull = memberService.getToken(member.getEmail(), "1234");
+        expectNull = memberService.getToken("test@test.com", "1234");
         assertThat(expectNull).isNull();
     }
 }

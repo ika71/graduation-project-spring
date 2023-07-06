@@ -3,6 +3,7 @@ package backend.graduationprojectspring.service;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,12 +23,22 @@ class ElectronicDeviceServiceTest {
     @Autowired
     CategoryService categoryService;
 
+    //저장된 데이터
+    Category category;
+    ElectronicDevice device1;
+    ElectronicDevice device2;
+    ElectronicDevice device3;
+    @BeforeEach
+    void beforeEach(){
+        category = categoryService.create(new Category("스마트폰"));
+
+        device1 = deviceService.create(new ElectronicDevice("아이폰", category));
+        device2 = deviceService.create(new ElectronicDevice("갤럭시", category));
+        device3 = deviceService.create(new ElectronicDevice("픽셀", category));
+    }
     @Test
     void create() {
-        Category category = new Category("스마트폰");
-        Category savedCategory = categoryService.create(category);
-
-        ElectronicDevice device = new ElectronicDevice("갤럭시", savedCategory);
+        ElectronicDevice device = new ElectronicDevice("모토롤라", category);
         ElectronicDevice savedDevice = deviceService.create(device);
         ElectronicDevice findDevice = deviceRepository.findById(savedDevice.getId()).orElseThrow();
 
@@ -39,16 +50,6 @@ class ElectronicDeviceServiceTest {
 
     @Test
     void paging() {
-        Category category = new Category("스마트폰");
-        Category savedCategory = categoryService.create(category);
-
-        ElectronicDevice device1 = new ElectronicDevice("아이폰", savedCategory);
-        ElectronicDevice device2 = new ElectronicDevice("갤럭시", savedCategory);
-        ElectronicDevice device3 = new ElectronicDevice("픽셀", savedCategory);
-        deviceService.create(device1);
-        deviceService.create(device2);
-        deviceService.create(device3);
-
         List<ElectronicDevice> deviceList1 = deviceService.paging(1, 2);
         assertThat(deviceList1.get(0).getName()).isEqualTo(device2.getName());
         assertThat(deviceList1.get(0).getCategory().getName()).isEqualTo(device2.getCategory().getName());
@@ -62,35 +63,16 @@ class ElectronicDeviceServiceTest {
 
     @Test
     void totalCount() {
-        assertThat(deviceService.totalCount()).isEqualTo(0);
-
-        Category category = new Category("스마트폰");
-        Category savedCategory = categoryService.create(category);
-
-        ElectronicDevice device1 = new ElectronicDevice("아이폰", savedCategory);
-        ElectronicDevice device2 = new ElectronicDevice("갤럭시", savedCategory);
-        ElectronicDevice device3 = new ElectronicDevice("픽셀", savedCategory);
-        deviceService.create(device1);
-        deviceService.create(device2);
-        deviceService.create(device3);
-
         assertThat(deviceService.totalCount()).isEqualTo(3);
     }
 
     @Test
     void update() {
-        Category category = new Category("스마트폰");
-        Category savedCategory = categoryService.create(category);
-
-        ElectronicDevice device = new ElectronicDevice("아이폰", savedCategory);
-        ElectronicDevice savedDevice = deviceService.create(device);
-
-        Category changeCategory = new Category("노트북");
-        categoryService.create(changeCategory);
+        Category changeCategory = categoryService.create(new Category("노트북"));
         ElectronicDevice changeDevice = new ElectronicDevice("갤럭시북", changeCategory);
 
-        deviceService.update(savedDevice.getId(), changeDevice);
-        ElectronicDevice findDevice = deviceRepository.findById(savedDevice.getId()).orElseThrow();
+        deviceService.update(device1.getId(), changeDevice);
+        ElectronicDevice findDevice = deviceRepository.findById(device1.getId()).orElseThrow();
 
         assertThat(findDevice.getName()).isEqualTo(changeDevice.getName());
         assertThat(findDevice.getCategory().getId()).isEqualTo(changeDevice.getCategory().getId());
@@ -99,15 +81,8 @@ class ElectronicDeviceServiceTest {
 
     @Test
     void delete() {
-        Category category = new Category("스마트폰");
-        Category savedCategory = categoryService.create(category);
+        deviceService.delete(device1.getId());
 
-        ElectronicDevice device = new ElectronicDevice("아이폰", savedCategory);
-        ElectronicDevice savedDevice = deviceService.create(device);
-        assertThat(deviceService.totalCount()).isEqualTo(1);
-
-        deviceService.delete(savedDevice.getId());
-
-        assertThat(deviceService.totalCount()).isEqualTo(0);
+        assertThat(deviceService.totalCount()).isEqualTo(2);
     }
 }

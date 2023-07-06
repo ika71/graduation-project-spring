@@ -2,6 +2,7 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.repository.CategoryRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,17 @@ class CategoryServiceTest {
     CategoryService categoryService;
     @Autowired
     CategoryRepository categoryRepository;
+    
+    //저장된 데이터
+    Category category1;
+    Category category2;
+    Category category3;
+    @BeforeEach
+    void beforeEach(){
+        category1 = categoryService.create(new Category("노트북"));
+        category2 = categoryService.create(new Category("컴퓨터"));
+        category3 = categoryService.create(new Category("스마트폰"));
+    }
 
     @Test
     void create() {
@@ -31,32 +43,16 @@ class CategoryServiceTest {
     }
     @Test
     void pagingCategory(){
-        Category category1 = new Category("노트북");
-        Category category2 = new Category("컴퓨터");
-        Category category3 = new Category("스마트폰");
-        categoryService.create(category1);
-        categoryService.create(category2);
-        categoryService.create(category3);
-
         List<Category> categories1 = categoryService.paging(1, 2);
         assertThat(categories1.get(0).getName()).isEqualTo("노트북");
         assertThat(categories1.get(1).getName()).isEqualTo("스마트폰");
 
-        List<Category> categories2 = categoryService.paging(2, 2);
-        assertThat(categories2.get(0).getName()).isEqualTo("컴퓨터");
-        assertThatThrownBy(()->categories2.get(1)).isInstanceOf(IndexOutOfBoundsException.class);
+        List<Category> categoryList2 = categoryService.paging(2, 2);
+        assertThat(categoryList2.get(0).getName()).isEqualTo("컴퓨터");
+        assertThatThrownBy(()->categoryList2.get(1)).isInstanceOf(IndexOutOfBoundsException.class);
     }
     @Test
     void total(){
-        assertThat(categoryService.totalCount()).isEqualTo(0);
-
-        Category category1 = new Category("노트북");
-        Category category2 = new Category("컴퓨터");
-        Category category3 = new Category("스마트폰");
-        categoryService.create(category1);
-        categoryService.create(category2);
-        categoryService.create(category3);
-
         assertThat(categoryService.totalCount()).isEqualTo(3);
     }
 
@@ -72,23 +68,13 @@ class CategoryServiceTest {
     }
     @Test
     void delete(){
-        Category category = new Category("노트북");
-        Category createdCategory = categoryService.create(category);
+        categoryService.delete(category1.getId());
 
-        categoryService.delete(createdCategory.getId());
-
-        assertThat(categoryService.totalCount()).isEqualTo(0);
+        assertThat(categoryService.totalCount()).isEqualTo(2);
     }
 
     @Test
     void findAll(){
-        Category category1 = new Category("노트북");
-        Category category2 = new Category("컴퓨터");
-        Category category3 = new Category("스마트폰");
-        categoryService.create(category1);
-        categoryService.create(category2);
-        categoryService.create(category3);
-
         List<Category> all = categoryService.findAll();
         assertThat(all.get(0).getName()).isEqualTo(category1.getName());
         assertThat(all.get(1).getName()).isEqualTo(category3.getName());
