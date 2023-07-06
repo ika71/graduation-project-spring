@@ -22,7 +22,7 @@ class CategoryServiceTest {
     @Autowired
     CategoryRepository categoryRepository;
     @Autowired
-    EntityManager entityManager;
+    EntityManager em;
     
     //저장된 데이터
     Category category1;
@@ -87,7 +87,7 @@ class CategoryServiceTest {
     @Test
     void getReferenceById() {
         Category proxyCategory = categoryService.getReferenceById(category1.getId());
-        boolean proxy = entityManager.getEntityManagerFactory()
+        boolean proxy = em.getEntityManagerFactory()
                 .getPersistenceUnitUtil().isLoaded(proxyCategory);
 
         assertThat(proxy).isTrue();
