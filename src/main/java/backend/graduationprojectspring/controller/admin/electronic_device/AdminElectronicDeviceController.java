@@ -51,9 +51,11 @@ public class AdminElectronicDeviceController {
                 .status(HttpStatus.CREATED)
                 .body(createdDevice.getName());
     }
-    @PostMapping("/image") ResponseEntity<?> deviceImageSet(@RequestBody @Validated DeviceImageSetDto deviceImageSetDto){
+    @PostMapping("/{id}/image") ResponseEntity<?> deviceImageSet(
+            @PathVariable(name = "id")Long deviceId,
+            @RequestBody @Validated DeviceImageSetDto deviceImageSetDto){
         Image image = imageService.getReferenceById(deviceImageSetDto.getImageId());
-        deviceService.setImage(deviceImageSetDto.getDeviceId(), image);
+        deviceService.setImage(deviceId, image);
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)

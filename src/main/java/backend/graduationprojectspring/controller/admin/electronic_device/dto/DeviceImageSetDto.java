@@ -6,7 +6,5 @@ import lombok.Getter;
 @Getter
 public class DeviceImageSetDto {
     @NotNull
-    private Long deviceId;
-    @NotNull
     private Long imageId;
 }
