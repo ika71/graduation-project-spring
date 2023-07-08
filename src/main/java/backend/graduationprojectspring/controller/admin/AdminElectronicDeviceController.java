@@ -1,9 +1,7 @@
 package backend.graduationprojectspring.controller.admin;
 
-import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Image;
-import backend.graduationprojectspring.service.CategoryService;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
 import backend.graduationprojectspring.service.ImageService;
 import backend.graduationprojectspring.service.dto.ElectronicDeviceServicePagingDto;
@@ -24,7 +22,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminElectronicDeviceController {
     private final ElectronicDeviceService deviceService;
-    private final CategoryService categoryService;
     private final ImageService imageService;
 
     @GetMapping
@@ -45,9 +42,10 @@ public class AdminElectronicDeviceController {
     }
     @PostMapping
     public ResponseEntity<?> deviceCreate(@RequestBody @Validated DeviceCreateDto deviceCreateDto){
-        Category category = categoryService.getReferenceById(deviceCreateDto.getCategoryId());
-        ElectronicDevice device = deviceCreateDto.toElectronicDevice(category);
-        ElectronicDevice createdDevice = deviceService.create(device);
+        ElectronicDevice device = deviceCreateDto.toElectronicDevice();
+        Long categoryId = deviceCreateDto.getCategoryId();
+
+        ElectronicDevice createdDevice = deviceService.create(device, categoryId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(createdDevice.getName());
@@ -66,10 +64,10 @@ public class AdminElectronicDeviceController {
     public ResponseEntity<?> deviceUpdate(
             @PathVariable(name = "id")Long id,
             @RequestBody @Validated DeviceUpdateDto deviceUpdateDto){
-        Category category = categoryService.getReferenceById(deviceUpdateDto.getCategoryId());
 
         deviceService.update(id,
-                deviceUpdateDto.toElectronicDevice(category));
+                deviceUpdateDto.toElectronicDevice(),
+                deviceUpdateDto.getCategoryId());
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
@@ -130,8 +128,8 @@ public class AdminElectronicDeviceController {
         @NotBlank
         private String name;
 
-        public ElectronicDevice toElectronicDevice(Category category){
-            return new ElectronicDevice(name, category);
+        public ElectronicDevice toElectronicDevice(){
+            return new ElectronicDevice(name);
         }
     }
 
@@ -148,8 +146,8 @@ public class AdminElectronicDeviceController {
         @NotNull
         private Long categoryId;
 
-        public ElectronicDevice toElectronicDevice(Category category){
-            return new ElectronicDevice(name, category);
+        public ElectronicDevice toElectronicDevice(){
+            return new ElectronicDevice(name);
         }
     }
 }

@@ -33,19 +33,19 @@ public class PostConstructConfig {
         Category savedCategory2 = categoryService.create(category2);
 
         //전자제품 데이터 추가
-        ElectronicDevice device1 = new ElectronicDevice("갤럭시", savedCategory1);
-        ElectronicDevice device2 = new ElectronicDevice("아이폰", savedCategory1);
-        ElectronicDevice device3 = new ElectronicDevice("픽셀", savedCategory1);
-        ElectronicDevice savedDevice1 = deviceService.create(device1);
-        deviceService.create(device2);
-        deviceService.create(device3);
+        ElectronicDevice device1 = new ElectronicDevice("갤럭시");
+        ElectronicDevice device2 = new ElectronicDevice("아이폰");
+        ElectronicDevice device3 = new ElectronicDevice("픽셀");
+        ElectronicDevice savedDevice1 = deviceService.create(device1, savedCategory1.getId());
+        deviceService.create(device2, savedCategory1.getId());
+        deviceService.create(device3, savedCategory1.getId());
 
-        ElectronicDevice device4 = new ElectronicDevice("갤럭시북", savedCategory2);
-        ElectronicDevice device5 = new ElectronicDevice("맥북", savedCategory2);
-        ElectronicDevice device6 = new ElectronicDevice("그램", savedCategory2);
-        deviceService.create(device4);
-        deviceService.create(device5);
-        deviceService.create(device6);
+        ElectronicDevice device4 = new ElectronicDevice("갤럭시북");
+        ElectronicDevice device5 = new ElectronicDevice("맥북");
+        ElectronicDevice device6 = new ElectronicDevice("그램");
+        deviceService.create(device4, savedCategory2.getId());
+        deviceService.create(device5, savedCategory2.getId());
+        deviceService.create(device6, savedCategory2.getId());
 
         //평가 항목 추가
         EvaluationItem evaluationItem1 = new EvaluationItem("가격", savedDevice1);

@@ -32,8 +32,11 @@ public class ElectronicDevice extends Base {
     @OneToMany(mappedBy = "electronicDevice")
     private List<EvaluationItem> evaluationItemList = new ArrayList<>();
 
-    public ElectronicDevice(String name, Category category) {
+    public ElectronicDevice(String name) {
         this.name = name;
+    }
+
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -43,6 +46,5 @@ public class ElectronicDevice extends Base {
 
     public void update(ElectronicDevice electronicDevice){
         this.name = electronicDevice.getName();
-        this.category = electronicDevice.getCategory();
     }
 }

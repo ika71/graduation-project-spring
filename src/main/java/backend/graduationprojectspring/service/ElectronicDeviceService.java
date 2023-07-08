@@ -1,7 +1,9 @@
 package backend.graduationprojectspring.service;
 
+import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Image;
+import backend.graduationprojectspring.repository.CategoryRepository;
 import backend.graduationprojectspring.repository.ElectronicDeviceQueryRepository;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
 import backend.graduationprojectspring.service.dto.ElectronicDeviceServicePagingDto;
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -18,13 +19,18 @@ import java.util.Optional;
 public class ElectronicDeviceService {
     private final ElectronicDeviceRepository deviceRepository;
     private final ElectronicDeviceQueryRepository deviceQueryRepository;
+    private final CategoryRepository categoryRepository;
 
     /**
-     * 전자제품 데이터 베이스에 저장
+     * 전자제품 데이터베이스에 저장
      * @param electronicDevice 저장할 전자제품
-     * @return 저장된 전자제품 반환
+     * @param categoryId 저장할 전자제품이 속하는 카테고리 Id
+     * @return 저장된 전자제품
      */
-    public ElectronicDevice create(ElectronicDevice electronicDevice){
+    public ElectronicDevice create(ElectronicDevice electronicDevice, Long categoryId){
+        Category category = categoryRepository.getReferenceById(categoryId);
+        electronicDevice.setCategory(category);
+
         return deviceRepository.save(electronicDevice);
     }
 
@@ -45,13 +51,16 @@ public class ElectronicDeviceService {
 
     /**
      * 전자제품 수정
-     * @param id 수정할 전자제품의 id
-     * @param electronicDevice 수정할 내용을 가지고 있는 전자제품
+     * @param deviceId 수정할 전자제품의 Id
+     * @param updateDevice 수정한 내용을 담은 전자제품 객체
+     * @param updateCategoryId 전자제품이 수정 후에 속할 카테고리 Id
      */
-    public void update(Long id, ElectronicDevice electronicDevice){
-        Optional<ElectronicDevice> findDeviceOptional = deviceRepository.findById(id);
-        ElectronicDevice findDevice = findDeviceOptional.orElseThrow();
-        findDevice.update(electronicDevice);
+    public void update(Long deviceId, ElectronicDevice updateDevice, Long updateCategoryId){
+        ElectronicDevice findDevice = deviceRepository.findById(deviceId).orElseThrow();
+        Category updateCategory = categoryRepository.getReferenceById(updateCategoryId);
+
+        findDevice.update(updateDevice);
+        findDevice.setCategory(updateCategory);
     }
 
     /**

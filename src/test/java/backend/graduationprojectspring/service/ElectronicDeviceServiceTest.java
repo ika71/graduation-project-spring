@@ -40,14 +40,14 @@ class ElectronicDeviceServiceTest {
     void beforeEach(){
         category = categoryService.create(new Category("스마트폰"));
 
-        device1 = deviceService.create(new ElectronicDevice("아이폰", category));
-        device2 = deviceService.create(new ElectronicDevice("갤럭시", category));
-        device3 = deviceService.create(new ElectronicDevice("픽셀", category));
+        device1 = deviceService.create(new ElectronicDevice("아이폰"), category.getId());
+        device2 = deviceService.create(new ElectronicDevice("갤럭시"), category.getId());
+        device3 = deviceService.create(new ElectronicDevice("픽셀"), category.getId());
     }
     @Test
     void create() {
-        ElectronicDevice device = new ElectronicDevice("모토롤라", category);
-        ElectronicDevice savedDevice = deviceService.create(device);
+        ElectronicDevice device = new ElectronicDevice("모토롤라");
+        ElectronicDevice savedDevice = deviceService.create(device, category.getId());
         ElectronicDevice findDevice = deviceRepository.findById(savedDevice.getId()).orElseThrow();
 
         assertThat(findDevice.getId()).isEqualTo(savedDevice.getId());
@@ -80,14 +80,13 @@ class ElectronicDeviceServiceTest {
     @Test
     void update() {
         Category changeCategory = categoryService.create(new Category("노트북"));
-        ElectronicDevice changeDevice = new ElectronicDevice("갤럭시북", changeCategory);
+        ElectronicDevice changeDevice = new ElectronicDevice("갤럭시북");
 
-        deviceService.update(device1.getId(), changeDevice);
+        deviceService.update(device1.getId(), changeDevice, changeCategory.getId());
         ElectronicDevice findDevice = deviceRepository.findById(device1.getId()).orElseThrow();
 
         assertThat(findDevice.getName()).isEqualTo(changeDevice.getName());
-        assertThat(findDevice.getCategory().getId()).isEqualTo(changeDevice.getCategory().getId());
-
+        assertThat(findDevice.getCategory().getId()).isEqualTo(changeCategory.getId());
     }
 
     @Test

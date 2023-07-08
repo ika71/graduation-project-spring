@@ -3,7 +3,6 @@ package backend.graduationprojectspring.service;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.repository.CategoryRepository;
 import backend.graduationprojectspring.service.dto.CategoryServicePagingDto;
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,7 @@ class CategoryServiceTest {
     CategoryService categoryService;
     @Autowired
     CategoryRepository categoryRepository;
-    @Autowired
-    EntityManager em;
-    
+
     //저장된 데이터
     Category category1;
     Category category2;
@@ -88,14 +85,5 @@ class CategoryServiceTest {
         assertThat(all.get(0).getName()).isEqualTo(category1.getName());
         assertThat(all.get(1).getName()).isEqualTo(category3.getName());
         assertThat(all.get(2).getName()).isEqualTo(category2.getName());
-    }
-
-    @Test
-    void getReferenceById() {
-        Category proxyCategory = categoryService.getReferenceById(category1.getId());
-        boolean proxy = em.getEntityManagerFactory()
-                .getPersistenceUnitUtil().isLoaded(proxyCategory);
-
-        assertThat(proxy).isTrue();
     }
 }

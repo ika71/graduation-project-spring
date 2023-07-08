@@ -69,13 +69,4 @@ public class CategoryService {
     public List<Category> findAll(){
         return categoryRepository.findAllByOrderByName();
     }
-
-    /**
-     * Id 값을 가지고 있는 카테고리 프록시 객체 반환
-     * @param id 프록시 객체가 가지고 있을 id 값
-     * @return Category 프록시 객체 반환
-     */
-    public Category getReferenceById(Long id){
-        return categoryRepository.getReferenceById(id);
-    }
 }
