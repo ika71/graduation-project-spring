@@ -24,7 +24,7 @@ public class ElectronicDeviceQueryRepository {
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 ElectronicDevice 반환
      */
-    public List<ElectronicDevice> paging(int page, int size){
+    public List<ElectronicDevice> pagingFetchJoinCategory(int page, int size){
         return queryFactory
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)

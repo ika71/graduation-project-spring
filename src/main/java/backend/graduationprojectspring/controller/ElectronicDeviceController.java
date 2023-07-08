@@ -4,6 +4,7 @@ import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
+import backend.graduationprojectspring.service.dto.ElectronicDeviceServicePagingDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +29,11 @@ public class ElectronicDeviceController {
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size){
 
-        List<ElectronicDevice> pagingDevice = deviceService.paging(page, size);
+        ElectronicDeviceServicePagingDto paging = deviceService.paging(page, size);
+
+        List<ElectronicDevice> pagingDevice = paging.getPagingDeviceList();
+        Long totalCount = paging.getTotalCount();
         List<ElectronicDevice> deviceList = deviceService.fetchJoinEvaluationItem(pagingDevice);
-        Long totalCount = deviceService.totalCount();
 
         List<DevicePagingDto> devicePagingDtoList = new ArrayList<>(deviceList.size());
         for (ElectronicDevice device : deviceList) {

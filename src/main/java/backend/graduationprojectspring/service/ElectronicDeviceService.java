@@ -4,6 +4,7 @@ import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.repository.ElectronicDeviceQueryRepository;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
+import backend.graduationprojectspring.service.dto.ElectronicDeviceServicePagingDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,23 +29,18 @@ public class ElectronicDeviceService {
     }
 
     /**
-     * 전자제품 페이지 조회<br>
+     * 전자제품 페이지 조회(전자제품 카테고리 정보 fetch join)<br>
      * 전자제품 이름으로 정렬됨<br>
-     * 전자제품 카테고리 정보도 들어있음
+     * 전자제품 totalCount 조회
      * @param page 현재 보여줄 페이지 위치
      * @param size 얼마만큼 보여줄지 크기
-     * @return 조회된 ElectronicDevice List 반환
+     * @return 조회된 ElectronicDevice List, totalCount 반환
      */
-    public List<ElectronicDevice> paging(int page, int size){
-        return deviceQueryRepository.paging(page, size);
-    }
+    public ElectronicDeviceServicePagingDto paging(int page, int size){
+        List<ElectronicDevice> pagingDeviceList = deviceQueryRepository.pagingFetchJoinCategory(page, size);
+        Long totalCount = deviceRepository.count();
 
-    /**
-     * 전체 카테고리 개수 반환
-     * @return Long 타입 전체 카테고리 수
-     */
-    public Long totalCount(){
-        return deviceRepository.count();
+        return new ElectronicDeviceServicePagingDto(pagingDeviceList, totalCount);
     }
 
     /**
