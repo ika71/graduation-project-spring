@@ -41,16 +41,6 @@ public class ImageService {
     }
 
     /**
-     * id에 해당하는 이미지 프록시 객체 반환
-     * @param id 프록시 객체의 id 값
-     * @return id에 해당하는 Image 프록시 객체
-     */
-    @Transactional
-    public Image getReferenceById(Long id){
-        return imageRepository.getReferenceById(id);
-    }
-
-    /**
      * id에 해당하는 이미지의 저장 경로를 반환
      * @param id 저장 경로를 확인할 이미지의 id
      * @return 이미지의 저장 경로
