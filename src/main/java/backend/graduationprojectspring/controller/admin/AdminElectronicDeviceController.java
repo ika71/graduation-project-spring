@@ -3,7 +3,6 @@ package backend.graduationprojectspring.controller.admin;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
-import backend.graduationprojectspring.service.ImageService;
 import backend.graduationprojectspring.service.dto.ElectronicDeviceServicePagingDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,7 +21,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminElectronicDeviceController {
     private final ElectronicDeviceService deviceService;
-    private final ImageService imageService;
 
     @GetMapping
     public DevicePagingResultDto devicePaging(
@@ -53,8 +51,7 @@ public class AdminElectronicDeviceController {
     @PostMapping("/{id}/image") ResponseEntity<?> deviceImageSet(
             @PathVariable(name = "id")Long deviceId,
             @RequestBody @Validated DeviceImageSetDto deviceImageSetDto){
-        Image image = imageService.getReferenceById(deviceImageSetDto.getImageId());
-        deviceService.setImage(deviceId, image);
+        deviceService.setImage(deviceId, deviceImageSetDto.getImageId());
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)

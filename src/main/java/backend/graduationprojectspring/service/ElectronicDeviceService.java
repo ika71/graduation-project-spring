@@ -6,6 +6,7 @@ import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.repository.CategoryRepository;
 import backend.graduationprojectspring.repository.ElectronicDeviceQueryRepository;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
+import backend.graduationprojectspring.repository.ImageRepository;
 import backend.graduationprojectspring.service.dto.ElectronicDeviceServicePagingDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class ElectronicDeviceService {
     private final ElectronicDeviceRepository deviceRepository;
     private final ElectronicDeviceQueryRepository deviceQueryRepository;
     private final CategoryRepository categoryRepository;
+    private final ImageRepository imageRepository;
 
     /**
      * 전자제품 데이터베이스에 저장
@@ -73,12 +75,13 @@ public class ElectronicDeviceService {
     }
 
     /**
-     * 전자제품의 이미지를 설정
-     * @param id 이미지를 설정할 전자제품의 id
-     * @param image 전자제품에 설정할 이미지
+     * 전자제품 이미지 설정
+     * @param deviceId 이미지를 설정할 전자제품 id
+     * @param imageId 설정할 이미지의 id
      */
-    public void setImage(Long id, Image image){
-        ElectronicDevice device = deviceRepository.findById(id).orElseThrow();
+    public void setImage(Long deviceId, Long imageId){
+        ElectronicDevice device = deviceRepository.findById(deviceId).orElseThrow();
+        Image image = imageRepository.getReferenceById(imageId);
         device.setImage(image);
     }
 
