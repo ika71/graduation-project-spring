@@ -48,12 +48,12 @@ public class PostConstructConfig {
         deviceService.create(device6, savedCategory2.getId());
 
         //평가 항목 추가
-        EvaluationItem evaluationItem1 = new EvaluationItem("가격", savedDevice1);
-        EvaluationItem evaluationItem2 = new EvaluationItem("디스플레이", savedDevice1);
-        EvaluationItem evaluationItem3 = new EvaluationItem("성능", savedDevice1);
+        EvaluationItem evaluationItem1 = new EvaluationItem("가격");
+        EvaluationItem evaluationItem2 = new EvaluationItem("디스플레이");
+        EvaluationItem evaluationItem3 = new EvaluationItem("성능");
 
-        itemService.create(evaluationItem1);
-        itemService.create(evaluationItem2);
-        itemService.create(evaluationItem3);
+        itemService.create(evaluationItem1, device1.getId());
+        itemService.create(evaluationItem2, device1.getId());
+        itemService.create(evaluationItem3, device1.getId());
     }
 }

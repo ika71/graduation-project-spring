@@ -1,8 +1,6 @@
 package backend.graduationprojectspring.controller.admin;
 
-import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
-import backend.graduationprojectspring.service.ElectronicDeviceService;
 import backend.graduationprojectspring.service.EvaluationItemService;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminEvaluationItemController {
     private final EvaluationItemService itemService;
-    private final ElectronicDeviceService deviceService;
 
     @GetMapping
     public EvaluationItemViewResult evaluationItemView(
@@ -36,10 +33,9 @@ public class AdminEvaluationItemController {
     @PostMapping
     public ResponseEntity<?> evaluationItemCreate(
             @RequestBody @Validated EvaluationItemCreateDto createDto){
-        ElectronicDevice electronicDevice = deviceService.getReferenceById(createDto.getElectronicDeviceId());
-        EvaluationItem evaluationItem = createDto.toEvaluationItem(electronicDevice);
+        EvaluationItem evaluationItem = createDto.toEvaluationItem();
 
-        itemService.create(evaluationItem);
+        itemService.create(evaluationItem, createDto.getElectronicDeviceId());
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -91,8 +87,8 @@ public class AdminEvaluationItemController {
         @NotBlank
         private String name;
 
-        public EvaluationItem toEvaluationItem(ElectronicDevice electronicDevice){
-            return new EvaluationItem(name, electronicDevice);
+        public EvaluationItem toEvaluationItem(){
+            return new EvaluationItem(name);
         }
     }
 

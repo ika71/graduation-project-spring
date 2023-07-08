@@ -1,6 +1,8 @@
 package backend.graduationprojectspring.service;
 
+import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
+import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
 import backend.graduationprojectspring.repository.EvaluationItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,13 +15,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EvaluationItemService {
     private final EvaluationItemRepository itemRepository;
+    private final ElectronicDeviceRepository deviceRepository;
 
     /**
-     * 평가 항목 데이터 베이스에 저장
-     * @param evaluationItem 저장할 평가 항목
-     * @return 저장된 평가 항목 반환
+     * 평가항목 데이터베이스에 저장
+     * @param evaluationItem 저장할 평가항목
+     * @param deviceId 평가항목이 속하는 전자제품 id
+     * @return 저장된 평가항목
      */
-    public EvaluationItem create(EvaluationItem evaluationItem){
+    public EvaluationItem create(EvaluationItem evaluationItem, Long deviceId){
+        ElectronicDevice device = deviceRepository.getReferenceById(deviceId);
+        evaluationItem.setElectronicDevice(device);
         return itemRepository.save(evaluationItem);
     }
 
@@ -30,7 +36,7 @@ public class EvaluationItemService {
      * @return 전자제품 Id를 외래키로 갖는 모든 평가 항목 반환
      */
     public List<EvaluationItem> findAllByElectronicDeviceId(Long electronicDeviceId){
-        return itemRepository.findAllByElectronicDevice_IdOrderByName(electronicDeviceId);
+        return itemRepository.findAllByElectronicDeviceIdOrderByName(electronicDeviceId);
     }
 
     /**

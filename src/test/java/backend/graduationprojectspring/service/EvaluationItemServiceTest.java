@@ -40,7 +40,7 @@ class EvaluationItemServiceTest {
         category = categoryService.create(new Category("스마트폰"));
         device1 = deviceService.create(new ElectronicDevice("갤럭시"), category.getId());
         device2 = deviceService.create(new ElectronicDevice("아이폰"), category.getId());
-        evaluationItem = itemService.create(new EvaluationItem("성능", device1));
+        evaluationItem = itemService.create(new EvaluationItem("성능"), device1.getId());
     }
     @Test
     void create() {

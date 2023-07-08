@@ -73,15 +73,6 @@ public class ElectronicDeviceService {
     }
 
     /**
-     * Id 값을 가지고 있는 전자제품 프록시 객체 반환
-     * @param id 프록시 객체가 가지고 있을 id 값
-     * @return ElectronicDevice 프록시 객체 반환
-     */
-    public ElectronicDevice  getReferenceById(Long id){
-        return deviceRepository.getReferenceById(id);
-    }
-
-    /**
      * 전자제품의 이미지를 설정
      * @param id 이미지를 설정할 전자제품의 id
      * @param image 전자제품에 설정할 이미지

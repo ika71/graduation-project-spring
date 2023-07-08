@@ -22,9 +22,13 @@ public class EvaluationItem extends Base {
     @JoinColumn(name = "electronic_device_id", nullable = false)
     private ElectronicDevice electronicDevice;
 
-    public EvaluationItem(String name, ElectronicDevice electronicDevice) {
+    public EvaluationItem(String name) {
         this.name = name;
+    }
+
+    public void setElectronicDevice(ElectronicDevice electronicDevice) {
         this.electronicDevice = electronicDevice;
+        electronicDevice.getEvaluationItemList().add(this);
     }
 
     public void updateName(String name){

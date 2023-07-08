@@ -23,7 +23,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ElectronicDeviceController {
     private final ElectronicDeviceService deviceService;
-
     @GetMapping
     public PagingResult paging(
             @RequestParam(name = "page", defaultValue = "1")int page,
