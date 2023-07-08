@@ -1,9 +1,9 @@
-package backend.graduationprojectspring.controller.member;
+package backend.graduationprojectspring.controller;
 
-import backend.graduationprojectspring.controller.member.dto.MemberCreateDto;
-import backend.graduationprojectspring.controller.member.dto.MemberLoginDto;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.service.MemberService;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,5 +40,27 @@ public class MemberController {
     @RequiredArgsConstructor
     private static class LoginSuccessDto{
         private final String token;
+    }
+
+    @Getter
+    private static class MemberCreateDto {
+        @Email
+        private String email;
+        @NotEmpty
+        private String name;
+        @NotEmpty
+        private String password;
+
+        public Member toMember(){
+            return new Member(email, name, password);
+        }
+    }
+
+    @Getter
+    private static class MemberLoginDto {
+        @Email
+        public String email;
+        @NotEmpty
+        public String password;
     }
 }

@@ -1,15 +1,13 @@
-package backend.graduationprojectspring.controller.admin.electronic_device;
+package backend.graduationprojectspring.controller.admin;
 
-import backend.graduationprojectspring.controller.admin.electronic_device.dto.DeviceCreateDto;
-import backend.graduationprojectspring.controller.admin.electronic_device.dto.DeviceImageSetDto;
-import backend.graduationprojectspring.controller.admin.electronic_device.dto.DevicePagingDto;
-import backend.graduationprojectspring.controller.admin.electronic_device.dto.DeviceUpdateDto;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.service.CategoryService;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
 import backend.graduationprojectspring.service.ImageService;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin/device")
@@ -89,6 +88,66 @@ public class AdminElectronicDeviceController {
         public DevicePagingResultDto(List<DevicePagingDto> devicePagingDto, Long totalCount) {
             this.devicePagingDtoList = devicePagingDto;
             this.totalCount = totalCount;
+        }
+    }
+
+    @Getter
+    private static class DevicePagingDto {
+        private final Long id;
+        private final String name;
+        private final CategoryDto categoryDto;
+        private final Long imageId;
+
+        public DevicePagingDto(ElectronicDevice device) {
+            this.id = device.getId();
+            this.name = device.getName();
+            this.categoryDto = new CategoryDto(
+                    device.getCategory().getId(),
+                    device.getCategory().getName());
+            this.imageId = Optional.ofNullable(device.getImage())
+                    .map(Image::getId)
+                    .orElse(null);
+        }
+    }
+
+    @Getter
+    private static class CategoryDto {
+        private final Long id;
+        private final String name;
+
+        public CategoryDto(Long id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+    }
+
+    @Getter
+    private static class DeviceCreateDto {
+        @NotNull
+        private Long categoryId;
+        @NotBlank
+        private String name;
+
+        public ElectronicDevice toElectronicDevice(Category category){
+            return new ElectronicDevice(name, category);
+        }
+    }
+
+    @Getter
+    private static class DeviceImageSetDto {
+        @NotNull
+        private Long imageId;
+    }
+
+    @Getter
+    private static class DeviceUpdateDto {
+        @NotBlank
+        private String name;
+        @NotNull
+        private Long categoryId;
+
+        public ElectronicDevice toElectronicDevice(Category category){
+            return new ElectronicDevice(name, category);
         }
     }
 }

@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.controller.image;
+package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.service.ImageService;

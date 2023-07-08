@@ -1,10 +1,10 @@
-package backend.graduationprojectspring.controller.electronic_device;
+package backend.graduationprojectspring.controller;
 
-import backend.graduationprojectspring.controller.electronic_device.dto.DevicePagingDto;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -82,5 +83,16 @@ public class ElectronicDeviceController {
             this.devicePagingDtoList = devicePagingDtoList;
             this.totalCount = totalCount;
         }
+    }
+
+    @Getter
+    @Builder
+    private static class DevicePagingDto {
+        private Long id;
+        private String name;
+        private String categoryName;
+        private Long imageId;
+        private LocalDateTime createdTime;
+        private List<String> evaluationItemList;
     }
 }

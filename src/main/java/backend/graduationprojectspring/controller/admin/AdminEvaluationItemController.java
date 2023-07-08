@@ -1,12 +1,11 @@
-package backend.graduationprojectspring.controller.admin.evaluation_item;
+package backend.graduationprojectspring.controller.admin;
 
-import backend.graduationprojectspring.controller.admin.evaluation_item.dto.EvaluationItemCreateDto;
-import backend.graduationprojectspring.controller.admin.evaluation_item.dto.EvaluationItemUpdateDto;
-import backend.graduationprojectspring.controller.admin.evaluation_item.dto.EvaluationItemViewDto;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
 import backend.graduationprojectspring.service.EvaluationItemService;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -72,5 +71,34 @@ public class AdminEvaluationItemController {
         public EvaluationItemViewResult(List<EvaluationItemViewDto> evaluationItemList) {
             this.evaluationItemList = evaluationItemList;
         }
+    }
+
+    @Getter
+    private static class EvaluationItemViewDto {
+        private final Long id;
+        private final String name;
+
+        public EvaluationItemViewDto(EvaluationItem evaluationItem) {
+            this.id = evaluationItem.getId();
+            this.name = evaluationItem.getName();
+        }
+    }
+
+    @Getter
+    private static class EvaluationItemCreateDto {
+        @NotNull
+        private Long electronicDeviceId;
+        @NotBlank
+        private String name;
+
+        public EvaluationItem toEvaluationItem(ElectronicDevice electronicDevice){
+            return new EvaluationItem(name, electronicDevice);
+        }
+    }
+
+    @Getter
+    private static class EvaluationItemUpdateDto {
+        @NotBlank
+        private String name;
     }
 }

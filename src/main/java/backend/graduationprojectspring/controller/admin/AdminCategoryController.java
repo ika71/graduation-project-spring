@@ -1,11 +1,8 @@
-package backend.graduationprojectspring.controller.admin.category;
+package backend.graduationprojectspring.controller.admin;
 
-import backend.graduationprojectspring.controller.admin.category.dto.CategoryAllDto;
-import backend.graduationprojectspring.controller.admin.category.dto.CategoryCreateDto;
-import backend.graduationprojectspring.controller.admin.category.dto.CategoryPagingDto;
-import backend.graduationprojectspring.controller.admin.category.dto.CategoryUpdateDto;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.service.CategoryService;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -74,6 +71,26 @@ public class AdminCategoryController {
     }
 
     @Getter
+    private static class categoryAllResultDto{
+        List<CategoryAllDto> categoryAllDtoList;
+
+        public categoryAllResultDto(List<CategoryAllDto> categoryAllDtoList) {
+            this.categoryAllDtoList = categoryAllDtoList;
+        }
+    }
+
+    @Getter
+    private static class CategoryAllDto {
+        private final Long id;
+        private final String name;
+
+        public CategoryAllDto(Category category) {
+            this.id = category.getId();
+            this.name = category.getName();
+        }
+    }
+
+    @Getter
     private static class categoryPagingResultDto {
         List<CategoryPagingDto> categoryPagingDtoList;
         Long totalCount;
@@ -83,12 +100,36 @@ public class AdminCategoryController {
             this.totalCount = totalCount;
         }
     }
-    @Getter
-    private static class categoryAllResultDto{
-        List<CategoryAllDto> categoryAllDtoList;
 
-        public categoryAllResultDto(List<CategoryAllDto> categoryAllDtoList) {
-            this.categoryAllDtoList = categoryAllDtoList;
+    @Getter
+    private static class CategoryPagingDto {
+        private final Long id;
+        private final String name;
+
+        public CategoryPagingDto(Category category) {
+            this.id = category.getId();
+            this.name = category.getName();
+        }
+    }
+
+
+    @Getter
+    private static class CategoryCreateDto {
+        @NotBlank
+        private String name;
+
+        public Category toCategory(){
+            return new Category(name);
+        }
+    }
+
+    @Getter
+    private static class CategoryUpdateDto {
+        @NotBlank
+        private String name;
+
+        public Category toCategory(){
+            return new Category(name);
         }
     }
 }
