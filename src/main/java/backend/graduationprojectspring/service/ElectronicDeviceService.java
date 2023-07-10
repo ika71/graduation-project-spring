@@ -40,10 +40,22 @@ public class ElectronicDeviceService {
      * 전자제품 이름으로 정렬됨<br>
      * @param page 현재 보여줄 페이지 위치
      * @param size 얼마만큼 보여줄지 크기
-     * @return 조회된 ElectronicDevice List, totalCount 반환
+     * @return 조회된 ElectronicDevice List 반환
      */
     public List<ElectronicDevice> pagingJoinCategory(int page, int size){
         return deviceQueryRepository.pagingFetchJoinCategory(page, size);
+    }
+
+    /**
+     * 전자제품 페이지 조회
+     * (전자제품 카테고리 fetch join, 평가항목 fetch left join)<br>
+     * 전자제품 이름으로 정렬됨<br>
+     * @param page 현재 보여줄 페이지 위치
+     * @param size 얼마만큼 보여줄지 크기
+     * @return 조회된 ElectronicDevice List 반환
+     */
+    public List<ElectronicDevice> pagingJoinCategoryAndDevice(int page, int size){
+        return deviceQueryRepository.pagingFetchJoinCategoryAndDevice(page, size);
     }
 
     /**
@@ -88,15 +100,4 @@ public class ElectronicDeviceService {
         device.setImage(image);
     }
 
-    /**
-     * deviceList에 있는 device들의 evaluationList를 fetchjoin함<br>
-     * evaluationList의 크기가 0이어서 조인 대상이 되지 않은
-     * device들은 원본 상태 그대로 놔둠(left join)<br>
-     * 이름 순 정렬
-     * @param deviceList
-     * @return evaluationList를 fetch join한 ElectronicDevice 리스트 반환
-     */
-    public List<ElectronicDevice> fetchJoinEvaluationItem(List<ElectronicDevice> deviceList){
-        return deviceQueryRepository.fetchJoinEvaluationItem(deviceList);
-    }
 }

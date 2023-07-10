@@ -26,9 +26,8 @@ public class ElectronicDeviceController {
     public PagingResult paging(
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size){
-        List<ElectronicDevice> pagingDevice = deviceService.pagingJoinCategory(page, size);
+        List<ElectronicDevice> deviceList = deviceService.pagingJoinCategoryAndDevice(page, size);
         Long totalCount = deviceService.totalCount();
-        List<ElectronicDevice> deviceList = deviceService.fetchJoinEvaluationItem(pagingDevice);
 
         List<DevicePagingDto> devicePagingDtoList = new ArrayList<>(deviceList.size());
         for (ElectronicDevice device : deviceList) {
