@@ -44,15 +44,21 @@ public class ElectronicDeviceQueryRepository {
      * @return 조회된 ElectronicDevice 반환
      */
     public List<ElectronicDevice> pagingFetchJoinCategoryAndDevice(int page, int size){
-        return queryFactory
+        List<ElectronicDevice> deviceList = queryFactory
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)
                 .fetchJoin()
+                .orderBy(electronicDevice.name.asc())
+                .offset((long) (page - 1) * size)
+                .limit(size)
+                .fetch();
+
+        return queryFactory
+                .selectFrom(electronicDevice)
                 .leftJoin(electronicDevice.evaluationItemList, evaluationItem)
                 .fetchJoin()
+                .where(electronicDevice.in(deviceList))
                 .orderBy(electronicDevice.name.asc())
-                .offset((long)(page - 1)*size)
-                .limit(size)
                 .fetch();
     }
 
