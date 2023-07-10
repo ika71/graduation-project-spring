@@ -23,7 +23,7 @@ import java.util.Optional;
 public class ElectronicDeviceController {
     private final ElectronicDeviceService deviceService;
     @GetMapping
-    public PagingResult paging(
+    public PagingResult electronicDevicePaging(
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size){
         List<ElectronicDevice> deviceList = deviceService.pagingJoinCategoryAndDevice(page, size);
