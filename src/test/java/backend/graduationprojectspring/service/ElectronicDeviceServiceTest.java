@@ -3,7 +3,6 @@ package backend.graduationprojectspring.service;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
-import backend.graduationprojectspring.service.dto.ElectronicDeviceServicePagingDto;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,23 +55,21 @@ class ElectronicDeviceServiceTest {
 
     @Test
     void paging() {
-        ElectronicDeviceServicePagingDto paging1 = deviceService.paging(1, 2);
-        List<ElectronicDevice> deviceList1 = paging1.getPagingDeviceList();
-        Long totalCount1 = paging1.getTotalCount();
+        List<ElectronicDevice> deviceList1 = deviceService.pagingJoinCategory(1, 2);
 
         assertThat(deviceList1.get(0).getName()).isEqualTo(device2.getName());
         assertThat(deviceList1.get(0).getCategory().getName()).isEqualTo(device2.getCategory().getName());
         assertThat(deviceList1.get(1).getName()).isEqualTo(device1.getName());
         assertThat(deviceList1.get(1).getCategory().getName()).isEqualTo(device1.getCategory().getName());
-        assertThat(totalCount1).isEqualTo(3);
 
-        ElectronicDeviceServicePagingDto paging2 = deviceService.paging(2, 2);
-        List<ElectronicDevice> deviceList2 = paging2.getPagingDeviceList();
-        Long totalCount2 = paging2.getTotalCount();
+        List<ElectronicDevice> deviceList2 = deviceService.pagingJoinCategory(2, 2);
 
         assertThat(deviceList2.get(0).getName()).isEqualTo(device3.getName());
         assertThat(deviceList2.get(0).getCategory().getName()).isEqualTo(device3.getCategory().getName());
-        assertThat(totalCount2).isEqualTo(3);
+    }
+    @Test
+    void totalCount(){
+        assertThat(deviceService.totalCount()).isEqualTo(3);
     }
 
     @Test

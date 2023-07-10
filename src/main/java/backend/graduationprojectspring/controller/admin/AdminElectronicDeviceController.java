@@ -3,7 +3,6 @@ package backend.graduationprojectspring.controller.admin;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
-import backend.graduationprojectspring.service.dto.ElectronicDeviceServicePagingDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -27,9 +26,8 @@ public class AdminElectronicDeviceController {
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size
     ){
-        ElectronicDeviceServicePagingDto paging = deviceService.paging(page, size);
-        List<ElectronicDevice> deviceList = paging.getPagingDeviceList();
-        Long deviceTotalCount = paging.getTotalCount();
+        List<ElectronicDevice> deviceList = deviceService.pagingJoinCategory(page, size);
+        Long deviceTotalCount = deviceService.totalCount();
 
         List<DevicePagingDto> devicePagingDtoList = deviceList
                 .stream()
