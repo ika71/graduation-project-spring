@@ -3,7 +3,6 @@ package backend.graduationprojectspring.service;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.repository.CategoryQueryRepository;
 import backend.graduationprojectspring.repository.CategoryRepository;
-import backend.graduationprojectspring.service.dto.CategoryServicePagingDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,16 +28,20 @@ public class CategoryService {
 
     /**
      * 카테고리 페이지 조회(카테고리 이름으로 정렬됨)<br>
-     * 카테고리 전체 수 조회
      * @param page 현재 보여줄 페이지 위치
      * @param size 얼마만큼 보여줄지 크기
-     * @return 조회된 category List, totalCount 반환
+     * @return 조회된 category List 반환
      */
-    public CategoryServicePagingDto paging(int page, int size){
-        List<Category> pagingCategoryList = categoryQueryRepository.paging(page, size);
-        long totalCount = categoryRepository.count();
+    public List<Category> paging(int page, int size){
+        return categoryQueryRepository.paging(page, size);
+    }
 
-        return new CategoryServicePagingDto(pagingCategoryList, totalCount);
+    /**
+     * 카테고리 전체 개수 반환
+     * @return 카테고리 전체 수
+     */
+    public Long totalCount(){
+        return categoryRepository.count();
     }
 
     /**

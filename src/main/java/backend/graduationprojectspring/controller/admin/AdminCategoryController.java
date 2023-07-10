@@ -2,7 +2,6 @@ package backend.graduationprojectspring.controller.admin;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.service.CategoryService;
-import backend.graduationprojectspring.service.dto.CategoryServicePagingDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +33,8 @@ public class AdminCategoryController {
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size
     ){
-        CategoryServicePagingDto paging = categoryService.paging(page, size);
-        List<Category> categoryList = paging.getCategoryList();
-        Long categoryTotalCount = paging.getTotalCount();
+        List<Category> categoryList = categoryService.paging(page, size);
+        Long categoryTotalCount = categoryService.totalCount();
 
         List<CategoryPagingDto> categoryPagingDtoList = categoryList
                 .stream()

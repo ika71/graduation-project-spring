@@ -2,7 +2,6 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.repository.CategoryRepository;
-import backend.graduationprojectspring.service.dto.CategoryServicePagingDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,22 +43,19 @@ class CategoryServiceTest {
     }
     @Test
     void pagingCategory(){
-        CategoryServicePagingDto paging1 = categoryService.paging(1, 2);
-        List<Category> categoryList1 = paging1.getCategoryList();
-        Long totalCount1 = paging1.getTotalCount();
+        List<Category> categoryList1 = categoryService.paging(1, 2);
 
-        CategoryServicePagingDto paging2 = categoryService.paging(2, 2);
-        List<Category> categoryList2 = paging2.getCategoryList();
-        Long totalCount2 = paging2.getTotalCount();
+        List<Category> categoryList2 = categoryService.paging(2, 2);
 
         assertThat(categoryList1.get(0).getName()).isEqualTo("노트북");
         assertThat(categoryList1.get(1).getName()).isEqualTo("스마트폰");
 
         assertThat(categoryList2.get(0).getName()).isEqualTo("컴퓨터");
         assertThatThrownBy(()->categoryList2.get(1)).isInstanceOf(IndexOutOfBoundsException.class);
-
-        assertThat(totalCount1).isEqualTo(3);
-        assertThat(totalCount2).isEqualTo(3);
+    }
+    @Test
+    void totalCount(){
+        assertThat(categoryService.totalCount()).isEqualTo(3);
     }
 
     @Test
