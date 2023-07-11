@@ -41,6 +41,7 @@ public class MemberService {
      * @param password
      * @return JWT or null
      */
+    @Transactional(readOnly = true)
     public String getToken(String email, String password){
         Member findMember = memberRepository.findByEmail(email);
 

@@ -32,6 +32,7 @@ public class CategoryService {
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 category List 반환
      */
+    @Transactional(readOnly = true)
     public List<Category> paging(int page, int size){
         return categoryQueryRepository.paging(page, size);
     }
@@ -40,6 +41,7 @@ public class CategoryService {
      * 카테고리 전체 개수 반환
      * @return 카테고리 전체 수
      */
+    @Transactional(readOnly = true)
     public Long totalCount(){
         return categoryRepository.count();
     }
@@ -69,6 +71,7 @@ public class CategoryService {
      * 모든 카테고리 반환
      * @return 모든 카테고리 리스트 반환
      */
+    @Transactional(readOnly = true)
     public List<Category> findAll(){
         return categoryRepository.findAllByOrderByName();
     }

@@ -35,6 +35,7 @@ public class EvaluationItemService {
      * @param electronicDeviceId 전자제품 Id
      * @return 전자제품 Id를 외래키로 갖는 모든 평가 항목 반환
      */
+    @Transactional(readOnly = true)
     public List<EvaluationItem> findAllByElectronicDeviceId(Long electronicDeviceId){
         return itemRepository.findAllByElectronicDeviceIdOrderByName(electronicDeviceId);
     }

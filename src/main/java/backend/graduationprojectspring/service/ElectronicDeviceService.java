@@ -42,6 +42,7 @@ public class ElectronicDeviceService {
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 ElectronicDevice List 반환
      */
+    @Transactional(readOnly = true)
     public List<ElectronicDevice> pagingJoinCategory(int page, int size){
         return deviceQueryRepository.pagingFetchJoinCategory(page, size);
     }
@@ -54,6 +55,7 @@ public class ElectronicDeviceService {
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 ElectronicDevice List 반환
      */
+    @Transactional(readOnly = true)
     public List<ElectronicDevice> pagingJoinCategoryAndDevice(int page, int size){
         return deviceQueryRepository.pagingFetchJoinCategoryAndDevice(page, size);
     }
@@ -62,6 +64,7 @@ public class ElectronicDeviceService {
      * 전자제품 전체 개수 반환
      * @return 전자제품 전체 수
      */
+    @Transactional(readOnly = true)
     public Long totalCount(){
         return deviceRepository.count();
     }
