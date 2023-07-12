@@ -57,7 +57,7 @@ public class ElectronicDeviceService {
      */
     @Transactional(readOnly = true)
     public List<ElectronicDevice> pagingJoinCategoryAndDevice(int page, int size){
-        return deviceQueryRepository.pagingFetchJoinCategoryAndDevice(page, size);
+        return deviceQueryRepository.pagingFetchJoinCategoryAndEvalItem(page, size);
     }
 
     /**
