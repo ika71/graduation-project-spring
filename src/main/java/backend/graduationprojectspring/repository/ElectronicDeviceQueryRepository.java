@@ -62,4 +62,20 @@ public class ElectronicDeviceQueryRepository {
                 .fetch();
     }
 
+    /**
+     * 전자제품 하나 조회
+     * 카테고리, 평가항목 전부 fetch join함
+     * @param id 조회할 전자제품 id
+     * @return 조회된 전자제품
+     */
+    public ElectronicDevice findOneFetchJoinCategoryAndEvalItem(Long id){
+        return queryFactory
+                .selectFrom(electronicDevice)
+                .join(electronicDevice.category, category)
+                .fetchJoin()
+                .leftJoin(electronicDevice.evaluationItemList, evaluationItem)
+                .fetchJoin()
+                .where(electronicDevice.id.eq(id))
+                .fetchOne();
+    }
 }

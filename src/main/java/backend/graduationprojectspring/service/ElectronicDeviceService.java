@@ -2,16 +2,16 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
+import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.entity.Image;
-import backend.graduationprojectspring.repository.CategoryRepository;
-import backend.graduationprojectspring.repository.ElectronicDeviceQueryRepository;
-import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
-import backend.graduationprojectspring.repository.ImageRepository;
+import backend.graduationprojectspring.repository.*;
+import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -21,6 +21,7 @@ public class ElectronicDeviceService {
     private final ElectronicDeviceQueryRepository deviceQueryRepository;
     private final CategoryRepository categoryRepository;
     private final ImageRepository imageRepository;
+    private final EvaluationQueryRepository evalQueryRepository;
 
     /**
      * 전자제품 데이터베이스에 저장
@@ -103,4 +104,26 @@ public class ElectronicDeviceService {
         device.setImage(image);
     }
 
+    /**
+     * 전자제품 하나 조회<br>
+     * 해당 전자제품은 카테고리, 평가항목을 fetch join 함<br>
+     * 전자제품이 가지고 있는 평가항목을 group by하여 평점 score의 평균을 계산함<br>
+     * 계산 결과는 Map으로 반환 key = 평가항목 Id, value = score의 평균
+     * @param id 조회할 전자제품 Id
+     * @return 조회된 결과는 Dto로 반환
+     */
+    @Transactional(readOnly = true)
+    public DeviceDetailAndAvgDto findOneDetail(Long id){
+        ElectronicDevice device = deviceQueryRepository
+                .findOneFetchJoinCategoryAndEvalItem(id);
+
+        List<Long> evalItemIdList = device.getEvaluationItemList()
+                .stream()
+                .map(EvaluationItem::getId)
+                .toList();
+
+        Map<Long, Double> avgGroupByEvalItemMap = evalQueryRepository.avgGroupByEvalItem(evalItemIdList);
+
+        return new DeviceDetailAndAvgDto(device, avgGroupByEvalItemMap);
+    }
 }
