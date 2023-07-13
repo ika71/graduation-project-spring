@@ -30,7 +30,7 @@ public class MemberService {
         }
         String password = passwordEncoder.encode(member.getPassword());
 
-        Member passwordEncodedMember = new Member(member.getEmail(), member.getName(), password);
+        Member passwordEncodedMember = Member.of(member.getEmail(), member.getName(), password);
         log.trace("{} 회원가입", member.getEmail());
         return memberRepository.save(passwordEncodedMember);
     }
@@ -49,18 +49,5 @@ public class MemberService {
             return tokenProvider.createToken(findMember);
         }
         return null;
-    }
-
-    /**
-     * 어드민 생성용 메소드
-     * @return 저장된 어드민 계정
-     */
-    public Member createAdmin(){
-        Member member = new Member("admin@admin.com", "admin", "admin@");
-        String password = passwordEncoder.encode(member.getPassword());
-
-        Member passwordEncodedMember = new Member(member.getEmail(), member.getName(), password);
-
-        return memberRepository.save(passwordEncodedMember.toAdmin());
     }
 }

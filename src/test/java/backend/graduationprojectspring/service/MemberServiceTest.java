@@ -23,7 +23,7 @@ class MemberServiceTest {
     Member member;
     @BeforeEach
     void beforeEach(){
-        member = memberService.create(new Member(
+        member = memberService.create(Member.of(
                 "test@test.com",
                 "test",
                 "password"));
@@ -38,9 +38,9 @@ class MemberServiceTest {
         assertThat(member.getName()).isEqualTo(findMember.getName());
         assertThat(member.getPassword()).isEqualTo(findMember.getPassword());
 
-        Member member2 = new Member("test@test.com", "test", "password");
-        Member member3 = new Member("member3@member.com", "test", "password");
-        Member member4 = new Member("test@test.com", "member4", "password");
+        Member member2 = Member.of("test@test.com", "test", "password");
+        Member member3 = Member.of("member3@member.com", "test", "password");
+        Member member4 = Member.of("test@test.com", "member4", "password");
 
         assertThatThrownBy(()->memberService.create(member2)).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(()->memberService.create(member3)).isInstanceOf(IllegalArgumentException.class);

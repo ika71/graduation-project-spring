@@ -31,19 +31,18 @@ public class Member extends Base {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Member(String email, String name, String password) {
+    public static Member of(String email, String name, String password){
+        return new Member(email, name, password, Role.USER);
+    }
+
+    public static Member createAdminOf(String email, String name, String password){
+        return new Member(email, name, password, Role.ADMIN);
+    }
+
+    private Member(String email, String name, String password, Role role) {
         this.email = email;
         this.name = name;
         this.password = password;
-        this.role = Role.USER;
-    }
-
-    /**
-     * 어드민 생성용 메소드
-     * @return
-     */
-    public Member toAdmin(){
-        this.role = Role.ADMIN;
-        return this;
+        this.role = role;
     }
 }

@@ -3,6 +3,7 @@ package backend.graduationprojectspring.config;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
+import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.service.CategoryService;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
 import backend.graduationprojectspring.service.EvaluationItemService;
@@ -24,7 +25,11 @@ public class PostConstructConfig {
     @PostConstruct
     public void post(){
         //테스트용 어드민 계정 생성
-        memberService.createAdmin();
+        Member admin = Member.createAdminOf(
+                "admin@admin.com",
+                "admin",
+                "admin@");
+        memberService.create(admin);
 
         //카테고리 데이터 추가
         Category category1 = new Category("스마트폰");
