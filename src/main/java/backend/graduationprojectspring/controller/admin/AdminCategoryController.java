@@ -46,7 +46,7 @@ public class AdminCategoryController {
     public ResponseEntity<?> categoryUpdate(
             @PathVariable(name = "id")Long id,
             @RequestBody @Validated CategoryUpdateDto categoryUpdateDto){
-        categoryService.update(id, categoryUpdateDto.toCategory());
+        categoryService.updateName(id, categoryUpdateDto.getName());
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
@@ -123,9 +123,5 @@ public class AdminCategoryController {
     private static class CategoryUpdateDto {
         @NotBlank
         private String name;
-
-        public Category toCategory(){
-            return new Category(name);
-        }
     }
 }

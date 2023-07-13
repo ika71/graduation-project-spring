@@ -47,15 +47,15 @@ public class CategoryService {
     }
 
     /**
-     * 카테고리 수정
-     * @param id 수정할 카테고리의 id
-     * @param category 수정할 내용을 가지고 있는 카테고리
+     * 카테고리 이름 수정
+     * @param id 이름을 수정할 카테고리의 id
+     * @param updateName 수정할 이름
      * @throws java.util.NoSuchElementException id에 해당하는 카테고리가 없으면 예외 반환
      */
-    public void update(Long id, Category category){
+    public void updateName(Long id, String updateName){
         Optional<Category> findCategoryOptional = categoryRepository.findById(id);
         Category findCategory = findCategoryOptional.orElseThrow();
-        findCategory.update(category);
+        findCategory.updateName(updateName);
     }
 
     /**

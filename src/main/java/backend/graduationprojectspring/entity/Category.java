@@ -22,7 +22,7 @@ public class Category extends Base {
         this.name = name;
     }
 
-    public void update(Category category){
-        this.name = category.getName();
+    public void updateName(String name){
+        this.name = name;
     }
 }
