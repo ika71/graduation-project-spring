@@ -64,7 +64,7 @@ class CategoryServiceTest {
         Category createdCategory = categoryService.create(category);
 
         Category updateCategory = new Category("스마트폰");
-        categoryService.update(createdCategory.getId(), updateCategory);
+        categoryService.updateName(createdCategory.getId(), "스마트폰");
         Category findCategory = categoryRepository.findById(createdCategory.getId()).orElseThrow();
         assertThat(findCategory.getName()).isEqualTo(updateCategory.getName());
     }
