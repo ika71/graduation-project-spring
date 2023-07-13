@@ -25,7 +25,7 @@ public class PostConstructConfig {
     @PostConstruct
     public void post(){
         //테스트용 어드민 계정 생성
-        Member admin = Member.createAdminOf(
+        Member admin = Member.ofCreateAdmin(
                 "admin@admin.com",
                 "admin",
                 "admin@");

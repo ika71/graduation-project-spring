@@ -35,7 +35,7 @@ public class Member extends Base {
         return new Member(email, name, password, Role.USER);
     }
 
-    public static Member createAdminOf(String email, String name, String password){
+    public static Member ofCreateAdmin(String email, String name, String password){
         return new Member(email, name, password, Role.ADMIN);
     }
 
