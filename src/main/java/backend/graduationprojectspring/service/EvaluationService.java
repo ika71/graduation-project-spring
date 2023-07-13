@@ -34,13 +34,13 @@ public class EvaluationService {
                 .findByMemberIdEvalItemIds(memberId, evalItemIdList);
         findEvalList
                 .forEach(evaluation -> {
-                    Integer updateScore = evalItemScoreMap.get(evaluation.getId());
+                    Integer updateScore = evalItemScoreMap.get(evaluation.getEvaluationItem().getId());
                     evaluation.update(updateScore);
-                    evalItemScoreMap.remove(evaluation.getId()); //이미 수정된 항목은 map에서 제거
+                    evalItemScoreMap.remove(evaluation.getEvaluationItem().getId()); //이미 수정된 항목은 map에서 제거
                 });
 
         //새로운 항목들은 새로 List 생성 후 데이터베이스에 저장
-        List<Evaluation> evaluationList = new ArrayList<>();
+        List<Evaluation> evaluationList = new ArrayList<>(evalItemScoreMap.size());
         evalItemScoreMap
                 .forEach((evalItemId, evalScore)->{
                     Evaluation evaluation = new Evaluation(evalScore);
