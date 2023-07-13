@@ -13,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin/device")
@@ -93,7 +92,7 @@ public class AdminElectronicDeviceController {
             this.categoryDto = new CategoryDto(
                     device.getCategory().getId(),
                     device.getCategory().getName());
-            this.imageId = Optional.ofNullable(device.getImage())
+            this.imageId = device.getImage()
                     .map(Image::getId)
                     .orElse(null);
         }

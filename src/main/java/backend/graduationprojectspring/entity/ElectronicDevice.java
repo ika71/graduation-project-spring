@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -34,6 +35,10 @@ public class ElectronicDevice extends Base {
 
     public ElectronicDevice(String name) {
         this.name = name;
+    }
+
+    public Optional<Image> getImage() {
+        return Optional.ofNullable(image);
     }
 
     public void setCategory(Category category) {

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/device")
@@ -66,7 +65,7 @@ public class ElectronicDeviceController {
             this.id = device.getId();
             this.name = device.getName();
             this.categoryName = device.getCreatedBy();
-            this.imageId = Optional.ofNullable(device.getImage())
+            this.imageId = device.getImage()
                     .map(Image::getId)
                     .orElse(null);
             this.createdTime = device.getCreatedTime();
@@ -89,7 +88,7 @@ public class ElectronicDeviceController {
             this.id = device.getId();
             this.name = device.getName();
             this.categoryName = device.getCategory().getName();
-            this.imageId = Optional.ofNullable(device.getImage())
+            this.imageId = device.getImage()
                     .map(Image::getId)
                     .orElse(null);
             this.createdTime = device.getCreatedTime();
