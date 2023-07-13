@@ -26,17 +26,9 @@ public class EvaluationController {
     @PutMapping
     public ResponseEntity<?> evaluationPut(
             @RequestBody @Validated EvaluationPutDto evaluationPutDto){
-        List<EvaluationDto> evaluationDtoList = evaluationPutDto.getEvaluationDtoList();
         String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        Map<Long, Integer> evalScoreMap = new HashMap<>();
-
-        evaluationDtoList
-                .forEach(evaluationDto -> evalScoreMap.put(
-                        evaluationDto.getEvalItemId(),
-                        evaluationDto.getEvaluationScore()));
-
-        evaluationService.put(memberId, evalScoreMap);
+        evaluationService.put(memberId, evaluationPutDto.toEvalScoreMap());
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
@@ -47,6 +39,16 @@ public class EvaluationController {
     private static class EvaluationPutDto{
         @NotNull
         private List<EvaluationDto> evaluationDtoList;
+
+        public Map<Long, Integer> toEvalScoreMap(){
+            Map<Long, Integer> evalScoreMap = new HashMap<>(evaluationDtoList.size());
+
+            evaluationDtoList
+                    .forEach(evaluationDto -> evalScoreMap.put(
+                            evaluationDto.getEvalItemId(),
+                            evaluationDto.getEvaluationScore()));
+            return evalScoreMap;
+        }
     }
     @Getter
     private static class EvaluationDto{

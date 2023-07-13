@@ -23,19 +23,14 @@ public class AdminEvaluationItemController {
     public EvaluationItemViewResult evaluationItemView(
             @RequestParam(name = "deviceId") Long deviceId){
         List<EvaluationItem> findItemList = itemService.findAllByElectronicDeviceId(deviceId);
-        List<EvaluationItemViewDto> itemViewDtoList = findItemList
-                .stream()
-                .map(EvaluationItemViewDto::new)
-                .toList();
-
-        return new EvaluationItemViewResult(itemViewDtoList);
+        return new EvaluationItemViewResult(findItemList);
     }
     @PostMapping
     public ResponseEntity<?> evaluationItemCreate(
             @RequestBody @Validated EvaluationItemCreateDto createDto){
-        EvaluationItem evaluationItem = createDto.toEvaluationItem();
-
-        itemService.create(evaluationItem, createDto.getElectronicDeviceId());
+        itemService.create(
+                createDto.toEvaluationItem(),
+                createDto.getElectronicDeviceId());
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -45,9 +40,7 @@ public class AdminEvaluationItemController {
     public ResponseEntity<?> evaluationItemUpdateName(
             @PathVariable(name = "id")Long id,
             @RequestBody @Validated EvaluationItemUpdateDto updateDto){
-
         itemService.updateName(id, updateDto.getName());
-
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
@@ -64,8 +57,11 @@ public class AdminEvaluationItemController {
     private static class EvaluationItemViewResult{
         private final List<EvaluationItemViewDto> evaluationItemList;
 
-        public EvaluationItemViewResult(List<EvaluationItemViewDto> evaluationItemList) {
-            this.evaluationItemList = evaluationItemList;
+        public EvaluationItemViewResult(List<EvaluationItem> evaluationItemList) {
+            this.evaluationItemList = evaluationItemList
+                    .stream()
+                    .map(EvaluationItemViewDto::new)
+                    .toList();
         }
     }
 

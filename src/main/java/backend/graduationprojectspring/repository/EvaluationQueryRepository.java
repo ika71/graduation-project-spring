@@ -33,7 +33,7 @@ public class EvaluationQueryRepository {
                 .groupBy(evaluation.evaluationItem)
                 .fetch();
 
-        Map<Long, Double> avgGroupByEvalItemMap = new HashMap<>();
+        Map<Long, Double> avgGroupByEvalItemMap = new HashMap<>(fetchList.size());
 
         fetchList
                 .forEach(fetch->{

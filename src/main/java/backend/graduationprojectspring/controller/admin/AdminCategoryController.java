@@ -21,32 +21,22 @@ public class AdminCategoryController {
     @GetMapping("/all")
     public categoryAllResultDto categoryAll(){
         List<Category> categoryAllList = categoryService.findAll();
-        List<CategoryAllDto> categoryAllDtoList = categoryAllList
-                .stream()
-                .map(CategoryAllDto::new)
-                .toList();
-        return new categoryAllResultDto(categoryAllDtoList);
+        return new categoryAllResultDto(categoryAllList);
     }
 
     @GetMapping
     public categoryPagingResultDto categoryPaging(
             @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10")int size
-    ){
-        List<Category> categoryList = categoryService.paging(page, size);
+            @RequestParam(name = "size", defaultValue = "10")int size){
+        List<Category> categoryPagingList = categoryService.paging(page, size);
         Long categoryTotalCount = categoryService.totalCount();
-
-        List<CategoryPagingDto> categoryPagingDtoList = categoryList
-                .stream()
-                .map(CategoryPagingDto::new)
-                .toList();
-        return new categoryPagingResultDto(categoryPagingDtoList, categoryTotalCount);
+        return new categoryPagingResultDto(categoryPagingList, categoryTotalCount);
     }
 
     @PostMapping
     public ResponseEntity<?> categoryCreate(@RequestBody @Validated CategoryCreateDto categoryCreateDto){
-        Category category = categoryCreateDto.toCategory();
-        Category createdCategory = categoryService.create(category);
+        Category createdCategory = categoryService.create(
+                categoryCreateDto.toCategory());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(createdCategory.getName());
@@ -74,8 +64,11 @@ public class AdminCategoryController {
     private static class categoryAllResultDto{
         List<CategoryAllDto> categoryAllDtoList;
 
-        public categoryAllResultDto(List<CategoryAllDto> categoryAllDtoList) {
-            this.categoryAllDtoList = categoryAllDtoList;
+        public categoryAllResultDto(List<Category> categoryAllList) {
+            this.categoryAllDtoList = categoryAllList
+                    .stream()
+                    .map(CategoryAllDto::new)
+                    .toList();
         }
     }
 
@@ -95,8 +88,11 @@ public class AdminCategoryController {
         List<CategoryPagingDto> categoryPagingDtoList;
         Long totalCount;
 
-        public categoryPagingResultDto(List<CategoryPagingDto> categoryPagingDtoList, Long totalCount) {
-            this.categoryPagingDtoList = categoryPagingDtoList;
+        public categoryPagingResultDto(List<Category> categoryPagingList, Long totalCount) {
+            this.categoryPagingDtoList = categoryPagingList
+                    .stream()
+                    .map(CategoryPagingDto::new)
+                    .toList();
             this.totalCount = totalCount;
         }
     }

@@ -24,24 +24,16 @@ public class AdminElectronicDeviceController {
     @GetMapping
     public DevicePagingResultDto devicePaging(
             @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10")int size
-    ){
-        List<ElectronicDevice> deviceList = deviceService.pagingJoinCategory(page, size);
+            @RequestParam(name = "size", defaultValue = "10")int size){
+        List<ElectronicDevice> devicePagingList = deviceService.pagingJoinCategory(page, size);
         Long deviceTotalCount = deviceService.totalCount();
-
-        List<DevicePagingDto> devicePagingDtoList = deviceList
-                .stream()
-                .map(DevicePagingDto::new)
-                .toList();
-
-        return new DevicePagingResultDto(devicePagingDtoList, deviceTotalCount);
+        return new DevicePagingResultDto(devicePagingList, deviceTotalCount);
     }
     @PostMapping
     public ResponseEntity<?> deviceCreate(@RequestBody @Validated DeviceCreateDto deviceCreateDto){
-        ElectronicDevice device = deviceCreateDto.toElectronicDevice();
-        Long categoryId = deviceCreateDto.getCategoryId();
-
-        ElectronicDevice createdDevice = deviceService.create(device, categoryId);
+        ElectronicDevice createdDevice = deviceService.create(
+                deviceCreateDto.toElectronicDevice(),
+                deviceCreateDto.getCategoryId());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(createdDevice.getName());
@@ -59,7 +51,6 @@ public class AdminElectronicDeviceController {
     public ResponseEntity<?> deviceUpdate(
             @PathVariable(name = "id")Long id,
             @RequestBody @Validated DeviceUpdateDto deviceUpdateDto){
-
         deviceService.update(id,
                 deviceUpdateDto.toElectronicDevice(),
                 deviceUpdateDto.getCategoryId());
@@ -80,8 +71,11 @@ public class AdminElectronicDeviceController {
         private final List<DevicePagingDto> devicePagingDtoList;
         private final Long totalCount;
 
-        public DevicePagingResultDto(List<DevicePagingDto> devicePagingDto, Long totalCount) {
-            this.devicePagingDtoList = devicePagingDto;
+        public DevicePagingResultDto(List<ElectronicDevice> devicePagingList, Long totalCount) {
+            this.devicePagingDtoList = devicePagingList
+                    .stream()
+                    .map(DevicePagingDto::new)
+                    .toList();
             this.totalCount = totalCount;
         }
     }
