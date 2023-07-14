@@ -32,16 +32,14 @@ public class PostConstructConfig {
         memberService.create(admin);
 
         //카테고리 데이터 추가
-        Category category1 = new Category("스마트폰");
-        Category category2 = new Category("노트북");
-        Category savedCategory1 = categoryService.create(category1);
-        Category savedCategory2 = categoryService.create(category2);
+        Category savedCategory1 = categoryService.create("스마트폰");
+        Category savedCategory2 = categoryService.create("노트북");
 
         //전자제품 데이터 추가
         ElectronicDevice device1 = new ElectronicDevice("갤럭시");
         ElectronicDevice device2 = new ElectronicDevice("아이폰");
         ElectronicDevice device3 = new ElectronicDevice("픽셀");
-        ElectronicDevice savedDevice1 = deviceService.create(device1, savedCategory1.getId());
+        deviceService.create(device1, savedCategory1.getId());
         deviceService.create(device2, savedCategory1.getId());
         deviceService.create(device3, savedCategory1.getId());
 

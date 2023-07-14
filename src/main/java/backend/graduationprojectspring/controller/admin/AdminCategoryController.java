@@ -36,7 +36,7 @@ public class AdminCategoryController {
     @PostMapping
     public ResponseEntity<?> categoryCreate(@RequestBody @Validated CategoryCreateDto categoryCreateDto){
         Category createdCategory = categoryService.create(
-                categoryCreateDto.toCategory());
+                categoryCreateDto.getName());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(createdCategory.getName());
@@ -113,10 +113,6 @@ public class AdminCategoryController {
     private static class CategoryCreateDto {
         @NotBlank
         private String name;
-
-        public Category toCategory(){
-            return new Category(name);
-        }
     }
 
     @Getter

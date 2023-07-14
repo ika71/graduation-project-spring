@@ -19,10 +19,11 @@ public class CategoryService {
 
     /**
      * category 데이터 베이스에 저장
-     * @param category 저장할 카테고리
+     * @param name 저장할 카테고리 이름
      * @return 저장된 카테고리 반환
      */
-    public Category create(Category category){
+    public Category create(String name){
+        Category category = new Category(name);
         return categoryRepository.save(category);
     }
 
