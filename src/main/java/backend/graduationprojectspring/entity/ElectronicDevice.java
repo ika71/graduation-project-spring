@@ -33,23 +33,21 @@ public class ElectronicDevice extends Base {
     @OneToMany(mappedBy = "electronicDevice")
     private List<EvaluationItem> evaluationItemList = new ArrayList<>();
 
-    public ElectronicDevice(String name) {
+    public ElectronicDevice(String name, Category category) {
         this.name = name;
+        this.category = category;
     }
 
     public Optional<Image> getImage() {
         return Optional.ofNullable(image);
     }
 
-    public void setCategory(Category category) {
+    public void updateNameAndCategory(String name, Category category) {
+        this.name = name;
         this.category = category;
     }
 
     public void setImage(Image image) {
         this.image = image;
-    }
-
-    public void updateName(String name){
-        this.name = name;
     }
 }

@@ -31,7 +31,7 @@ public class AdminElectronicDeviceController {
     @PostMapping
     public ResponseEntity<?> deviceCreate(@RequestBody @Validated DeviceCreateDto deviceCreateDto){
         ElectronicDevice createdDevice = deviceService.create(
-                deviceCreateDto.toElectronicDevice(),
+                deviceCreateDto.getName(),
                 deviceCreateDto.getCategoryId());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -115,10 +115,6 @@ public class AdminElectronicDeviceController {
         private Long categoryId;
         @NotBlank
         private String name;
-
-        public ElectronicDevice toElectronicDevice(){
-            return new ElectronicDevice(name);
-        }
     }
 
     @Getter

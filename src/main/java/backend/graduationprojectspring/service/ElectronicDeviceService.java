@@ -25,15 +25,14 @@ public class ElectronicDeviceService {
 
     /**
      * 전자제품 데이터베이스에 저장
-     * @param electronicDevice 저장할 전자제품
+     * @param name 저장할 전자제품 이름
      * @param categoryId 저장할 전자제품이 속하는 카테고리 Id
      * @return 저장된 전자제품
      */
-    public ElectronicDevice create(ElectronicDevice electronicDevice, Long categoryId){
+    public ElectronicDevice create(String name, Long categoryId){
         Category category = categoryRepository.getReferenceById(categoryId);
-        electronicDevice.setCategory(category);
 
-        return deviceRepository.save(electronicDevice);
+        return deviceRepository.save(new ElectronicDevice(name, category));
     }
 
     /**
@@ -80,8 +79,7 @@ public class ElectronicDeviceService {
         ElectronicDevice findDevice = deviceRepository.findById(deviceId).orElseThrow();
         Category updateCategory = categoryRepository.getReferenceById(updateCategoryId);
 
-        findDevice.updateName(updateDeviceName);
-        findDevice.setCategory(updateCategory);
+        findDevice.updateNameAndCategory(updateDeviceName, updateCategory);
     }
 
     /**
