@@ -25,11 +25,8 @@ public class Evaluation extends Base {
     @JoinColumn(name = "evaluation_item_id", nullable = false)
     private EvaluationItem evaluationItem;
 
-    public Evaluation(int evaluationScore) {
+    public Evaluation(int evaluationScore, EvaluationItem evaluationItem) {
         this.evaluationScore = evaluationScore;
-    }
-
-    public void setEvaluationItem(EvaluationItem evaluationItem) {
         this.evaluationItem = evaluationItem;
     }
 

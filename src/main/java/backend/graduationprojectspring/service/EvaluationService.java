@@ -43,10 +43,8 @@ public class EvaluationService {
         List<Evaluation> evaluationList = new ArrayList<>(evalItemScoreMap.size());
         evalItemScoreMap
                 .forEach((evalItemId, evalScore)->{
-                    Evaluation evaluation = new Evaluation(evalScore);
                     EvaluationItem evalItem = evalItemRepository.getReferenceById(evalItemId);
-                    evaluation.setEvaluationItem(evalItem);
-                    evaluationList.add(evaluation);
+                    evaluationList.add(new Evaluation(evalScore, evalItem));
                 });
         evaluationRepository.saveAll(evaluationList);
     }
