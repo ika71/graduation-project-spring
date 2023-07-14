@@ -64,7 +64,7 @@ public class ElectronicDeviceController {
         public DevicePagingDto(ElectronicDevice device) {
             this.id = device.getId();
             this.name = device.getName();
-            this.categoryName = device.getCreatedBy();
+            this.categoryName = device.getCategory().getName();
             this.imageId = device.getImage()
                     .map(Image::getId)
                     .orElse(null);
