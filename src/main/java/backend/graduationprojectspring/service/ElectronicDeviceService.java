@@ -73,14 +73,14 @@ public class ElectronicDeviceService {
     /**
      * 전자제품 수정
      * @param deviceId 수정할 전자제품의 Id
-     * @param updateDevice 수정한 내용을 담은 전자제품 객체
+     * @param updateDeviceName 수정할 이름
      * @param updateCategoryId 전자제품이 수정 후에 속할 카테고리 Id
      */
-    public void update(Long deviceId, ElectronicDevice updateDevice, Long updateCategoryId){
+    public void update(Long deviceId, String updateDeviceName, Long updateCategoryId){
         ElectronicDevice findDevice = deviceRepository.findById(deviceId).orElseThrow();
         Category updateCategory = categoryRepository.getReferenceById(updateCategoryId);
 
-        findDevice.update(updateDevice);
+        findDevice.updateName(updateDeviceName);
         findDevice.setCategory(updateCategory);
     }
 

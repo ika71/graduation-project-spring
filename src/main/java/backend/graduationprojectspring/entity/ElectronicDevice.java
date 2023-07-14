@@ -49,7 +49,7 @@ public class ElectronicDevice extends Base {
         this.image = image;
     }
 
-    public void update(ElectronicDevice electronicDevice){
-        this.name = electronicDevice.getName();
+    public void updateName(String name){
+        this.name = name;
     }
 }

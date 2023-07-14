@@ -51,7 +51,7 @@ public class AdminElectronicDeviceController {
             @PathVariable(name = "id")Long id,
             @RequestBody @Validated DeviceUpdateDto deviceUpdateDto){
         deviceService.update(id,
-                deviceUpdateDto.toElectronicDevice(),
+                deviceUpdateDto.getName(),
                 deviceUpdateDto.getCategoryId());
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
@@ -133,9 +133,5 @@ public class AdminElectronicDeviceController {
         private String name;
         @NotNull
         private Long categoryId;
-
-        public ElectronicDevice toElectronicDevice(){
-            return new ElectronicDevice(name);
-        }
     }
 }
