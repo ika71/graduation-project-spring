@@ -35,7 +35,7 @@ public class EvaluationService {
         findEvalList
                 .forEach(evaluation -> {
                     Integer updateScore = evalItemScoreMap.get(evaluation.getEvaluationItem().getId());
-                    evaluation.update(updateScore);
+                    evaluation.updateScore(updateScore);
                     evalItemScoreMap.remove(evaluation.getEvaluationItem().getId()); //이미 수정된 항목은 map에서 제거
                 });
 

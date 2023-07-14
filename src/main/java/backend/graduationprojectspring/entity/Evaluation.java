@@ -33,7 +33,7 @@ public class Evaluation extends Base {
         this.evaluationItem = evaluationItem;
     }
 
-    public void update(int evaluationScore) {
+    public void updateScore(int evaluationScore) {
         this.evaluationScore = evaluationScore;
     }
 }
