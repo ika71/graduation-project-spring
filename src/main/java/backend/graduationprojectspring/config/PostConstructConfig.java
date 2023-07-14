@@ -2,7 +2,6 @@ package backend.graduationprojectspring.config;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
-import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.service.CategoryService;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
@@ -45,12 +44,8 @@ public class PostConstructConfig {
         deviceService.create("그램", savedCategory2.getId());
 
         //평가 항목 추가
-        EvaluationItem evaluationItem1 = new EvaluationItem("가격");
-        EvaluationItem evaluationItem2 = new EvaluationItem("디스플레이");
-        EvaluationItem evaluationItem3 = new EvaluationItem("성능");
-
-        itemService.create(evaluationItem1, device1.getId());
-        itemService.create(evaluationItem2, device1.getId());
-        itemService.create(evaluationItem3, device1.getId());
+        itemService.create("가격", device1.getId());
+        itemService.create("디스플레이", device1.getId());
+        itemService.create("성능", device1.getId());
     }
 }

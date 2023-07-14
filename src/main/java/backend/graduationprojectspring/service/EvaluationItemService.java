@@ -19,14 +19,13 @@ public class EvaluationItemService {
 
     /**
      * 평가항목 데이터베이스에 저장
-     * @param evaluationItem 저장할 평가항목
+     * @param name 저장할 평가항목 이름
      * @param deviceId 평가항목이 속하는 전자제품 id
      * @return 저장된 평가항목
      */
-    public EvaluationItem create(EvaluationItem evaluationItem, Long deviceId){
+    public EvaluationItem create(String name, Long deviceId){
         ElectronicDevice device = deviceRepository.getReferenceById(deviceId);
-        evaluationItem.setElectronicDevice(device);
-        return itemRepository.save(evaluationItem);
+        return itemRepository.save(new EvaluationItem(name, device));
     }
 
     /**

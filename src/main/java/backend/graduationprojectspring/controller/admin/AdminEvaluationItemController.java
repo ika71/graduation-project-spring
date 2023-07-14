@@ -29,7 +29,7 @@ public class AdminEvaluationItemController {
     public ResponseEntity<?> evaluationItemCreate(
             @RequestBody @Validated EvaluationItemCreateDto createDto){
         itemService.create(
-                createDto.toEvaluationItem(),
+                createDto.getName(),
                 createDto.getElectronicDeviceId());
 
         return ResponseEntity
@@ -82,10 +82,6 @@ public class AdminEvaluationItemController {
         private Long electronicDeviceId;
         @NotBlank
         private String name;
-
-        public EvaluationItem toEvaluationItem(){
-            return new EvaluationItem(name);
-        }
     }
 
     @Getter
