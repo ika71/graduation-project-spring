@@ -1,6 +1,5 @@
 package backend.graduationprojectspring.entity;
 
-import backend.graduationprojectspring.entity.Base.Base;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

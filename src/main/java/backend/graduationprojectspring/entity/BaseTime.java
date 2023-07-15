@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.entity.Base;
+package backend.graduationprojectspring.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @EntityListeners(value = {AuditingEntityListener.class})
 @MappedSuperclass
 @Getter
-public abstract class BaseTime {
+abstract class BaseTime {
     @Column(nullable = false, updatable = false)
     @CreatedDate
     private LocalDateTime createdTime;

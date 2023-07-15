@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.entity.Base;
+package backend.graduationprojectspring.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(value = {AuditingEntityListener.class})
 @MappedSuperclass
 @Getter
-public abstract class Base extends BaseTime{
+abstract class Base extends BaseTime{
     @CreatedBy
     @Column(nullable = false, updatable = false)
     private String createdBy;

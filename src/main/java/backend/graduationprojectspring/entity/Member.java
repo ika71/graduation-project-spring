@@ -1,7 +1,6 @@
 package backend.graduationprojectspring.entity;
 
 import backend.graduationprojectspring.constant.Role;
-import backend.graduationprojectspring.entity.Base.Base;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

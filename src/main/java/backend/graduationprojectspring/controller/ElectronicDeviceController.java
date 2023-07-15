@@ -35,7 +35,7 @@ public class ElectronicDeviceController {
         ElectronicDevice device = findOneDetailDto.getDevice();
         Map<Long, Double> avgGroupByEvalItemMap =
                 findOneDetailDto.getAvgGroupByEvalItemMap();
-        System.out.println(device);
+
         return new DeviceDetailDto(device, avgGroupByEvalItemMap);
     }
 
