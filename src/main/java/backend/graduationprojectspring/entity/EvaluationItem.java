@@ -31,4 +31,14 @@ public class EvaluationItem extends Base {
     public void updateName(String name){
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "EvaluationItem{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", electronicDevice=" + electronicDevice.getId() +
+                " " + electronicDevice.getName() +
+                '}';
+    }
 }

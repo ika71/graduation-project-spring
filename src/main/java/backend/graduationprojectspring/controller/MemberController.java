@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -38,11 +39,13 @@ public class MemberController {
     }
     @Getter
     @RequiredArgsConstructor
+    @ToString
     private static class LoginSuccessDto{
         private final String token;
     }
 
     @Getter
+    @ToString
     private static class MemberCreateDto {
         @Email
         private String email;
@@ -57,6 +60,7 @@ public class MemberController {
     }
 
     @Getter
+    @ToString
     private static class MemberLoginDto {
         @Email
         public String email;

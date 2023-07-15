@@ -4,6 +4,7 @@ import backend.graduationprojectspring.service.EvaluationService;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,6 +37,7 @@ public class EvaluationController {
     }
 
     @Getter
+    @ToString
     private static class EvaluationPutDto{
         @NotNull
         private List<EvaluationDto> evaluationDtoList;
@@ -50,6 +52,7 @@ public class EvaluationController {
         }
     }
     @Getter
+    @ToString
     private static class EvaluationDto{
         @NotNull
         private Long evalItemId;

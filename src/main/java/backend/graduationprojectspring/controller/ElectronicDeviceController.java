@@ -7,6 +7,7 @@ import backend.graduationprojectspring.service.ElectronicDeviceService;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -34,11 +35,12 @@ public class ElectronicDeviceController {
         ElectronicDevice device = findOneDetailDto.getDevice();
         Map<Long, Double> avgGroupByEvalItemMap =
                 findOneDetailDto.getAvgGroupByEvalItemMap();
-
+        System.out.println(device);
         return new DeviceDetailDto(device, avgGroupByEvalItemMap);
     }
 
     @Getter
+    @ToString
     private static class PagingResultDto {
         private final List<DevicePagingDto> devicePagingDtoList;
         private final Long totalCount;
@@ -53,6 +55,7 @@ public class ElectronicDeviceController {
     }
 
     @Getter
+    @ToString
     private static class DevicePagingDto {
         private final Long id;
         private final String name;
@@ -76,6 +79,7 @@ public class ElectronicDeviceController {
         }
     }
     @Getter
+    @ToString
     private static class DeviceDetailDto{
         private final Long id;
         private final String name;
@@ -101,6 +105,7 @@ public class ElectronicDeviceController {
         }
     }
     @Getter
+    @ToString
     private static class EvalItemAvgDto{
         private final Long id;
         private final String name;

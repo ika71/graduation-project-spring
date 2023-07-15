@@ -5,6 +5,7 @@ import backend.graduationprojectspring.service.CategoryService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -61,6 +62,7 @@ public class AdminCategoryController {
     }
 
     @Getter
+    @ToString
     private static class categoryAllResultDto{
         List<CategoryAllDto> categoryAllDtoList;
 
@@ -73,6 +75,7 @@ public class AdminCategoryController {
     }
 
     @Getter
+    @ToString
     private static class CategoryAllDto {
         private final Long id;
         private final String name;
@@ -84,6 +87,7 @@ public class AdminCategoryController {
     }
 
     @Getter
+    @ToString
     private static class categoryPagingResultDto {
         List<CategoryPagingDto> categoryPagingDtoList;
         Long totalCount;
@@ -98,6 +102,7 @@ public class AdminCategoryController {
     }
 
     @Getter
+    @ToString
     private static class CategoryPagingDto {
         private final Long id;
         private final String name;
@@ -110,12 +115,14 @@ public class AdminCategoryController {
 
 
     @Getter
+    @ToString
     private static class CategoryCreateDto {
         @NotBlank
         private String name;
     }
 
     @Getter
+    @ToString
     private static class CategoryUpdateDto {
         @NotBlank
         private String name;

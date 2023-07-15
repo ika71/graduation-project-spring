@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -54,6 +55,7 @@ public class AdminEvaluationItemController {
                 .build();
     }
     @Getter
+    @ToString
     private static class EvaluationItemViewResult{
         private final List<EvaluationItemViewDto> evaluationItemList;
 
@@ -66,6 +68,7 @@ public class AdminEvaluationItemController {
     }
 
     @Getter
+    @ToString
     private static class EvaluationItemViewDto {
         private final Long id;
         private final String name;
@@ -77,6 +80,7 @@ public class AdminEvaluationItemController {
     }
 
     @Getter
+    @ToString
     private static class EvaluationItemCreateDto {
         @NotNull
         private Long electronicDeviceId;
@@ -85,6 +89,7 @@ public class AdminEvaluationItemController {
     }
 
     @Getter
+    @ToString
     private static class EvaluationItemUpdateDto {
         @NotBlank
         private String name;

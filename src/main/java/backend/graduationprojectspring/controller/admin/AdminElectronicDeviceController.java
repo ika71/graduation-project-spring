@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -66,6 +67,7 @@ public class AdminElectronicDeviceController {
                 .build();
     }
     @Getter
+    @ToString
     private static class DevicePagingResultDto{
         private final List<DevicePagingDto> devicePagingDtoList;
         private final Long totalCount;
@@ -80,6 +82,7 @@ public class AdminElectronicDeviceController {
     }
 
     @Getter
+    @ToString
     private static class DevicePagingDto {
         private final Long id;
         private final String name;
@@ -99,6 +102,7 @@ public class AdminElectronicDeviceController {
     }
 
     @Getter
+    @ToString
     private static class CategoryDto {
         private final Long id;
         private final String name;
@@ -110,6 +114,7 @@ public class AdminElectronicDeviceController {
     }
 
     @Getter
+    @ToString
     private static class DeviceCreateDto {
         @NotNull
         private Long categoryId;
@@ -118,12 +123,14 @@ public class AdminElectronicDeviceController {
     }
 
     @Getter
+    @ToString
     private static class DeviceImageSetDto {
         @NotNull
         private Long imageId;
     }
 
     @Getter
+    @ToString
     private static class DeviceUpdateDto {
         @NotBlank
         private String name;
