@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/evaluation")
@@ -41,13 +41,12 @@ public class EvaluationController {
         private List<EvaluationDto> evaluationDtoList;
 
         public Map<Long, Integer> toEvalScoreMap(){
-            Map<Long, Integer> evalScoreMap = new HashMap<>(evaluationDtoList.size());
-
-            evaluationDtoList
-                    .forEach(evaluationDto -> evalScoreMap.put(
-                            evaluationDto.getEvalItemId(),
-                            evaluationDto.getEvaluationScore()));
-            return evalScoreMap;
+            return evaluationDtoList
+                    .stream()
+                    .collect(Collectors.toMap(
+                            EvaluationDto::getEvalItemId,
+                            EvaluationDto::getEvaluationScore
+                    ));
         }
     }
     @Getter
