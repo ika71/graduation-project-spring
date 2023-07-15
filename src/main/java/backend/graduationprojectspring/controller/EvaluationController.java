@@ -54,6 +54,6 @@ public class EvaluationController {
         @NotNull
         private Long evalItemId;
         @NotNull
-        private int evaluationScore;
+        private Integer evaluationScore;
     }
 }

@@ -19,18 +19,18 @@ public class Evaluation extends Base {
 
     @Column(nullable = false)
     @Min(1) @Max(5)
-    private int evaluationScore;
+    private Integer evaluationScore;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "evaluation_item_id", nullable = false)
     private EvaluationItem evaluationItem;
 
-    public Evaluation(int evaluationScore, EvaluationItem evaluationItem) {
+    public Evaluation(Integer evaluationScore, EvaluationItem evaluationItem) {
         this.evaluationScore = evaluationScore;
         this.evaluationItem = evaluationItem;
     }
 
-    public void updateScore(int evaluationScore) {
+    public void updateScore(Integer evaluationScore) {
         this.evaluationScore = evaluationScore;
     }
 }
