@@ -37,7 +37,7 @@ public class ElectronicDeviceQueryRepository {
 
     /**
      * 전자제품 페이지 조회<br>
-     * 전자제품 이름으로 정렬됨<br>
+     * 전자제품 생성일로 내림차순 정렬됨<br>
      * 전자제품이 속한 카테고리, 평가항목 정보까지 전부 데이터 베이스에서 가져옴
      * @param page 현재 보여줄 페이지 위치
      * @param size 얼마만큼 보여줄지 크기
@@ -48,7 +48,7 @@ public class ElectronicDeviceQueryRepository {
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)
                 .fetchJoin()
-                .orderBy(electronicDevice.name.asc())
+                .orderBy(electronicDevice.createdTime.desc())
                 .offset((long) (page - 1) * size)
                 .limit(size)
                 .fetch();
@@ -58,7 +58,7 @@ public class ElectronicDeviceQueryRepository {
                 .leftJoin(electronicDevice.evaluationItemList, evaluationItem)
                 .fetchJoin()
                 .where(electronicDevice.in(deviceList))
-                .orderBy(electronicDevice.name.asc())
+                .orderBy(electronicDevice.createdTime.desc())
                 .fetch();
     }
 

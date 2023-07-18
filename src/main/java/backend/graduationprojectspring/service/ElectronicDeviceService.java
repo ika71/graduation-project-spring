@@ -50,7 +50,7 @@ public class ElectronicDeviceService {
     /**
      * 전자제품 페이지 조회
      * (전자제품 카테고리 fetch join, 평가항목 fetch left join)<br>
-     * 전자제품 이름으로 정렬됨<br>
+     * 전자제품 생성일로 내림차순 정렬됨<br>
      * @param page 현재 보여줄 페이지 위치
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 ElectronicDevice List 반환
