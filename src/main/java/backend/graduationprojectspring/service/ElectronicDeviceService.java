@@ -56,7 +56,7 @@ public class ElectronicDeviceService {
      * @return 조회된 ElectronicDevice List 반환
      */
     @Transactional(readOnly = true)
-    public List<ElectronicDevice> pagingJoinCategoryAndDevice(int page, int size){
+    public List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size){
         return deviceQueryRepository.pagingFetchJoinCategoryAndEvalItem(page, size);
     }
 

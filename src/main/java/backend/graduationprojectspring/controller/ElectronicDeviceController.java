@@ -23,7 +23,7 @@ public class ElectronicDeviceController {
     public PagingResultDto electronicDevicePaging(
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size){
-        List<ElectronicDevice> deviceList = deviceService.pagingJoinCategoryAndDevice(page, size);
+        List<ElectronicDevice> deviceList = deviceService.pagingJoinCategoryAndEvalItem(page, size);
         Long totalCount = deviceService.totalCount();
 
         return new PagingResultDto(deviceList, totalCount);
