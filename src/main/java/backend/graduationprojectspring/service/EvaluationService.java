@@ -51,6 +51,13 @@ public class EvaluationService {
         evaluationRepository.saveAll(evaluationList);
     }
 
+    /**
+     * deviceId에 해당하는 전자제품의 평가항목들에 대해<br>
+     * memberId에 해당하는 유저가 한 평가 기록을 가져옴
+     * @param memberId 평가한 유저의 id
+     * @param deviceId 전자제품 id
+     * @return 평가항목 id, 평가항목 이름, 평가 점수
+     */
     @Transactional(readOnly = true)
     public List<EvalItemAndEvaluationDto> findAllByMemberIdAndDeviceId(String memberId, Long deviceId){
         List<EvaluationItem> evalItemList = evalItemRepository.findAllByElectronicDeviceId(deviceId);
