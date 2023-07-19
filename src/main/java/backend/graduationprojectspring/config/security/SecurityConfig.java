@@ -31,6 +31,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests()
                 .requestMatchers("/member/**").permitAll()// /member/** 경로는 인증 x
                 .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.toString())// /admin/** 경로는 admin 권한 필요
+                .requestMatchers(HttpMethod.GET, "/evaluation").authenticated()
                 .requestMatchers(HttpMethod.GET, "/**").permitAll() //모든 경로에서 Get으로 오는 요청 허용
                 .requestMatchers("/**").authenticated(); //모든 경로에서 get 이외에 오는 요청은 인증필요
 
