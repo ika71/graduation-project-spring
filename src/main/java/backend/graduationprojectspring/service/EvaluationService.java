@@ -5,11 +5,13 @@ import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.repository.EvaluationItemRepository;
 import backend.graduationprojectspring.repository.EvaluationQueryRepository;
 import backend.graduationprojectspring.repository.EvaluationRepository;
+import backend.graduationprojectspring.service.dto.EvalItemAndEvaluationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,5 +49,28 @@ public class EvaluationService {
                     evaluationList.add(new Evaluation(evalScore, evalItem));
                 });
         evaluationRepository.saveAll(evaluationList);
+    }
+
+    @Transactional(readOnly = true)
+    public List<EvalItemAndEvaluationDto> findAllByMemberIdAndDeviceId(String memberId, Long deviceId){
+        List<EvaluationItem> evalItemList = evalItemRepository.findAllByElectronicDeviceId(deviceId);
+        List<Evaluation> evalList = evaluationRepository.
+                findAllByCreatedByAndEvaluationItemIn(
+                        memberId,
+                        evalItemList);
+
+        //키 = 평가항목 id, 값 = 유저가 쓴 평점(null 가능)
+        Map<Long, Integer> evalMap = new HashMap<>();
+
+        evalList.forEach(eval->evalMap.put(eval.getEvaluationItem().getId(),
+                        eval.getEvaluationScore()));
+
+        return evalItemList
+                .stream()
+                .map(evalItem -> new EvalItemAndEvaluationDto(
+                        evalItem.getId(),
+                        evalItem.getName(),
+                        evalMap.get(evalItem.getId())))
+                .toList();
     }
 }
