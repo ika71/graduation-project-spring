@@ -61,10 +61,15 @@ public class EvaluationService {
     @Transactional(readOnly = true)
     public List<EvalItemAndEvaluationDto> findAllByMemberIdAndDeviceId(String memberId, Long deviceId){
         List<EvaluationItem> evalItemList = evalItemRepository.findAllByElectronicDeviceId(deviceId);
-        List<Evaluation> evalList = evaluationRepository.
-                findAllByCreatedByAndEvaluationItemIn(
+        List<Long> evalItemIdList = evalItemList
+                .stream()
+                .map(EvaluationItem::getId)
+                .toList();
+
+        List<Evaluation> evalList = evalQueryRepository
+                .findByMemberIdEvalItemIdList(
                         memberId,
-                        evalItemList);
+                        evalItemIdList);
 
         //키 = 평가항목 id, 값 = 유저가 쓴 평점(null 가능)
         Map<Long, Integer> evalMap = new HashMap<>();
