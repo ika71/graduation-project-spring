@@ -34,20 +34,20 @@ public class EvaluationService {
         //이미 있는 항목들은 수정
         List<Evaluation> findEvalList = evalQueryRepository
                 .findByMemberIdEvalItemIds(memberId, evalItemIdList);
-        findEvalList
-                .forEach(evaluation -> {
-                    Integer updateScore = evalItemScoreMap.get(evaluation.getEvaluationItem().getId());
-                    evaluation.updateScore(updateScore);
-                    evalItemScoreMap.remove(evaluation.getEvaluationItem().getId()); //이미 수정된 항목은 map에서 제거
-                });
+        for (Evaluation evaluation : findEvalList) {
+            Integer updateScore = evalItemScoreMap.get(evaluation.getEvaluationItem().getId());
+            evaluation.updateScore(updateScore);
+            evalItemScoreMap.remove(evaluation.getEvaluationItem().getId()); //이미 수정된 항목은 map에서 제거
+        }
 
         //새로운 항목들은 새로 List 생성 후 데이터베이스에 저장
         List<Evaluation> evaluationList = new ArrayList<>(evalItemScoreMap.size());
-        evalItemScoreMap
-                .forEach((evalItemId, evalScore)->{
-                    EvaluationItem evalItem = evalItemRepository.getReferenceById(evalItemId);
-                    evaluationList.add(new Evaluation(evalScore, evalItem));
-                });
+        for (Map.Entry<Long, Integer> entry : evalItemScoreMap.entrySet()) {
+            Long evalItemId = entry.getKey();
+            Integer evalScore = entry.getValue();
+            EvaluationItem evalItem = evalItemRepository.getReferenceById(evalItemId);
+            evaluationList.add(new Evaluation(evalScore, evalItem));
+        }
         evaluationRepository.saveAll(evaluationList);
     }
 
@@ -69,8 +69,10 @@ public class EvaluationService {
         //키 = 평가항목 id, 값 = 유저가 쓴 평점(null 가능)
         Map<Long, Integer> evalMap = new HashMap<>();
 
-        evalList.forEach(eval->evalMap.put(eval.getEvaluationItem().getId(),
-                        eval.getEvaluationScore()));
+        for (Evaluation eval : evalList) {
+            evalMap.put(eval.getEvaluationItem().getId(),
+                    eval.getEvaluationScore());
+        }
 
         return evalItemList
                 .stream()

@@ -35,12 +35,11 @@ public class EvaluationQueryRepository {
 
         Map<Long, Double> avgGroupByEvalItemMap = new HashMap<>(fetchList.size());
 
-        fetchList
-                .forEach(fetch->{
-                    Long evalItemId = fetch.get(evaluation.evaluationItem.id);
-                    Double evalItemAvg = fetch.get(evaluation.evaluationScore.avg());
-                    avgGroupByEvalItemMap.put(evalItemId, evalItemAvg);
-                });
+        for (Tuple fetch : fetchList) {
+            Long evalItemId = fetch.get(evaluation.evaluationItem.id);
+            Double evalItemAvg = fetch.get(evaluation.evaluationScore.avg());
+            avgGroupByEvalItemMap.put(evalItemId, evalItemAvg);
+        }
         return avgGroupByEvalItemMap;
     }
 }
