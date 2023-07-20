@@ -8,6 +8,18 @@ import java.util.List;
 
 @Repository
 public interface EvaluationItemRepository extends JpaRepository<EvaluationItem, Long> {
+    /**
+     * ElectronicDeviceId를 외래키로 갖는 모든 EvaluationItem 객체를 찾는다<br>
+     * EvaluationItem.name으로 정렬된다.
+     * @param electronicDeviceId 검색 조건으로 사용할 ElectronicDeviceId
+     * @return 조회된 EvaluationItem List 반환
+     */
     List<EvaluationItem> findAllByElectronicDeviceIdOrderByName(Long electronicDeviceId);
+
+    /**
+     * ElectronicDeviceId를 외래키로 갖는 모든 EvaluationItem 객체를 찾는다
+     * @param electronicDeviceId 검색 조건으로 사용할 ElectronicDeviceId
+     * @return 조회된 EvaluationItem List 반환
+     */
     List<EvaluationItem> findAllByElectronicDeviceId(Long electronicDeviceId);
 }

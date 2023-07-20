@@ -33,7 +33,7 @@ public class EvaluationService {
 
         //이미 있는 항목들은 수정
         List<Evaluation> findEvalList = evalQueryRepository
-                .findByMemberIdEvalItemIds(memberId, evalItemIdList);
+                .findByMemberIdEvalItemIdList(memberId, evalItemIdList);
         for (Evaluation evaluation : findEvalList) {
             Integer updateScore = evalItemScoreMap.get(evaluation.getEvaluationItem().getId());
             evaluation.updateScore(updateScore);

@@ -17,12 +17,12 @@ public class ElectronicDeviceQueryRepository {
     private final JPAQueryFactory queryFactory;
 
     /**
-     * 전자제품 페이지 조회<br>
-     * 전자제품 이름으로 정렬됨<br>
-     * 전자제품이 속한 카테고리 정보까지 전부 데이터 베이스에서 가져옴
+     * ElectronicDevice를 페이징 조회한다.<br>
+     * Category와 fetchJoin을 한다.<br>
+     * ElectronicDevice.name으로 정렬된다.
      * @param page 현재 보여줄 페이지 위치
-     * @param size 얼마만큼 보여줄지 크기
-     * @return 조회된 ElectronicDevice 반환
+     * @param size 한 페이지의 사이즈
+     * @return 조회된 ElectronicDevice List를 반환
      */
     public List<ElectronicDevice> pagingFetchJoinCategory(int page, int size){
         return queryFactory
@@ -36,14 +36,21 @@ public class ElectronicDeviceQueryRepository {
     }
 
     /**
-     * 전자제품 페이지 조회<br>
-     * 전자제품 생성일로 내림차순 정렬됨<br>
-     * 전자제품이 속한 카테고리, 평가항목 정보까지 전부 데이터 베이스에서 가져옴
+     * ElectronicDevice를 페이지 조회한다.<br>
+     * Category, EvaluationItem과 fetchjoin한다.<br>
+     * EvaluationItem과는 left join을 하기 때문에 join 되는 평가항목이 없어도<br>
+     * ElectronicDevice 객체는 존재하며 EvaluationItem은 0개 사이즈의 ArrayList로 가지고 있다.<br>
+     * ElectronicDevice.createdTime으로 내림차순 정렬된다
      * @param page 현재 보여줄 페이지 위치
-     * @param size 얼마만큼 보여줄지 크기
-     * @return 조회된 ElectronicDevice 반환
+     * @param size 한 페이지의 사이즈
+     * @return 조회된 ElectronicDevice List 반환
      */
     public List<ElectronicDevice> pagingFetchJoinCategoryAndEvalItem(int page, int size){
+        /*
+        ElectronicDevice와 EvaluationItem은 일대다 관계이기에 페이징과 fetch join을
+        2개의 쿼리로 나눠서 처리한다.
+         */
+
         List<ElectronicDevice> deviceList = queryFactory
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)
@@ -63,10 +70,12 @@ public class ElectronicDeviceQueryRepository {
     }
 
     /**
-     * 전자제품 하나 조회
-     * 카테고리, 평가항목 전부 fetch join함
-     * @param id 조회할 전자제품 id
-     * @return 조회된 전자제품
+     * ElectronicDevice를 1개 조회한다.
+     * Category, EvaluationItem을 fetch join 한다.
+     * @param id 조회할 ElectronicDevice의 id
+     * @return 조회된 ElectronicDevice 객체<br>
+     * 만약 조회된 객체가 없으면 null 반환
+     * @throws com.querydsl.core.NonUniqueResultException 조회된 결과가 여러개일 경우
      */
     public ElectronicDevice findOneFetchJoinCategoryAndEvalItem(Long id){
         return queryFactory
