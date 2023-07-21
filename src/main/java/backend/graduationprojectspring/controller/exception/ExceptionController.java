@@ -18,7 +18,7 @@ public class ExceptionController {
     public ResponseEntity<?> exception(Exception e){
         log.error("error", e);
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("문제가 발생하였습니다.");
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
