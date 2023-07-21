@@ -5,8 +5,6 @@ package backend.graduationprojectspring.exception;
  * message에 설정된 내용은 컨트롤러 밖으로 반환된다.
  */
 public class DuplicateException extends CustomRunTimeException{
-    public DuplicateException() {
-    }
 
     public DuplicateException(String message) {
         super(message);
@@ -14,13 +12,5 @@ public class DuplicateException extends CustomRunTimeException{
 
     public DuplicateException(String message, Throwable cause) {
         super(message, cause);
-    }
-
-    public DuplicateException(Throwable cause) {
-        super(cause);
-    }
-
-    public DuplicateException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
     }
 }
