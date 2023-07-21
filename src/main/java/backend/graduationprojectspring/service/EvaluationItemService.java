@@ -50,10 +50,14 @@ public class EvaluationItemService {
      * @param id 변경할 평가항목의 id
      * @param name 변경할 이름
      * @throws NotExistsException 해당하는 평가항목이 없으면 발생
+     * @throws DuplicateException 이미 존재하는 이름의 평가항목으로 수정하려 할 때 발생
      */
     public void updateName(Long id, String name){
         EvaluationItem findEvaluationItem = evalItemRepository.findById(id)
                 .orElseThrow(() -> new NotExistsException("해당하는 평가 항목이 없습니다."));
+        if(evalItemRepository.existsByNameAndElectronicDeviceId(name, id)){
+            throw new DuplicateException("이미 존재하는 평가 항목입니다.");
+        }
         findEvaluationItem.updateName(name);
     }
 

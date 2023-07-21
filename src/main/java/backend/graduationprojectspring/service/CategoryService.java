@@ -56,11 +56,15 @@ public class CategoryService {
      * 카테고리 이름 수정
      * @param id 이름을 수정할 카테고리의 id
      * @param updateName 수정할 이름
-     * @throws NotExistsException id에 해당하는 카테고리가 없으면 예외 반환
+     * @throws NotExistsException id에 해당하는 카테고리가 없으면 예외 발생
+     * @throws DuplicateException 수정할 이름으로 존재하는 카테고리가 이미 존재하면 발생
      */
     public void updateName(Long id, String updateName){
         Category findCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new NotExistsException("해당하는 카테고리가 존재하지 않습니다."));
+        if(categoryRepository.existsByName(updateName)){
+            throw new DuplicateException("해당 이름으로 존재하는 카테고리가 이미 있습니다.");
+        }
         findCategory.updateName(updateName);
     }
 

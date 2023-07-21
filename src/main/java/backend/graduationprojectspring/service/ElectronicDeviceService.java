@@ -81,12 +81,16 @@ public class ElectronicDeviceService {
      * @param updateDeviceName 수정할 이름
      * @param updateCategoryId 전자제품이 수정 후에 속할 카테고리 Id
      * @throws NotExistsException 전자제품이나 카테고리가 이미 없으면 발생
+     * @throws DuplicateException 수정할 이름을 전자제품이 이미 존재하면 발생
      */
     public void update(Long deviceId, String updateDeviceName, Long updateCategoryId){
         ElectronicDevice findDevice = deviceRepository.findById(deviceId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
         Category updateCategory = categoryRepository.findById(updateCategoryId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 카테고리 입니다."));
+        if(deviceRepository.existsByName(updateDeviceName)){
+            throw new DuplicateException("해당 이름으로 이미 존재하는 전자제품이 있습니다.");
+        }
 
         findDevice.updateNameAndCategory(updateDeviceName, updateCategory);
     }
