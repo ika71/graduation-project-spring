@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ElectronicDeviceRepository extends JpaRepository<ElectronicDevice, Long> {
+    boolean existsByName(String name);
 }

@@ -4,6 +4,7 @@ import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.entity.Image;
+import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.repository.*;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,9 @@ public class ElectronicDeviceService {
      * @return 저장된 전자제품
      */
     public ElectronicDevice create(String name, Long categoryId){
+        if(deviceRepository.existsByName(name)){
+            throw new DuplicateException("같은 이름으로 이미 존재하는 전자제품이 있습니다.");
+        }
         Category category = categoryRepository.getReferenceById(categoryId);
 
         return deviceRepository.save(new ElectronicDevice(name, category));

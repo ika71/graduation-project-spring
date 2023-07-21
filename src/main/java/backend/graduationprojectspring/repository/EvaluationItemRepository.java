@@ -22,4 +22,5 @@ public interface EvaluationItemRepository extends JpaRepository<EvaluationItem, 
      * @return 조회된 EvaluationItem List 반환
      */
     List<EvaluationItem> findAllByElectronicDeviceId(Long electronicDeviceId);
+    boolean existsByNameAndElectronicDeviceId(String name, Long deviceId);
 }

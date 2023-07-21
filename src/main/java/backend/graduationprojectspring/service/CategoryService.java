@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Category;
+import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.repository.CategoryQueryRepository;
 import backend.graduationprojectspring.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,9 @@ public class CategoryService {
      * @return 저장된 카테고리 반환
      */
     public Category create(String name){
+        if(categoryRepository.existsByName(name)){
+            throw new DuplicateException("같은 이름으로 이미 존재하는 카테고리가 있습니다.");
+        }
         Category category = new Category(name);
         return categoryRepository.save(category);
     }

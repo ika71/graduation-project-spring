@@ -2,6 +2,7 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
+import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
 import backend.graduationprojectspring.repository.EvaluationItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class EvaluationItemService {
-    private final EvaluationItemRepository itemRepository;
+    private final EvaluationItemRepository evalItemRepository;
     private final ElectronicDeviceRepository deviceRepository;
 
     /**
@@ -24,8 +25,11 @@ public class EvaluationItemService {
      * @return 저장된 평가항목
      */
     public EvaluationItem create(String name, Long deviceId){
+        if(evalItemRepository.existsByNameAndElectronicDeviceId(name, deviceId)){
+            throw new DuplicateException("이미 존재하는 평가 항목입니다.");
+        }
         ElectronicDevice device = deviceRepository.getReferenceById(deviceId);
-        return itemRepository.save(new EvaluationItem(name, device));
+        return evalItemRepository.save(new EvaluationItem(name, device));
     }
 
     /**
@@ -36,7 +40,7 @@ public class EvaluationItemService {
      */
     @Transactional(readOnly = true)
     public List<EvaluationItem> findAllByElectronicDeviceId(Long electronicDeviceId){
-        return itemRepository.findAllByElectronicDeviceIdOrderByName(electronicDeviceId);
+        return evalItemRepository.findAllByElectronicDeviceIdOrderByName(electronicDeviceId);
     }
 
     /**
@@ -45,7 +49,7 @@ public class EvaluationItemService {
      * @param name 변경할 이름
      */
     public void updateName(Long id, String name){
-        EvaluationItem findEvaluationItem = itemRepository.findById(id).orElseThrow();
+        EvaluationItem findEvaluationItem = evalItemRepository.findById(id).orElseThrow();
         findEvaluationItem.updateName(name);
     }
 
@@ -54,6 +58,6 @@ public class EvaluationItemService {
      * @param id 삭제할 평가항목의 id
      */
     public void delete(Long id){
-        itemRepository.deleteById(id);
+        evalItemRepository.deleteById(id);
     }
 }

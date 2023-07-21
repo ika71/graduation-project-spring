@@ -13,4 +13,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
      * @return 정렬된 category List를 반환한다.
      */
     List<Category> findAllByOrderByName();
+    boolean existsByName(String name);
 }
