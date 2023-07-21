@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.controller.exception;
 
 import backend.graduationprojectspring.exception.CustomRunTimeException;
+import backend.graduationprojectspring.exception.DuplicateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,12 @@ public class ExceptionController {
 
     @ExceptionHandler(CustomRunTimeException.class)
     public ResponseEntity<?> customRunTimeException(CustomRunTimeException e){
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(e.getMessage());
+    }
+    @ExceptionHandler(DuplicateException.class)
+    public ResponseEntity<?> duplicateException(CustomRunTimeException e){
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(e.getMessage());

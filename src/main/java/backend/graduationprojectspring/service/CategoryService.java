@@ -2,6 +2,7 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.exception.DuplicateException;
+import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.CategoryQueryRepository;
 import backend.graduationprojectspring.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -56,18 +56,18 @@ public class CategoryService {
      * 카테고리 이름 수정
      * @param id 이름을 수정할 카테고리의 id
      * @param updateName 수정할 이름
-     * @throws java.util.NoSuchElementException id에 해당하는 카테고리가 없으면 예외 반환
+     * @throws NotExistsException id에 해당하는 카테고리가 없으면 예외 반환
      */
     public void updateName(Long id, String updateName){
-        Optional<Category> findCategoryOptional = categoryRepository.findById(id);
-        Category findCategory = findCategoryOptional.orElseThrow();
+        Category findCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new NotExistsException("해당하는 카테고리가 존재하지 않습니다."));
         findCategory.updateName(updateName);
     }
 
     /**
      * 카테고리 삭제
      * @param id 삭제할 카테고리의 id
-     * @throws IllegalArgumentException id에 해당하는 카테고리가 없으면 예외 반환
+     * @throws IllegalArgumentException id가 null이 들어올 경우 예외 반환
      */
     public void delete(Long id){
         categoryRepository.deleteById(id);

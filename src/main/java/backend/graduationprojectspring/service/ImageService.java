@@ -2,6 +2,7 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.exception.ImageStoreFailException;
+import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,10 +45,12 @@ public class ImageService {
      * id에 해당하는 이미지의 저장 경로를 반환
      * @param id 저장 경로를 확인할 이미지의 id
      * @return 이미지의 저장 경로
+     * @throws NotExistsException 해당하는 이미지가 없으면 발생
      */
     @Transactional
     public String fullPath(Long id){
-        Image image = imageRepository.findById(id).orElseThrow();
+        Image image = imageRepository.findById(id)
+                .orElseThrow(() -> new NotExistsException("해당하는 이미지가 없습니다."));
 
         return storePath(image.getStoreName());
     }

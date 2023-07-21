@@ -3,6 +3,7 @@ package backend.graduationprojectspring.service;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.exception.DuplicateException;
+import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
 import backend.graduationprojectspring.repository.EvaluationItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -48,15 +49,18 @@ public class EvaluationItemService {
      * 평가항목 이름을 변경
      * @param id 변경할 평가항목의 id
      * @param name 변경할 이름
+     * @throws NotExistsException 해당하는 평가항목이 없으면 발생
      */
     public void updateName(Long id, String name){
-        EvaluationItem findEvaluationItem = evalItemRepository.findById(id).orElseThrow();
+        EvaluationItem findEvaluationItem = evalItemRepository.findById(id)
+                .orElseThrow(() -> new NotExistsException("해당하는 평가 항목이 없습니다."));
         findEvaluationItem.updateName(name);
     }
 
     /**
      * 평가항목 삭제
      * @param id 삭제할 평가항목의 id
+     * @throws IllegalArgumentException id가 null일 경우 발생
      */
     public void delete(Long id){
         evalItemRepository.deleteById(id);

@@ -5,6 +5,7 @@ import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.exception.DuplicateException;
+import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.*;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 import lombok.RequiredArgsConstructor;
@@ -79,10 +80,13 @@ public class ElectronicDeviceService {
      * @param deviceId 수정할 전자제품의 Id
      * @param updateDeviceName 수정할 이름
      * @param updateCategoryId 전자제품이 수정 후에 속할 카테고리 Id
+     * @throws NotExistsException 전자제품이나 카테고리가 이미 없으면 발생
      */
     public void update(Long deviceId, String updateDeviceName, Long updateCategoryId){
-        ElectronicDevice findDevice = deviceRepository.findById(deviceId).orElseThrow();
-        Category updateCategory = categoryRepository.getReferenceById(updateCategoryId);
+        ElectronicDevice findDevice = deviceRepository.findById(deviceId)
+                .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
+        Category updateCategory = categoryRepository.findById(updateCategoryId)
+                .orElseThrow(() -> new NotExistsException("존재 하지 않는 카테고리 입니다."));
 
         findDevice.updateNameAndCategory(updateDeviceName, updateCategory);
     }
@@ -100,10 +104,13 @@ public class ElectronicDeviceService {
      * 전자제품 이미지 설정
      * @param deviceId 이미지를 설정할 전자제품 id
      * @param imageId 설정할 이미지의 id
+     * @throws NotExistsException 해당하는 전자제품이나 이미지가 없으면 발생
      */
     public void setImage(Long deviceId, Long imageId){
-        ElectronicDevice device = deviceRepository.findById(deviceId).orElseThrow();
-        Image image = imageRepository.getReferenceById(imageId);
+        ElectronicDevice device = deviceRepository.findById(deviceId)
+                .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new NotExistsException("존재 하지 않는 이미지 입니다."));
         device.setImage(image);
     }
 
@@ -114,11 +121,13 @@ public class ElectronicDeviceService {
      * 계산 결과는 Map으로 반환 key = 평가항목 Id, value = score의 평균
      * @param id 조회할 전자제품 Id
      * @return 조회된 결과는 Dto로 반환
+     * @throws NotExistsException 해당하는 전자제품이 없으면 발생
      */
     @Transactional(readOnly = true)
     public DeviceDetailAndAvgDto findOneDetail(Long id){
         ElectronicDevice device = deviceQueryRepository
-                .findOneFetchJoinCategoryAndEvalItem(id);
+                .findOneFetchJoinCategoryAndEvalItem(id)
+                .orElseThrow(() -> new NotExistsException("해당하는 전자제품이 없습니다."));
 
         List<Long> evalItemIdList = device.getEvaluationItemList()
                 .stream()
