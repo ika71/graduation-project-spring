@@ -19,9 +19,10 @@ public class CategoryService {
     private final CategoryQueryRepository categoryQueryRepository;
 
     /**
-     * category 데이터 베이스에 저장
+     * 카테고리 데이터 베이스에 저장
      * @param name 저장할 카테고리 이름
      * @return 저장된 카테고리 반환
+     * @throws DuplicateException 같은 이름으로 존재하는 카테고리가 있을 경우
      */
     public Category create(String name){
         if(categoryRepository.existsByName(name)){

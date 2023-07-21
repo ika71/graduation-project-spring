@@ -21,7 +21,7 @@ public class MemberService {
      * 회원가입
      * @param member email이나 name이 데이터 베이스에 중복이 없어야 함
      * @return 저장된 member
-     * @throws IllegalArgumentException email이나 name이 데이터 베이스에 중복
+     * @throws DuplicateException email이나 name이 데이터 베이스에 중복
      */
     public Member create(Member member){
         if(memberRepository.existsByEmailOrName(member.getEmail(), member.getName())){

@@ -29,6 +29,7 @@ public class ElectronicDeviceService {
      * @param name 저장할 전자제품 이름
      * @param categoryId 저장할 전자제품이 속하는 카테고리 Id
      * @return 저장된 전자제품
+     * @throws DuplicateException 같은 이름으로 존재하는 전자제품이 이미 있을 경우
      */
     public ElectronicDevice create(String name, Long categoryId){
         if(deviceRepository.existsByName(name)){

@@ -23,6 +23,7 @@ public class EvaluationItemService {
      * @param name 저장할 평가항목 이름
      * @param deviceId 평가항목이 속하는 전자제품 id
      * @return 저장된 평가항목
+     * @throws DuplicateException 전자제품에 같은 이름으로 평가항목이 이미 있을 경우
      */
     public EvaluationItem create(String name, Long deviceId){
         if(evalItemRepository.existsByNameAndElectronicDeviceId(name, deviceId)){
