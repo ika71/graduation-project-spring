@@ -1,7 +1,6 @@
 package backend.graduationprojectspring.controller.exception;
 
-import backend.graduationprojectspring.exception.DuplicateException;
-import backend.graduationprojectspring.exception.ImageStoreFailException;
+import backend.graduationprojectspring.exception.CustomRunTimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,16 +27,10 @@ public class ExceptionController {
                 .body(processValidationError(e));
     }
 
-    @ExceptionHandler(DuplicateException.class)
-    public ResponseEntity<?> duplicate(DuplicateException e){
+    @ExceptionHandler(CustomRunTimeException.class)
+    public ResponseEntity<?> customRunTimeException(CustomRunTimeException e){
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
-                .body(e.getMessage());
-    }
-    @ExceptionHandler(ImageStoreFailException.class)
-    public ResponseEntity<?> imageStoreFail(ImageStoreFailException e){
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(e.getMessage());
     }
 
