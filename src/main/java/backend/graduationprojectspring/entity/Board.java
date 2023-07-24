@@ -1,10 +1,13 @@
 package backend.graduationprojectspring.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,4 +24,12 @@ public class Board extends Base{
     @ManyToOne(fetch = FetchType.LAZY)
     private ElectronicDevice electronicDevice;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
+
+    public Board(String title, String content, ElectronicDevice electronicDevice) {
+        this.title = title;
+        this.content = content;
+        this.electronicDevice = electronicDevice;
+    }
 }
