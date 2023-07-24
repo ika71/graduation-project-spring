@@ -2,9 +2,11 @@ package backend.graduationprojectspring.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.ToString;
 
 @Entity
 @Getter
+@ToString
 public class BoardComment extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

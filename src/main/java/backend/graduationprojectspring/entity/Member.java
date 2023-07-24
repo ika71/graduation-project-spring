@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
+@ToString(exclude = "password")
 public class Member extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

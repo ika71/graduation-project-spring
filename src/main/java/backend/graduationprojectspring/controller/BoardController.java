@@ -4,6 +4,7 @@ import backend.graduationprojectspring.entity.Board;
 import backend.graduationprojectspring.service.BoardService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,7 @@ public class BoardController {
     }
 
     @Getter
+    @ToString
     private static class BoardPagingResultDto{
         private final List<BoardPagingDto> boardPagingDtoList;
         private final Long totalCount;
@@ -43,6 +45,7 @@ public class BoardController {
     }
 
     @Getter
+    @ToString
     private static class BoardPagingDto{
         private final Long id;
         private final String title;
