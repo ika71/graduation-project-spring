@@ -36,7 +36,8 @@ public class ElectronicDeviceService {
         if(deviceRepository.existsByName(name)){
             throw new DuplicateException("같은 이름으로 이미 존재하는 전자제품이 있습니다.");
         }
-        Category category = categoryRepository.getReferenceById(categoryId);
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new NotExistsException("해당 하는 카테고리가 없습니다."));
 
         return deviceRepository.save(new ElectronicDevice(name, category));
     }

@@ -30,7 +30,8 @@ public class EvaluationItemService {
         if(evalItemRepository.existsByNameAndElectronicDeviceId(name, deviceId)){
             throw new DuplicateException("이미 존재하는 평가 항목입니다.");
         }
-        ElectronicDevice device = deviceRepository.getReferenceById(deviceId);
+        ElectronicDevice device = deviceRepository.findById(deviceId)
+                .orElseThrow(() -> new NotExistsException("해당 하는 전자제품이 없습니다."));
         return evalItemRepository.save(new EvaluationItem(name, device));
     }
 
