@@ -2,7 +2,7 @@ package backend.graduationprojectspring.controller.admin;
 
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Image;
-import backend.graduationprojectspring.service.impl.ElectronicDeviceServiceImpl;
+import backend.graduationprojectspring.service.ElectronicDeviceService;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/admin/device")
 @RequiredArgsConstructor
 public class AdminElectronicDeviceController {
-    private final ElectronicDeviceServiceImpl deviceService;
+    private final ElectronicDeviceService deviceService;
 
     @GetMapping
     public DevicePagingResultDto devicePaging(

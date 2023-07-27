@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Image;
-import backend.graduationprojectspring.service.impl.ImageServiceImpl;
+import backend.graduationprojectspring.service.ImageService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.UrlResource;
@@ -18,7 +18,7 @@ import java.net.MalformedURLException;
 @RequestMapping("/image")
 @RequiredArgsConstructor
 public class ImageController {
-    private final ImageServiceImpl imageService;
+    private final ImageService imageService;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> imageView(@PathVariable(name = "id")Long id) throws MalformedURLException {

@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Member;
-import backend.graduationprojectspring.service.impl.MemberServiceImpl;
+import backend.graduationprojectspring.service.MemberService;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController {
-    private final MemberServiceImpl memberService;
+    private final MemberService memberService;
     @PostMapping("/signup")
     public ResponseEntity<?> memberCreate(@RequestBody @Validated MemberCreateDto memberCreateDto){
         Member createdMember = memberService.create(memberCreateDto.toMember());
