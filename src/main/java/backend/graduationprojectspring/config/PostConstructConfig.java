@@ -6,7 +6,7 @@ import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.service.impl.CategoryServiceImpl;
 import backend.graduationprojectspring.service.impl.ElectronicDeviceServiceImpl;
 import backend.graduationprojectspring.service.impl.EvaluationItemServiceImpl;
-import backend.graduationprojectspring.service.impl.MemberService;
+import backend.graduationprojectspring.service.impl.MemberServiceImpl;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Profile;
 @Profile("dev")
 @RequiredArgsConstructor
 public class PostConstructConfig {
-    private final MemberService memberService;
+    private final MemberServiceImpl memberService;
     private final CategoryServiceImpl categoryService;
     private final ElectronicDeviceServiceImpl deviceService;
     private final EvaluationItemServiceImpl itemService;
