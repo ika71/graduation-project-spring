@@ -8,7 +8,7 @@ import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.*;
 import backend.graduationprojectspring.repository.query.ElectronicDeviceQueryRepo;
-import backend.graduationprojectspring.repository.query.impl.EvaluationQueryRepository;
+import backend.graduationprojectspring.repository.query.impl.EvaluationQueryRepoImpl;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class ElectronicDeviceService {
     private final ElectronicDeviceQueryRepo deviceQueryRepo;
     private final CategoryRepo categoryRepo;
     private final ImageRepo imageRepo;
-    private final EvaluationQueryRepository evalQueryRepository;
+    private final EvaluationQueryRepoImpl evalQueryRepository;
 
     /**
      * 전자제품 데이터베이스에 저장

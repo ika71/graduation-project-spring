@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.repository.query.impl;
 
 import backend.graduationprojectspring.entity.Evaluation;
+import backend.graduationprojectspring.repository.query.EvaluationQueryRepo;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import static backend.graduationprojectspring.entity.QEvaluation.evaluation;
 
 @Repository
 @RequiredArgsConstructor
-public class EvaluationQueryRepository {
+public class EvaluationQueryRepoImpl implements EvaluationQueryRepo {
     private final JPAQueryFactory queryFactory;
 
     /**
@@ -24,6 +25,7 @@ public class EvaluationQueryRepository {
      * @param evalItemIdList EvaluationItem의 식별 id 값을 모아둔 List 검색 조건에 사용된다.
      * @return 조회된 Evaluation List
      */
+    @Override
     public List<Evaluation> findByMemberIdEvalItemIdList(String memberId, List<Long> evalItemIdList){
         return queryFactory
                 .selectFrom(evaluation)
@@ -39,6 +41,7 @@ public class EvaluationQueryRepository {
      * key는 EvaluationItem의 식별키이며 value는 그룹화된 Evaluation.score의 평균이다.
      * <b>Evaluation.score가 없다면 value는 null 된다.</b>
      */
+    @Override
     public Map<Long, Double> avgGroupByEvalItem(List<Long> evalItemIdList){
         List<Tuple> fetchList = queryFactory
                 .select(evaluation.evaluationItem.id,

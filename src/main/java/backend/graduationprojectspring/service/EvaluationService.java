@@ -3,8 +3,8 @@ package backend.graduationprojectspring.service;
 import backend.graduationprojectspring.entity.Evaluation;
 import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.repository.EvaluationItemRepo;
-import backend.graduationprojectspring.repository.query.impl.EvaluationQueryRepository;
 import backend.graduationprojectspring.repository.EvaluationRepo;
+import backend.graduationprojectspring.repository.query.EvaluationQueryRepo;
 import backend.graduationprojectspring.service.dto.EvalItemAndEvaluationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class EvaluationService {
     private final EvaluationRepo evaluationRepo;
-    private final EvaluationQueryRepository evalQueryRepository;
+    private final EvaluationQueryRepo evalQueryRepo;
     private final EvaluationItemRepo evalItemRepository;
 
     /**
@@ -32,7 +32,7 @@ public class EvaluationService {
         List<Long> evalItemIdList = new ArrayList<>(evalItemScoreMap.keySet());
 
         //이미 있는 항목들은 수정
-        List<Evaluation> findEvalList = evalQueryRepository
+        List<Evaluation> findEvalList = evalQueryRepo
                 .findByMemberIdEvalItemIdList(memberId, evalItemIdList);
         for (Evaluation evaluation : findEvalList) {
             Integer updateScore = evalItemScoreMap.get(evaluation.getEvaluationItem().getId());
@@ -66,7 +66,7 @@ public class EvaluationService {
                 .map(EvaluationItem::getId)
                 .toList();
 
-        List<Evaluation> evalList = evalQueryRepository
+        List<Evaluation> evalList = evalQueryRepo
                 .findByMemberIdEvalItemIdList(
                         memberId,
                         evalItemIdList);

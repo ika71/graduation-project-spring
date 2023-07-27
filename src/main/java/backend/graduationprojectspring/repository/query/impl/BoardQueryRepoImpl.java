@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.repository.query.impl;
 
 import backend.graduationprojectspring.entity.Board;
+import backend.graduationprojectspring.repository.query.BoardQueryRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ import static backend.graduationprojectspring.entity.QMember.member;
 
 @Repository
 @RequiredArgsConstructor
-public class BoardQueryRepository {
+public class BoardQueryRepoImpl implements BoardQueryRepo {
     private final JPAQueryFactory queryFactory;
 
     public List<Board> paging(int page, int size, Long deviceId){
