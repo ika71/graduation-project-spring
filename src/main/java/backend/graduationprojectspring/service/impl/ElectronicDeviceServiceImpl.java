@@ -107,7 +107,6 @@ public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
     /**
      * 전자제품 삭제
      * @param id 삭제할 전자제품의 id
-     * @throws IllegalArgumentException id에 해당하는 카테고리가 없으면 예외 반환
      */
     @Override
     public void delete(Long id){

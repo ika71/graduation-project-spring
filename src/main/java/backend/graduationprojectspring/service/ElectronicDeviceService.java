@@ -18,20 +18,20 @@ public interface ElectronicDeviceService {
     ElectronicDevice create(String name, Long categoryId);
 
     /**
-     * 전자제품 페이지 조회(전자제품 카테고리 정보 fetch join)<br>
-     * 전자제품 이름으로 정렬됨<br>
+     * 전자제품 페이지 조회<br>
+     * 카테고리와 join<br>
      * @param page 현재 보여줄 페이지 위치
-     * @param size 얼마만큼 보여줄지 크기
+     * @param size 한 페이지의 크기
      * @return 조회된 ElectronicDevice List 반환
      */
     List<ElectronicDevice> pagingJoinCategory(int page, int size);
 
     /**
-     * 전자제품 페이지 조회
-     * (전자제품 카테고리 fetch join, 평가항목 fetch left join)<br>
-     * 전자제품 생성일로 내림차순 정렬됨<br>
+     * 전자제품 페이지 조회<br>
+     * 카테고리와 join<br>
+     * 평가항목과 left join
      * @param page 현재 보여줄 페이지 위치
-     * @param size 얼마만큼 보여줄지 크기
+     * @param size 한 페이지의 크기
      * @return 조회된 ElectronicDevice List 반환
      */
     List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size);
@@ -55,7 +55,6 @@ public interface ElectronicDeviceService {
     /**
      * 전자제품 삭제
      * @param id 삭제할 전자제품의 id
-     * @throws IllegalArgumentException id에 해당하는 카테고리가 없으면 예외 반환
      */
     void delete(Long id);
 
@@ -69,7 +68,8 @@ public interface ElectronicDeviceService {
 
     /**
      * 전자제품 하나 조회<br>
-     * 해당 전자제품은 카테고리, 평가항목을 fetch join 함<br>
+     * 카테고리와 join<br>
+     * 평가항목과 left join<br>
      * 전자제품이 가지고 있는 평가항목을 group by하여 평점 score의 평균을 계산함<br>
      * 계산 결과는 Map으로 반환 key = 평가항목 Id, value = score의 평균
      * @param id 조회할 전자제품 Id
@@ -77,6 +77,4 @@ public interface ElectronicDeviceService {
      * @throws NotExistsException 해당하는 전자제품이 없으면 발생
      */
     DeviceDetailAndAvgDto findOneDetail(Long id);
-
-
 }

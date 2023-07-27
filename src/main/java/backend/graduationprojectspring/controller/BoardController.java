@@ -39,12 +39,14 @@ public class BoardController {
     }
     @PostMapping
     public ResponseEntity<?> boardCreate(
+            @RequestParam(name = "deviceId")Long deviceId,
             @RequestBody @Validated BoardCreateDto boardCreateDto){
         String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         boardService.create(
                 boardCreateDto.getTitle(),
                 boardCreateDto.getContent(),
+                deviceId,
                 Long.valueOf(memberId));
 
         return ResponseEntity

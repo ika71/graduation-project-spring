@@ -32,10 +32,11 @@ public class Board extends Base{
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    public Board(String title, String content, ElectronicDevice electronicDevice) {
+    public Board(String title, String content, ElectronicDevice electronicDevice, Member member) {
         this.title = title;
         this.content = content;
         this.electronicDevice = electronicDevice;
+        this.member = member;
     }
 
     public void update(String title, String content){

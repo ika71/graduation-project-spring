@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface CategoryService {
     /**
-     * 카테고리 데이터 베이스에 저장
-     * @param name 저장할 카테고리 이름
-     * @return 저장된 카테고리 반환
-     * @throws DuplicateException 같은 이름으로 존재하는 카테고리가 있을 경우
+     * 카테고리를 생성한다.
+     * @param name 생성할 카테고리 이름
+     * @return 생성된 카테고리 반환
+     * @throws DuplicateException 같은 이름으로 존재하는 카테고리가 있을 경우 발생
      */
     Category create(String name);
 
     /**
-     * 카테고리 페이지 조회(카테고리 이름으로 정렬됨)<br>
+     * 카테고리 페이지 조회<br>
      * @param page 현재 보여줄 페이지 위치
-     * @param size 얼마만큼 보여줄지 크기
+     * @param size 한 페이지의 크기
      * @return 조회된 category List 반환
      */
     List<Category> paging(int page, int size);
