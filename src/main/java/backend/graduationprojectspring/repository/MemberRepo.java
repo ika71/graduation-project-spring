@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepo extends JpaRepository<Member, Long> {
     /**
      * Email을 조건으로 사용해 Member를 찾는다
      * @param email 조건에 사용될 email 문자열

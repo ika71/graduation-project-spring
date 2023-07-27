@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.repository;
+package backend.graduationprojectspring.repository.query.impl;
 
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import com.querydsl.jpa.impl.JPAQueryFactory;

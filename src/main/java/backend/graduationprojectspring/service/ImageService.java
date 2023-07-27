@@ -3,7 +3,7 @@ package backend.graduationprojectspring.service;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.exception.ImageStoreFailException;
 import backend.graduationprojectspring.exception.NotExistsException;
-import backend.graduationprojectspring.repository.ImageRepository;
+import backend.graduationprojectspring.repository.ImageRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class ImageService {
     @Value("${file.dir}")
     private String fileDir; //저장될 폴더 위치
-    private final ImageRepository imageRepository;
+    private final ImageRepo imageRepo;
 
     /**
      * 파일 저장
@@ -38,7 +38,7 @@ public class ImageService {
         } catch (IOException e) {
             throw new ImageStoreFailException("이미지 저장에 실패 하였습니다.", e);
         }
-        return imageRepository.save(new Image(originName, storeName));
+        return imageRepo.save(new Image(originName, storeName));
     }
 
     /**
@@ -49,7 +49,7 @@ public class ImageService {
      */
     @Transactional
     public String fullPath(Long id){
-        Image image = imageRepository.findById(id)
+        Image image = imageRepo.findById(id)
                 .orElseThrow(() -> new NotExistsException("해당하는 이미지가 없습니다."));
 
         return storePath(image.getStoreName());

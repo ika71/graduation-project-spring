@@ -4,8 +4,8 @@ import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.exception.NotExistsException;
-import backend.graduationprojectspring.repository.ElectronicDeviceRepository;
-import backend.graduationprojectspring.repository.EvaluationItemRepository;
+import backend.graduationprojectspring.repository.ElectronicDeviceRepo;
+import backend.graduationprojectspring.repository.EvaluationItemRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +16,8 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class EvaluationItemService {
-    private final EvaluationItemRepository evalItemRepository;
-    private final ElectronicDeviceRepository deviceRepository;
+    private final EvaluationItemRepo evalItemRepository;
+    private final ElectronicDeviceRepo deviceRepository;
 
     /**
      * 평가항목 데이터베이스에 저장

@@ -1,6 +1,7 @@
-package backend.graduationprojectspring.repository;
+package backend.graduationprojectspring.repository.query.impl;
 
 import backend.graduationprojectspring.entity.Category;
+import backend.graduationprojectspring.repository.query.CategoryQueryRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,7 +12,7 @@ import static backend.graduationprojectspring.entity.QCategory.category;
 
 @Repository
 @RequiredArgsConstructor
-public class CategoryQueryRepository {
+public class CategoryQueryRepoImpl implements CategoryQueryRepo {
     private final JPAQueryFactory queryFactory;
 
     /**

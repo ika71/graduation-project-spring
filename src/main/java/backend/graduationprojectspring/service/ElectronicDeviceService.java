@@ -7,6 +7,8 @@ import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.*;
+import backend.graduationprojectspring.repository.query.impl.ElectronicDeviceQueryRepository;
+import backend.graduationprojectspring.repository.query.impl.EvaluationQueryRepository;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,10 @@ import java.util.Map;
 @Transactional
 @RequiredArgsConstructor
 public class ElectronicDeviceService {
-    private final ElectronicDeviceRepository deviceRepository;
+    private final ElectronicDeviceRepo deviceRepository;
     private final ElectronicDeviceQueryRepository deviceQueryRepository;
-    private final CategoryRepository categoryRepository;
-    private final ImageRepository imageRepository;
+    private final CategoryRepo categoryRepo;
+    private final ImageRepo imageRepo;
     private final EvaluationQueryRepository evalQueryRepository;
 
     /**
@@ -36,7 +38,7 @@ public class ElectronicDeviceService {
         if(deviceRepository.existsByName(name)){
             throw new DuplicateException("같은 이름으로 이미 존재하는 전자제품이 있습니다.");
         }
-        Category category = categoryRepository.findById(categoryId)
+        Category category = categoryRepo.findById(categoryId)
                 .orElseThrow(() -> new NotExistsException("해당 하는 카테고리가 없습니다."));
 
         return deviceRepository.save(new ElectronicDevice(name, category));
@@ -87,7 +89,7 @@ public class ElectronicDeviceService {
     public void update(Long deviceId, String updateDeviceName, Long updateCategoryId){
         ElectronicDevice findDevice = deviceRepository.findById(deviceId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
-        Category updateCategory = categoryRepository.findById(updateCategoryId)
+        Category updateCategory = categoryRepo.findById(updateCategoryId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 카테고리 입니다."));
         if(deviceRepository.existsByName(updateDeviceName)){
             throw new DuplicateException("해당 이름으로 이미 존재하는 전자제품이 있습니다.");
@@ -114,7 +116,7 @@ public class ElectronicDeviceService {
     public void setImage(Long deviceId, Long imageId){
         ElectronicDevice device = deviceRepository.findById(deviceId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
-        Image image = imageRepository.findById(imageId)
+        Image image = imageRepo.findById(imageId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 이미지 입니다."));
         device.setImage(image);
     }

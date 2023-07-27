@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.repository;
+package backend.graduationprojectspring.repository.query.impl;
 
 import backend.graduationprojectspring.entity.Evaluation;
 import com.querydsl.core.Tuple;

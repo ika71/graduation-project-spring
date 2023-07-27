@@ -2,9 +2,9 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Evaluation;
 import backend.graduationprojectspring.entity.EvaluationItem;
-import backend.graduationprojectspring.repository.EvaluationItemRepository;
-import backend.graduationprojectspring.repository.EvaluationQueryRepository;
-import backend.graduationprojectspring.repository.EvaluationRepository;
+import backend.graduationprojectspring.repository.EvaluationItemRepo;
+import backend.graduationprojectspring.repository.query.impl.EvaluationQueryRepository;
+import backend.graduationprojectspring.repository.EvaluationRepo;
 import backend.graduationprojectspring.service.dto.EvalItemAndEvaluationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,9 @@ import java.util.Map;
 @Transactional
 @RequiredArgsConstructor
 public class EvaluationService {
-    private final EvaluationRepository evaluationRepository;
+    private final EvaluationRepo evaluationRepo;
     private final EvaluationQueryRepository evalQueryRepository;
-    private final EvaluationItemRepository evalItemRepository;
+    private final EvaluationItemRepo evalItemRepository;
 
     /**
      * 이미 있는 평점은 수정
@@ -48,7 +48,7 @@ public class EvaluationService {
             EvaluationItem evalItem = evalItemRepository.getReferenceById(evalItemId);
             evaluationList.add(new Evaluation(evalScore, evalItem));
         }
-        evaluationRepository.saveAll(evaluationList);
+        evaluationRepo.saveAll(evaluationList);
     }
 
     /**
