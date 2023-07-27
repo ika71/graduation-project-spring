@@ -1,6 +1,6 @@
 package backend.graduationprojectspring.controller;
 
-import backend.graduationprojectspring.service.EvaluationService;
+import backend.graduationprojectspring.service.impl.EvaluationService;
 import backend.graduationprojectspring.service.dto.EvalItemAndEvaluationDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

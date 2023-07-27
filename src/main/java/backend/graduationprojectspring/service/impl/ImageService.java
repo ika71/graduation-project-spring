@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.service;
+package backend.graduationprojectspring.service.impl;
 
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.exception.ImageStoreFailException;

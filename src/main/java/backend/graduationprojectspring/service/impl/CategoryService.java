@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.service;
+package backend.graduationprojectspring.service.impl;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.exception.DuplicateException;

@@ -2,7 +2,7 @@ package backend.graduationprojectspring.controller.admin;
 
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Image;
-import backend.graduationprojectspring.service.ElectronicDeviceService;
+import backend.graduationprojectspring.service.impl.ElectronicDeviceService;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

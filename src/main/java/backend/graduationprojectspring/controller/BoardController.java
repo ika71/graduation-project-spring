@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Board;
-import backend.graduationprojectspring.service.BoardService;
+import backend.graduationprojectspring.service.impl.BoardServiceImpl;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/board")
 @RequiredArgsConstructor
 public class BoardController {
-    private final BoardService boardService;
+    private final BoardServiceImpl boardService;
 
     @GetMapping
     public BoardPagingResultDto boardPaging(

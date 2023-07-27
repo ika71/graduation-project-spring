@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Image;
-import backend.graduationprojectspring.service.ImageService;
+import backend.graduationprojectspring.service.impl.ImageService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.UrlResource;

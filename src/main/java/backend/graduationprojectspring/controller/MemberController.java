@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Member;
-import backend.graduationprojectspring.service.MemberService;
+import backend.graduationprojectspring.service.impl.MemberService;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

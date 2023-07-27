@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller.admin;
 
 import backend.graduationprojectspring.entity.Category;
-import backend.graduationprojectspring.service.CategoryService;
+import backend.graduationprojectspring.service.impl.CategoryService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
