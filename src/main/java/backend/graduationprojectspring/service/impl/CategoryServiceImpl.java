@@ -5,6 +5,7 @@ import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.CategoryRepo;
 import backend.graduationprojectspring.repository.query.CategoryQueryRepo;
+import backend.graduationprojectspring.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CategoryService {
+public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepo categoryRepo;
     private final CategoryQueryRepo categoryQueryRepo;
 

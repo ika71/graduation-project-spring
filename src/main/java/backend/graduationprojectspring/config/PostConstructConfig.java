@@ -3,7 +3,7 @@ package backend.graduationprojectspring.config;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Member;
-import backend.graduationprojectspring.service.impl.CategoryService;
+import backend.graduationprojectspring.service.impl.CategoryServiceImpl;
 import backend.graduationprojectspring.service.impl.ElectronicDeviceService;
 import backend.graduationprojectspring.service.impl.EvaluationItemService;
 import backend.graduationprojectspring.service.impl.MemberService;
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Profile;
 @RequiredArgsConstructor
 public class PostConstructConfig {
     private final MemberService memberService;
-    private final CategoryService categoryService;
+    private final CategoryServiceImpl categoryService;
     private final ElectronicDeviceService deviceService;
     private final EvaluationItemService itemService;
 

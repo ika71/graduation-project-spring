@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller.admin;
 
 import backend.graduationprojectspring.entity.Category;
-import backend.graduationprojectspring.service.impl.CategoryService;
+import backend.graduationprojectspring.service.impl.CategoryServiceImpl;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/admin/category")
 @RequiredArgsConstructor
 public class AdminCategoryController {
-    private final CategoryService categoryService;
+    private final CategoryServiceImpl categoryService;
 
     @GetMapping("/all")
     public categoryAllResultDto categoryAll(){
