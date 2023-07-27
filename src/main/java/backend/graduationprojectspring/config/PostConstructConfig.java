@@ -4,7 +4,7 @@ import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.service.impl.CategoryServiceImpl;
-import backend.graduationprojectspring.service.impl.ElectronicDeviceService;
+import backend.graduationprojectspring.service.impl.ElectronicDeviceServiceImpl;
 import backend.graduationprojectspring.service.impl.EvaluationItemService;
 import backend.graduationprojectspring.service.impl.MemberService;
 import jakarta.annotation.PostConstruct;
@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Profile;
 public class PostConstructConfig {
     private final MemberService memberService;
     private final CategoryServiceImpl categoryService;
-    private final ElectronicDeviceService deviceService;
+    private final ElectronicDeviceServiceImpl deviceService;
     private final EvaluationItemService itemService;
 
     @PostConstruct

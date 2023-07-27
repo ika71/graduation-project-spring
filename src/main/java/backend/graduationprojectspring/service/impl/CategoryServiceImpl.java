@@ -25,6 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 저장된 카테고리 반환
      * @throws DuplicateException 같은 이름으로 존재하는 카테고리가 있을 경우
      */
+    @Override
     public Category create(String name){
         if(categoryRepo.existsByName(name)){
             throw new DuplicateException("같은 이름으로 이미 존재하는 카테고리가 있습니다.");
@@ -39,6 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 category List 반환
      */
+    @Override
     @Transactional(readOnly = true)
     public List<Category> paging(int page, int size){
         return categoryQueryRepo.paging(page, size);
@@ -48,6 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
      * 카테고리 전체 개수 반환
      * @return 카테고리 전체 수
      */
+    @Override
     @Transactional(readOnly = true)
     public Long totalCount(){
         return categoryRepo.count();
@@ -60,6 +63,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @throws NotExistsException id에 해당하는 카테고리가 없으면 예외 발생
      * @throws DuplicateException 수정할 이름으로 존재하는 카테고리가 이미 존재하면 발생
      */
+    @Override
     public void updateName(Long id, String updateName){
         Category findCategory = categoryRepo.findById(id)
                 .orElseThrow(() -> new NotExistsException("해당하는 카테고리가 존재하지 않습니다."));
@@ -74,6 +78,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @param id 삭제할 카테고리의 id
      * @throws IllegalArgumentException id가 null이 들어올 경우 예외 반환
      */
+    @Override
     public void delete(Long id){
         categoryRepo.deleteById(id);
     }
@@ -82,6 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
      * 모든 카테고리 반환
      * @return 모든 카테고리 리스트 반환
      */
+    @Override
     @Transactional(readOnly = true)
     public List<Category> findAll(){
         return categoryRepo.findAllByOrderByName();

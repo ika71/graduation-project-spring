@@ -3,7 +3,7 @@ package backend.graduationprojectspring.controller;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.entity.Image;
-import backend.graduationprojectspring.service.impl.ElectronicDeviceService;
+import backend.graduationprojectspring.service.impl.ElectronicDeviceServiceImpl;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.Map;
 @RequestMapping("/device")
 @RequiredArgsConstructor
 public class ElectronicDeviceController {
-    private final ElectronicDeviceService deviceService;
+    private final ElectronicDeviceServiceImpl deviceService;
     @GetMapping
     public PagingResultDto electronicDevicePaging(
             @RequestParam(name = "page", defaultValue = "1")int page,

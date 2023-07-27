@@ -8,7 +8,8 @@ import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.*;
 import backend.graduationprojectspring.repository.query.ElectronicDeviceQueryRepo;
-import backend.graduationprojectspring.repository.query.impl.EvaluationQueryRepoImpl;
+import backend.graduationprojectspring.repository.query.EvaluationQueryRepo;
+import backend.graduationprojectspring.service.ElectronicDeviceService;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,12 @@ import java.util.Map;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ElectronicDeviceService {
+public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
     private final ElectronicDeviceRepo deviceRepo;
     private final ElectronicDeviceQueryRepo deviceQueryRepo;
     private final CategoryRepo categoryRepo;
     private final ImageRepo imageRepo;
-    private final EvaluationQueryRepoImpl evalQueryRepository;
+    private final EvaluationQueryRepo evalQueryRepo;
 
     /**
      * 전자제품 데이터베이스에 저장
@@ -34,6 +35,7 @@ public class ElectronicDeviceService {
      * @return 저장된 전자제품
      * @throws DuplicateException 같은 이름으로 존재하는 전자제품이 이미 있을 경우
      */
+    @Override
     public ElectronicDevice create(String name, Long categoryId){
         if(deviceRepo.existsByName(name)){
             throw new DuplicateException("같은 이름으로 이미 존재하는 전자제품이 있습니다.");
@@ -51,6 +53,7 @@ public class ElectronicDeviceService {
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 ElectronicDevice List 반환
      */
+    @Override
     @Transactional(readOnly = true)
     public List<ElectronicDevice> pagingJoinCategory(int page, int size){
         return deviceQueryRepo.pagingJoinCategory(page, size);
@@ -64,6 +67,7 @@ public class ElectronicDeviceService {
      * @param size 얼마만큼 보여줄지 크기
      * @return 조회된 ElectronicDevice List 반환
      */
+    @Override
     @Transactional(readOnly = true)
     public List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size){
         return deviceQueryRepo.pagingJoinCategoryAndEvalItem(page, size);
@@ -73,6 +77,7 @@ public class ElectronicDeviceService {
      * 전자제품 전체 개수 반환
      * @return 전자제품 전체 수
      */
+    @Override
     @Transactional(readOnly = true)
     public Long totalCount(){
         return deviceRepo.count();
@@ -86,6 +91,7 @@ public class ElectronicDeviceService {
      * @throws NotExistsException 전자제품이나 카테고리가 이미 없으면 발생
      * @throws DuplicateException 수정할 이름을 전자제품이 이미 존재하면 발생
      */
+    @Override
     public void update(Long deviceId, String updateDeviceName, Long updateCategoryId){
         ElectronicDevice findDevice = deviceRepo.findById(deviceId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
@@ -103,6 +109,7 @@ public class ElectronicDeviceService {
      * @param id 삭제할 전자제품의 id
      * @throws IllegalArgumentException id에 해당하는 카테고리가 없으면 예외 반환
      */
+    @Override
     public void delete(Long id){
         deviceRepo.deleteById(id);
     }
@@ -113,6 +120,7 @@ public class ElectronicDeviceService {
      * @param imageId 설정할 이미지의 id
      * @throws NotExistsException 해당하는 전자제품이나 이미지가 없으면 발생
      */
+    @Override
     public void setImage(Long deviceId, Long imageId){
         ElectronicDevice device = deviceRepo.findById(deviceId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
@@ -130,6 +138,7 @@ public class ElectronicDeviceService {
      * @return 조회된 결과는 Dto로 반환
      * @throws NotExistsException 해당하는 전자제품이 없으면 발생
      */
+    @Override
     @Transactional(readOnly = true)
     public DeviceDetailAndAvgDto findOneDetail(Long id){
         ElectronicDevice device = deviceQueryRepo
@@ -141,7 +150,7 @@ public class ElectronicDeviceService {
                 .map(EvaluationItem::getId)
                 .toList();
 
-        Map<Long, Double> avgGroupByEvalItemMap = evalQueryRepository.avgGroupByEvalItem(evalItemIdList);
+        Map<Long, Double> avgGroupByEvalItemMap = evalQueryRepo.avgGroupByEvalItem(evalItemIdList);
 
         return new DeviceDetailAndAvgDto(device, avgGroupByEvalItemMap);
     }

@@ -20,14 +20,17 @@ public class BoardServiceImpl implements BoardService {
     private final BoardQueryRepo boardQueryRepo;
     private final ElectronicDeviceRepo deviceRepository;
 
+    @Override
     @Transactional(readOnly = true)
     public List<Board> paging(int page, int size, Long deviceId){
         return boardQueryRepo.paging(page, size, deviceId);
     }
+    @Override
     @Transactional(readOnly = true)
     public Long totalCount(){
         return boardRepo.count();
     }
+    @Override
     public Board create(String title, String content, Long deviceId){
         ElectronicDevice device = deviceRepository.getReferenceById(deviceId);
         Board board = new Board(title, content, device);
