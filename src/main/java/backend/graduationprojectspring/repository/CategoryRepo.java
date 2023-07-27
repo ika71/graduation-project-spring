@@ -2,11 +2,10 @@ package backend.graduationprojectspring.repository;
 
 import backend.graduationprojectspring.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
 public interface CategoryRepo extends JpaRepository<Category, Long> {
     /**
      * 모든 Category를 이름으로 정렬하여 조회한다.
