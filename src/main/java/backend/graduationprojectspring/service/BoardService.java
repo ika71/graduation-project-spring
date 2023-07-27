@@ -8,4 +8,7 @@ public interface BoardService {
     List<Board> paging(int page, int size, Long deviceId);
     Long totalCount();
     Board create(String title, String content, Long deviceId);
+
+    void update(Long boardId, String title, String content);
+    void delete(Long boardId);
 }

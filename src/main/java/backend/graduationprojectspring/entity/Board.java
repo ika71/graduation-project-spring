@@ -34,4 +34,9 @@ public class Board extends Base{
         this.content = content;
         this.electronicDevice = electronicDevice;
     }
+
+    public void update(String title, String content){
+        this.title = title;
+        this.content = content;
+    }
 }
