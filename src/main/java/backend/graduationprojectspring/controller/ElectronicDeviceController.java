@@ -41,7 +41,7 @@ public class ElectronicDeviceController {
 
     @Getter
     @ToString
-    private static class PagingResultDto {
+    public static class PagingResultDto {
         private final List<DevicePagingDto> devicePagingDtoList;
         private final Long totalCount;
 
@@ -80,7 +80,7 @@ public class ElectronicDeviceController {
     }
     @Getter
     @ToString
-    private static class DeviceDetailDto{
+    public static class DeviceDetailDto{
         private final Long id;
         private final String name;
         private final String categoryName;

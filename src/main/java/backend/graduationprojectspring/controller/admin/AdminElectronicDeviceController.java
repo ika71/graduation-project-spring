@@ -68,7 +68,7 @@ public class AdminElectronicDeviceController {
     }
     @Getter
     @ToString
-    private static class DevicePagingResultDto{
+    public static class DevicePagingResultDto{
         private final List<DevicePagingDto> devicePagingDtoList;
         private final Long totalCount;
 
@@ -115,7 +115,7 @@ public class AdminElectronicDeviceController {
 
     @Getter
     @ToString
-    private static class DeviceCreateDto {
+    public static class DeviceCreateDto {
         @NotNull
         private Long categoryId;
         @NotBlank
@@ -131,7 +131,7 @@ public class AdminElectronicDeviceController {
 
     @Getter
     @ToString
-    private static class DeviceUpdateDto {
+    public static class DeviceUpdateDto {
         @NotBlank
         private String name;
         @NotNull

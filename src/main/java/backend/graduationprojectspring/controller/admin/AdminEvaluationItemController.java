@@ -56,7 +56,7 @@ public class AdminEvaluationItemController {
     }
     @Getter
     @ToString
-    private static class EvaluationItemViewResult{
+    public static class EvaluationItemViewResult{
         private final List<EvaluationItemViewDto> evaluationItemList;
 
         public EvaluationItemViewResult(List<EvaluationItem> evaluationItemList) {
@@ -81,7 +81,7 @@ public class AdminEvaluationItemController {
 
     @Getter
     @ToString
-    private static class EvaluationItemCreateDto {
+    public static class EvaluationItemCreateDto {
         @NotNull
         private Long electronicDeviceId;
         @NotBlank
@@ -90,7 +90,7 @@ public class AdminEvaluationItemController {
 
     @Getter
     @ToString
-    private static class EvaluationItemUpdateDto {
+    public static class EvaluationItemUpdateDto {
         @NotBlank
         private String name;
     }

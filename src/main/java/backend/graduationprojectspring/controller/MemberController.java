@@ -46,7 +46,7 @@ public class MemberController {
 
     @Getter
     @ToString
-    private static class MemberCreateDto {
+    public static class MemberCreateDto {
         @Email
         private String email;
         @NotEmpty
@@ -61,7 +61,7 @@ public class MemberController {
 
     @Getter
     @ToString
-    private static class MemberLoginDto {
+    public static class MemberLoginDto {
         @Email
         public String email;
         @NotEmpty

@@ -63,7 +63,7 @@ public class AdminCategoryController {
 
     @Getter
     @ToString
-    private static class categoryAllResultDto{
+    public static class categoryAllResultDto{
         List<CategoryAllDto> categoryAllDtoList;
 
         public categoryAllResultDto(List<Category> categoryAllList) {
@@ -88,7 +88,7 @@ public class AdminCategoryController {
 
     @Getter
     @ToString
-    private static class categoryPagingResultDto {
+    public static class categoryPagingResultDto {
         List<CategoryPagingDto> categoryPagingDtoList;
         Long totalCount;
 
@@ -116,14 +116,14 @@ public class AdminCategoryController {
 
     @Getter
     @ToString
-    private static class CategoryCreateDto {
+    public static class CategoryCreateDto {
         @NotBlank
         private String name;
     }
 
     @Getter
     @ToString
-    private static class CategoryUpdateDto {
+    public static class CategoryUpdateDto {
         @NotBlank
         private String name;
     }

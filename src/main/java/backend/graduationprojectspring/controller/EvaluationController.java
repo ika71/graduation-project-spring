@@ -47,7 +47,7 @@ public class EvaluationController {
 
     @Getter
     @ToString
-    private static class EvaluationPutResultDto {
+    public static class EvaluationPutResultDto {
         @NotNull
         private List<EvaluationPutDto> evaluationPutDtoList;
 
@@ -70,7 +70,7 @@ public class EvaluationController {
     }
     @Getter
     @ToString
-    private static class EvaluationFindResultDto{
+    public static class EvaluationFindResultDto{
         private final List<EvaluationFindDto> evaluationFindDtoList;
 
         public EvaluationFindResultDto(List<EvalItemAndEvaluationDto> evaluationFindDtoList) {

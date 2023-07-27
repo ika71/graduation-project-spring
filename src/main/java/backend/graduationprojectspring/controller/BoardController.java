@@ -31,7 +31,7 @@ public class BoardController {
 
     @Getter
     @ToString
-    private static class BoardPagingResultDto{
+    public static class BoardPagingResultDto{
         private final List<BoardPagingDto> boardPagingDtoList;
         private final Long totalCount;
 
