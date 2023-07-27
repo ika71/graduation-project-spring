@@ -56,10 +56,12 @@ public class BoardController {
     public ResponseEntity<?> boardUpdate(
             @PathVariable(name = "id")Long id,
             @RequestBody @Validated BoardUpdateDto boardUpdateDto){
+        String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         boardService.update(id,
                 boardUpdateDto.getTitle(),
-                boardUpdateDto.getContent());
+                boardUpdateDto.getContent(),
+                Long.valueOf(memberId));
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
@@ -68,7 +70,8 @@ public class BoardController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> boardDelete(
             @PathVariable(name = "id")Long id){
-        boardService.delete(id);
+        String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
+        boardService.delete(id, Long.valueOf(memberId));
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();

@@ -10,6 +10,6 @@ public interface BoardService {
     Board findOneDetail(Long id);
     Board create(String title, String content, Long deviceId);
 
-    void update(Long boardId, String title, String content);
-    void delete(Long boardId);
+    void update(Long boardId, String title, String content, Long requestMemberId);
+    void delete(Long boardId, Long requestMemberId);
 }

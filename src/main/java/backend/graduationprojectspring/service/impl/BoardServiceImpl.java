@@ -48,14 +48,20 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void update(Long boardId, String title, String content) {
+    public void update(Long boardId, String title, String content, Long requestMemberId) {
         Board findBoard = boardRepo.findById(boardId)
                 .orElseThrow(() -> new NotExistsException("해당하는 게시글이 존재하지 않습니다."));
-        findBoard.update(title, content);
+        if(findBoard.getMember().getId().equals(requestMemberId)){
+            findBoard.update(title, content);
+        }
     }
 
     @Override
-    public void delete(Long boardId) {
-        boardRepo.deleteById(boardId);
+    public void delete(Long boardId, Long requestMemberId) {
+        Board findBoard = boardRepo.findById(boardId)
+                .orElseThrow(() -> new NotExistsException("해당하는 게시글이 없습니다."));
+        if(findBoard.getMember().getId().equals(requestMemberId)){
+            boardRepo.deleteById(boardId);
+        }
     }
 }
