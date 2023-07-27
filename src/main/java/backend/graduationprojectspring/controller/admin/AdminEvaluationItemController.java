@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller.admin;
 
 import backend.graduationprojectspring.entity.EvaluationItem;
-import backend.graduationprojectspring.service.impl.EvaluationItemService;
+import backend.graduationprojectspring.service.impl.EvaluationItemServiceImpl;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/admin/evaluationitem")
 @RequiredArgsConstructor
 public class AdminEvaluationItemController {
-    private final EvaluationItemService itemService;
+    private final EvaluationItemServiceImpl itemService;
 
     @GetMapping
     public EvaluationItemViewResult evaluationItemView(

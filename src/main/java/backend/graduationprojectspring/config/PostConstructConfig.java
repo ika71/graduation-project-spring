@@ -5,7 +5,7 @@ import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.service.impl.CategoryServiceImpl;
 import backend.graduationprojectspring.service.impl.ElectronicDeviceServiceImpl;
-import backend.graduationprojectspring.service.impl.EvaluationItemService;
+import backend.graduationprojectspring.service.impl.EvaluationItemServiceImpl;
 import backend.graduationprojectspring.service.impl.MemberService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class PostConstructConfig {
     private final MemberService memberService;
     private final CategoryServiceImpl categoryService;
     private final ElectronicDeviceServiceImpl deviceService;
-    private final EvaluationItemService itemService;
+    private final EvaluationItemServiceImpl itemService;
 
     @PostConstruct
     public void post(){

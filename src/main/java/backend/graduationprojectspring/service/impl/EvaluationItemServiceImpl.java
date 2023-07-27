@@ -6,6 +6,7 @@ import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepo;
 import backend.graduationprojectspring.repository.EvaluationItemRepo;
+import backend.graduationprojectspring.service.EvaluationItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class EvaluationItemService {
+public class EvaluationItemServiceImpl implements EvaluationItemService {
     private final EvaluationItemRepo evalItemRepository;
     private final ElectronicDeviceRepo deviceRepository;
 
@@ -26,6 +27,7 @@ public class EvaluationItemService {
      * @return 저장된 평가항목
      * @throws DuplicateException 전자제품에 같은 이름으로 평가항목이 이미 있을 경우
      */
+    @Override
     public EvaluationItem create(String name, Long deviceId){
         if(evalItemRepository.existsByNameAndElectronicDeviceId(name, deviceId)){
             throw new DuplicateException("이미 존재하는 평가 항목입니다.");
@@ -41,6 +43,7 @@ public class EvaluationItemService {
      * @param electronicDeviceId 전자제품 Id
      * @return 전자제품 Id를 외래키로 갖는 모든 평가 항목 반환
      */
+    @Override
     @Transactional(readOnly = true)
     public List<EvaluationItem> findAllByElectronicDeviceId(Long electronicDeviceId){
         return evalItemRepository.findAllByElectronicDeviceIdOrderByName(electronicDeviceId);
@@ -53,6 +56,7 @@ public class EvaluationItemService {
      * @throws NotExistsException 해당하는 평가항목이 없으면 발생
      * @throws DuplicateException 이미 존재하는 이름의 평가항목으로 수정하려 할 때 발생
      */
+    @Override
     public void updateName(Long id, String name){
         EvaluationItem findEvaluationItem = evalItemRepository.findById(id)
                 .orElseThrow(() -> new NotExistsException("해당하는 평가 항목이 없습니다."));
@@ -67,6 +71,7 @@ public class EvaluationItemService {
      * @param id 삭제할 평가항목의 id
      * @throws IllegalArgumentException id가 null일 경우 발생
      */
+    @Override
     public void delete(Long id){
         evalItemRepository.deleteById(id);
     }
