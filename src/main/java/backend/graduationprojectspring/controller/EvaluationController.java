@@ -1,6 +1,6 @@
 package backend.graduationprojectspring.controller;
 
-import backend.graduationprojectspring.service.impl.EvaluationService;
+import backend.graduationprojectspring.service.impl.EvaluationServiceImpl;
 import backend.graduationprojectspring.service.dto.EvalItemAndEvaluationDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/evaluation")
 @RequiredArgsConstructor
 public class EvaluationController {
-    private final EvaluationService evaluationService;
+    private final EvaluationServiceImpl evaluationService;
 
     @GetMapping
     public EvaluationFindResultDto evaluationFind(@RequestParam("deviceId")Long deviceId){

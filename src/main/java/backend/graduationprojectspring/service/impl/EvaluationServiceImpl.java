@@ -5,6 +5,7 @@ import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.repository.EvaluationItemRepo;
 import backend.graduationprojectspring.repository.EvaluationRepo;
 import backend.graduationprojectspring.repository.query.EvaluationQueryRepo;
+import backend.graduationprojectspring.service.EvaluationService;
 import backend.graduationprojectspring.service.dto.EvalItemAndEvaluationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.Map;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class EvaluationService {
+public class EvaluationServiceImpl implements EvaluationService {
     private final EvaluationRepo evaluationRepo;
     private final EvaluationQueryRepo evalQueryRepo;
     private final EvaluationItemRepo evalItemRepository;
@@ -28,6 +29,7 @@ public class EvaluationService {
      * 새로운 평점은 저장
      * @param evalItemScoreMap 평가항목 id는 key, 평점 점수는 value
      */
+    @Override
     public void put(String memberId, Map<Long, Integer> evalItemScoreMap){
         List<Long> evalItemIdList = new ArrayList<>(evalItemScoreMap.keySet());
 
@@ -58,6 +60,7 @@ public class EvaluationService {
      * @param deviceId 전자제품 id
      * @return 평가항목 id, 평가항목 이름, 평가 점수
      */
+    @Override
     @Transactional(readOnly = true)
     public List<EvalItemAndEvaluationDto> findAllByMemberIdAndDeviceId(String memberId, Long deviceId){
         List<EvaluationItem> evalItemList = evalItemRepository.findAllByElectronicDeviceId(deviceId);
