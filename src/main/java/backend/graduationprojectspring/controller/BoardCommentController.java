@@ -2,9 +2,13 @@ package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.BoardComment;
 import backend.graduationprojectspring.service.BoardCommentService;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -28,7 +32,34 @@ public class BoardCommentController {
                 pagingCommentList,
                 totalCountByBoardId);
     }
+    @PostMapping
+    public ResponseEntity<?> boardCommentCreate(
+            @PathVariable(name = "id")Long boardId,
+            @RequestBody BoardCommentCreateDto boardCommentCreateDto){
+        String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
 
+        boardCommentService.create(
+                boardCommentCreateDto.getComment(),
+                boardId,
+                Long.valueOf(memberId));
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
+    }
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<?> boardCommentDelete(
+            @PathVariable(name = "id")Long boardId,
+            @PathVariable(name = "commentId")Long commentId){
+
+        String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        boardCommentService.delete(commentId, Long.valueOf(memberId));
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
     @Getter
     @ToString
     public static class BoardCommentPagingResultDto{
@@ -55,5 +86,11 @@ public class BoardCommentController {
             this.createdBy = boardComment.getMember().getName();
             this.createdTime = boardComment.getCreatedTime();
         }
+    }
+    @Getter
+    @ToString
+    public static class BoardCommentCreateDto{
+        @NotBlank
+        private String comment;
     }
 }
