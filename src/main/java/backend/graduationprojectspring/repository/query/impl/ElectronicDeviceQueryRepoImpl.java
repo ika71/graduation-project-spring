@@ -26,6 +26,7 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
      * @param size 한 페이지의 사이즈
      * @return 조회된 ElectronicDevice List를 반환
      */
+    @Override
     public List<ElectronicDevice> pagingJoinCategory(int page, int size){
         return queryFactory
                 .selectFrom(electronicDevice)
@@ -47,6 +48,7 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
      * @param size 한 페이지의 사이즈
      * @return 조회된 ElectronicDevice List 반환
      */
+    @Override
     public List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size){
         /*
         ElectronicDevice와 EvaluationItem은 일대다 관계이기에 페이징과 fetch join을
@@ -80,6 +82,7 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
      * 만약 조회된 객체가 없으면 null 반환
      * @throws com.querydsl.core.NonUniqueResultException 조회된 결과가 여러개일 경우
      */
+    @Override
     public Optional<ElectronicDevice> findOneJoinCategoryAndEvalItem(Long id){
         ElectronicDevice findDevice = queryFactory
                 .selectFrom(electronicDevice)

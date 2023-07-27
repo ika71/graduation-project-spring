@@ -22,6 +22,7 @@ public class CategoryQueryRepoImpl implements CategoryQueryRepo {
      * @param size 한 페이지의 사이즈
      * @return 조회된 CategoryList 반환
      */
+    @Override
     public List<Category> paging(int page, int size){
         return queryFactory
                 .selectFrom(category)
