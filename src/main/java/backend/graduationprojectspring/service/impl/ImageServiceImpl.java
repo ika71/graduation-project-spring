@@ -4,6 +4,7 @@ import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.exception.ImageStoreFailException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.ImageRepo;
+import backend.graduationprojectspring.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,18 +17,18 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ImageService {
+public class ImageServiceImpl implements ImageService {
     @Value("${file.dir}")
     private String fileDir; //저장될 폴더 위치
     private final ImageRepo imageRepo;
 
     /**
      * 파일 저장
-     *
      * @param multipartFile 저장할 파일
      * @return 데이터베이스에 저장한 Image
      * @throws ImageStoreFailException 파일 저장 과정 중에 IOException 발생 시 예외 던짐
      */
+    @Override
     @Transactional
     public Image storeFile(MultipartFile multipartFile) {
         String originName = multipartFile.getOriginalFilename();
@@ -47,6 +48,7 @@ public class ImageService {
      * @return 이미지의 저장 경로
      * @throws NotExistsException 해당하는 이미지가 없으면 발생
      */
+    @Override
     @Transactional
     public String fullPath(Long id){
         Image image = imageRepo.findById(id)
