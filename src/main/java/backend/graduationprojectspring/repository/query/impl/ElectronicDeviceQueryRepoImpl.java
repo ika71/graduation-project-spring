@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.repository.query.impl;
 
 import backend.graduationprojectspring.entity.ElectronicDevice;
+import backend.graduationprojectspring.repository.query.ElectronicDeviceQueryRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import static backend.graduationprojectspring.entity.QEvaluationItem.evaluationI
 
 @Repository
 @RequiredArgsConstructor
-public class ElectronicDeviceQueryRepository {
+public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo {
     private final JPAQueryFactory queryFactory;
 
     /**
@@ -25,7 +26,7 @@ public class ElectronicDeviceQueryRepository {
      * @param size 한 페이지의 사이즈
      * @return 조회된 ElectronicDevice List를 반환
      */
-    public List<ElectronicDevice> pagingFetchJoinCategory(int page, int size){
+    public List<ElectronicDevice> pagingJoinCategory(int page, int size){
         return queryFactory
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)
@@ -46,7 +47,7 @@ public class ElectronicDeviceQueryRepository {
      * @param size 한 페이지의 사이즈
      * @return 조회된 ElectronicDevice List 반환
      */
-    public List<ElectronicDevice> pagingFetchJoinCategoryAndEvalItem(int page, int size){
+    public List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size){
         /*
         ElectronicDevice와 EvaluationItem은 일대다 관계이기에 페이징과 fetch join을
         2개의 쿼리로 나눠서 처리한다.
@@ -79,7 +80,7 @@ public class ElectronicDeviceQueryRepository {
      * 만약 조회된 객체가 없으면 null 반환
      * @throws com.querydsl.core.NonUniqueResultException 조회된 결과가 여러개일 경우
      */
-    public Optional<ElectronicDevice> findOneFetchJoinCategoryAndEvalItem(Long id){
+    public Optional<ElectronicDevice> findOneJoinCategoryAndEvalItem(Long id){
         ElectronicDevice findDevice = queryFactory
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)

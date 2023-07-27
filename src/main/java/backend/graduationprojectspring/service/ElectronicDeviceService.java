@@ -7,7 +7,7 @@ import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.*;
-import backend.graduationprojectspring.repository.query.impl.ElectronicDeviceQueryRepository;
+import backend.graduationprojectspring.repository.query.ElectronicDeviceQueryRepo;
 import backend.graduationprojectspring.repository.query.impl.EvaluationQueryRepository;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +21,8 @@ import java.util.Map;
 @Transactional
 @RequiredArgsConstructor
 public class ElectronicDeviceService {
-    private final ElectronicDeviceRepo deviceRepository;
-    private final ElectronicDeviceQueryRepository deviceQueryRepository;
+    private final ElectronicDeviceRepo deviceRepo;
+    private final ElectronicDeviceQueryRepo deviceQueryRepo;
     private final CategoryRepo categoryRepo;
     private final ImageRepo imageRepo;
     private final EvaluationQueryRepository evalQueryRepository;
@@ -35,13 +35,13 @@ public class ElectronicDeviceService {
      * @throws DuplicateException 같은 이름으로 존재하는 전자제품이 이미 있을 경우
      */
     public ElectronicDevice create(String name, Long categoryId){
-        if(deviceRepository.existsByName(name)){
+        if(deviceRepo.existsByName(name)){
             throw new DuplicateException("같은 이름으로 이미 존재하는 전자제품이 있습니다.");
         }
         Category category = categoryRepo.findById(categoryId)
                 .orElseThrow(() -> new NotExistsException("해당 하는 카테고리가 없습니다."));
 
-        return deviceRepository.save(new ElectronicDevice(name, category));
+        return deviceRepo.save(new ElectronicDevice(name, category));
     }
 
     /**
@@ -53,7 +53,7 @@ public class ElectronicDeviceService {
      */
     @Transactional(readOnly = true)
     public List<ElectronicDevice> pagingJoinCategory(int page, int size){
-        return deviceQueryRepository.pagingFetchJoinCategory(page, size);
+        return deviceQueryRepo.pagingJoinCategory(page, size);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ElectronicDeviceService {
      */
     @Transactional(readOnly = true)
     public List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size){
-        return deviceQueryRepository.pagingFetchJoinCategoryAndEvalItem(page, size);
+        return deviceQueryRepo.pagingJoinCategoryAndEvalItem(page, size);
     }
 
     /**
@@ -75,7 +75,7 @@ public class ElectronicDeviceService {
      */
     @Transactional(readOnly = true)
     public Long totalCount(){
-        return deviceRepository.count();
+        return deviceRepo.count();
     }
 
     /**
@@ -87,11 +87,11 @@ public class ElectronicDeviceService {
      * @throws DuplicateException 수정할 이름을 전자제품이 이미 존재하면 발생
      */
     public void update(Long deviceId, String updateDeviceName, Long updateCategoryId){
-        ElectronicDevice findDevice = deviceRepository.findById(deviceId)
+        ElectronicDevice findDevice = deviceRepo.findById(deviceId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
         Category updateCategory = categoryRepo.findById(updateCategoryId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 카테고리 입니다."));
-        if(deviceRepository.existsByName(updateDeviceName)){
+        if(deviceRepo.existsByName(updateDeviceName)){
             throw new DuplicateException("해당 이름으로 이미 존재하는 전자제품이 있습니다.");
         }
 
@@ -104,7 +104,7 @@ public class ElectronicDeviceService {
      * @throws IllegalArgumentException id에 해당하는 카테고리가 없으면 예외 반환
      */
     public void delete(Long id){
-        deviceRepository.deleteById(id);
+        deviceRepo.deleteById(id);
     }
 
     /**
@@ -114,7 +114,7 @@ public class ElectronicDeviceService {
      * @throws NotExistsException 해당하는 전자제품이나 이미지가 없으면 발생
      */
     public void setImage(Long deviceId, Long imageId){
-        ElectronicDevice device = deviceRepository.findById(deviceId)
+        ElectronicDevice device = deviceRepo.findById(deviceId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
         Image image = imageRepo.findById(imageId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 이미지 입니다."));
@@ -132,8 +132,8 @@ public class ElectronicDeviceService {
      */
     @Transactional(readOnly = true)
     public DeviceDetailAndAvgDto findOneDetail(Long id){
-        ElectronicDevice device = deviceQueryRepository
-                .findOneFetchJoinCategoryAndEvalItem(id)
+        ElectronicDevice device = deviceQueryRepo
+                .findOneJoinCategoryAndEvalItem(id)
                 .orElseThrow(() -> new NotExistsException("해당하는 전자제품이 없습니다."));
 
         List<Long> evalItemIdList = device.getEvaluationItemList()
