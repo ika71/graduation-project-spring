@@ -31,6 +31,15 @@ public class BoardServiceImpl implements BoardService {
     public Long totalCount(){
         return boardRepo.count();
     }
+
+    @Override
+    public Board findOneDetail(Long id) {
+        Board findBoard = boardQueryRepo.findOneDetail(id)
+                .orElseThrow(() -> new NotExistsException("해당 게시글이 존재하지 않습니다."));
+        findBoard.increaseView();
+        return findBoard;
+    }
+
     @Override
     public Board create(String title, String content, Long deviceId){
         ElectronicDevice device = deviceRepo.getReferenceById(deviceId);

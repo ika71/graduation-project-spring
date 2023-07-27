@@ -23,6 +23,9 @@ public class Board extends Base{
     @Lob
     private String content;
 
+    @Column
+    private long view;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private ElectronicDevice electronicDevice;
 
@@ -38,5 +41,8 @@ public class Board extends Base{
     public void update(String title, String content){
         this.title = title;
         this.content = content;
+    }
+    public void increaseView(){
+        this.view = view + 1;
     }
 }
