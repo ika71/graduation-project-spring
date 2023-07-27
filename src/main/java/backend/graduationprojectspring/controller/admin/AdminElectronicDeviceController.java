@@ -83,7 +83,7 @@ public class AdminElectronicDeviceController {
 
     @Getter
     @ToString
-    private static class DevicePagingDto {
+    public static class DevicePagingDto {
         private final Long id;
         private final String name;
         private final CategoryDto categoryDto;
@@ -103,7 +103,7 @@ public class AdminElectronicDeviceController {
 
     @Getter
     @ToString
-    private static class CategoryDto {
+    public static class CategoryDto {
         private final Long id;
         private final String name;
 
@@ -124,7 +124,7 @@ public class AdminElectronicDeviceController {
 
     @Getter
     @ToString
-    private static class DeviceImageSetDto {
+    public static class DeviceImageSetDto {
         @NotNull
         private Long imageId;
     }

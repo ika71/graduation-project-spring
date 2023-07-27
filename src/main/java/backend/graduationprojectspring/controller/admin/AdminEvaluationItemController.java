@@ -69,7 +69,7 @@ public class AdminEvaluationItemController {
 
     @Getter
     @ToString
-    private static class EvaluationItemViewDto {
+    public static class EvaluationItemViewDto {
         private final Long id;
         private final String name;
 

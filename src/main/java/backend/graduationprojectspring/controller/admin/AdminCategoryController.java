@@ -76,7 +76,7 @@ public class AdminCategoryController {
 
     @Getter
     @ToString
-    private static class CategoryAllDto {
+    public static class CategoryAllDto {
         private final Long id;
         private final String name;
 
@@ -103,7 +103,7 @@ public class AdminCategoryController {
 
     @Getter
     @ToString
-    private static class CategoryPagingDto {
+    public static class CategoryPagingDto {
         private final Long id;
         private final String name;
 

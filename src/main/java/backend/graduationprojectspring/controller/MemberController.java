@@ -38,10 +38,13 @@ public class MemberController {
         return ResponseEntity.ok().body(new LoginSuccessDto(token));
     }
     @Getter
-    @RequiredArgsConstructor
     @ToString
-    private static class LoginSuccessDto{
+    public static class LoginSuccessDto{
         private final String token;
+
+        public LoginSuccessDto(String token) {
+            this.token = token;
+        }
     }
 
     @Getter

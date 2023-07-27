@@ -56,7 +56,7 @@ public class ElectronicDeviceController {
 
     @Getter
     @ToString
-    private static class DevicePagingDto {
+    public static class DevicePagingDto {
         private final Long id;
         private final String name;
         private final String categoryName;
@@ -106,7 +106,7 @@ public class ElectronicDeviceController {
     }
     @Getter
     @ToString
-    private static class EvalItemAvgDto{
+    public static class EvalItemAvgDto{
         private final Long id;
         private final String name;
         private final Double avg;

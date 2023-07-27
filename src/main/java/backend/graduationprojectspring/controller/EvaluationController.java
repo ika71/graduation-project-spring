@@ -62,7 +62,7 @@ public class EvaluationController {
     }
     @Getter
     @ToString
-    private static class EvaluationPutDto {
+    public static class EvaluationPutDto {
         @NotNull
         private Long evalItemId;
         @NotNull
@@ -82,7 +82,7 @@ public class EvaluationController {
     }
     @Getter
     @ToString
-    private static class EvaluationFindDto{
+    public static class EvaluationFindDto{
         private final Long evalItemId;
         private final String evalItemName;
         private final Integer evalScore;

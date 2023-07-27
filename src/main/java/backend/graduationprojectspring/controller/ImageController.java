@@ -47,7 +47,7 @@ public class ImageController {
                 .body(new ImageCreateResult(imageId, originName));
     }
     @Getter
-    private static class ImageCreateResult{
+    public static class ImageCreateResult{
         private final Long imageId;
         private final String originName;
 
