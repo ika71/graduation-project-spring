@@ -7,27 +7,34 @@ import java.util.Optional;
 
 public interface ElectronicDeviceQueryRepo {
     /**
-     * ElectronicDeivce를 Category와 조인한 후 페이징 한다.
-     * @param page 페이지 위치
-     * @param size 한 페이지의 크기
-     * @return 페이지 조회한 ElectronicDevice 리스트
+     * ElectronicDevice를 페이징 조회한다.<br>
+     * Category와 fetchJoin을 한다.<br>
+     * ElectronicDevice.name으로 정렬된다.
+     * @param page 현재 보여줄 페이지 위치
+     * @param size 한 페이지의 사이즈
+     * @return 조회된 ElectronicDevice List를 반환
      */
     List<ElectronicDevice> pagingJoinCategory(int page, int size);
 
     /**
-     * ElectronicDeivce를 Category, EvaluationItem과 조인한 후 페이징 한다.<br>
-     * 페이징은 ElectronicDeivce를 기준으로 한다. 일대다 조인으로 인한 뻥튀기 데이터는 고려하지 않는다.
-     * @param page 페이지 위치
-     * @param size 한 페이지의 크기
-     * @return 페이지 조회한 ElectronicDevice 리스트
+     * ElectronicDevice를 페이지 조회한다.<br>
+     * Category, EvaluationItem과 fetchjoin한다.<br>
+     * EvaluationItem과는 left join을 하기 때문에 join 되는 평가항목이 없어도<br>
+     * ElectronicDevice 객체는 존재하며 EvaluationItem은 0개 사이즈의 ArrayList로 가지고 있다.<br>
+     * ElectronicDevice.createdTime으로 내림차순 정렬된다
+     * @param page 현재 보여줄 페이지 위치
+     * @param size 한 페이지의 사이즈
+     * @return 조회된 ElectronicDevice List 반환
      */
     List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size);
 
     /**
-     * ElectronicDevice를 하나 조회한다.<br>
-     * ElectronicDevice는 Category와 EvaluationItem과 조인한다.
-     * @param id 조회할 ElectronicDevice의 id 값
-     * @return 조회한 ElectronicDevice를 Optional로 반환한다.
+     * ElectronicDevice를 1개 조회한다.
+     * Category, EvaluationItem을 fetch join 한다.
+     * @param id 조회할 ElectronicDevice의 id
+     * @return 조회된 ElectronicDevice 객체<br>
+     * 만약 조회된 객체가 없으면 null 반환
+     * @throws com.querydsl.core.NonUniqueResultException 조회된 결과가 여러개일 경우
      */
     Optional<ElectronicDevice> findOneJoinCategoryAndEvalItem(Long id);
 }

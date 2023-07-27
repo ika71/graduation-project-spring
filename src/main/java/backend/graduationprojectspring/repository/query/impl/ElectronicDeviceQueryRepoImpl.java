@@ -76,7 +76,6 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
     /**
      * ElectronicDevice를 1개 조회한다.
      * Category, EvaluationItem을 fetch join 한다.
-     *
      * @param id 조회할 ElectronicDevice의 id
      * @return 조회된 ElectronicDevice 객체<br>
      * 만약 조회된 객체가 없으면 null 반환
