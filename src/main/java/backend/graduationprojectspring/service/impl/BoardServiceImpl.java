@@ -28,8 +28,8 @@ public class BoardServiceImpl implements BoardService {
     }
     @Override
     @Transactional(readOnly = true)
-    public Long totalCount(){
-        return boardRepo.count();
+    public Long totalCountByDeviceId(Long deviceId){
+        return boardQueryRepo.totalCountByDeviceId(deviceId);
     }
 
     @Override

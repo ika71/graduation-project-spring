@@ -27,7 +27,7 @@ public class BoardController {
             @RequestParam(name = "size", defaultValue = "10")int size,
             @RequestParam(name = "deviceId")Long deviceId){
         List<Board> pagingBoardList = boardService.paging(page, size, deviceId);
-        Long totalCount = boardService.totalCount();
+        Long totalCount = boardService.totalCountByDeviceId(deviceId);
 
         return new BoardPagingResultDto(pagingBoardList, totalCount);
     }

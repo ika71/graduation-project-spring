@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface BoardQueryRepo {
     List<Board> paging(int page, int size, Long deviceId);
+    Long totalCountByDeviceId(Long deviceId);
     Optional<Board> findOneDetail(Long boardId);
 }
