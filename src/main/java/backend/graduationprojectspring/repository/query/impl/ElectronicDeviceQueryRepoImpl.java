@@ -59,7 +59,7 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)
                 .fetchJoin()
-                .orderBy(electronicDevice.createdTime.desc())
+                .orderBy(electronicDevice.id.desc())
                 .offset((long) (page - 1) * size)
                 .limit(size)
                 .fetch();
@@ -69,7 +69,7 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
                 .leftJoin(electronicDevice.evaluationItemList, evaluationItem)
                 .fetchJoin()
                 .where(electronicDevice.in(deviceList))
-                .orderBy(electronicDevice.createdTime.desc())
+                .orderBy(electronicDevice.id.desc())
                 .fetch();
     }
 
