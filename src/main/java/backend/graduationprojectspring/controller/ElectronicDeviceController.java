@@ -42,11 +42,11 @@ public class ElectronicDeviceController {
     @Getter
     @ToString
     public static class PagingResultDto {
-        private final List<DevicePagingDto> devicePagingDtoList;
+        private final List<DevicePagingDto> deviceList;
         private final Long totalCount;
 
         public PagingResultDto(List<ElectronicDevice> deviceList, Long totalCount) {
-            this.devicePagingDtoList = deviceList
+            this.deviceList = deviceList
                     .stream()
                     .map(DevicePagingDto::new)
                     .toList();
@@ -86,7 +86,7 @@ public class ElectronicDeviceController {
         private final String categoryName;
         private final Long imageId;
         private final LocalDateTime createdTime;
-        private final List<EvalItemAvgDto> evalItemAvgDtoList;
+        private final List<EvalItemAvgDto> evalItemAvgList;
 
         public DeviceDetailDto(ElectronicDevice device, Map<Long, Double> avgGroupByEvalItemMap) {
             this.id = device.getId();
@@ -96,7 +96,7 @@ public class ElectronicDeviceController {
                     .map(Image::getId)
                     .orElse(null);
             this.createdTime = device.getCreatedTime();
-            this.evalItemAvgDtoList = device.getEvaluationItemList()
+            this.evalItemAvgList = device.getEvaluationItemList()
                     .stream()
                     .map((evalItem)-> new EvalItemAvgDto(
                             evalItem,
