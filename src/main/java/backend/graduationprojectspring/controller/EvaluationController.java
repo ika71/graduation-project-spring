@@ -49,10 +49,10 @@ public class EvaluationController {
     @ToString
     public static class EvaluationPutResultDto {
         @NotNull
-        private List<EvaluationPutDto> evaluationPutDtoList;
+        private List<EvaluationPutDto> evaluationPutList;
 
         public Map<Long, Integer> toEvalScoreMap(){
-            return evaluationPutDtoList
+            return evaluationPutList
                     .stream()
                     .collect(Collectors.toMap(
                             EvaluationPutDto::getEvalItemId,
@@ -71,10 +71,10 @@ public class EvaluationController {
     @Getter
     @ToString
     public static class EvaluationFindResultDto{
-        private final List<EvaluationFindDto> evaluationFindDtoList;
+        private final List<EvaluationFindDto> evaluationFindList;
 
-        public EvaluationFindResultDto(List<EvalItemAndEvaluationDto> evaluationFindDtoList) {
-            this.evaluationFindDtoList = evaluationFindDtoList
+        public EvaluationFindResultDto(List<EvalItemAndEvaluationDto> evaluationFindList) {
+            this.evaluationFindList = evaluationFindList
                     .stream()
                     .map(EvaluationFindDto::new)
                     .toList();
