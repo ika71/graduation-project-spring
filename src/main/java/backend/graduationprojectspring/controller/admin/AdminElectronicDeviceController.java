@@ -69,11 +69,11 @@ public class AdminElectronicDeviceController {
     @Getter
     @ToString
     public static class DevicePagingResultDto{
-        private final List<DevicePagingDto> devicePagingDtoList;
+        private final List<DevicePagingDto> deviceList;
         private final Long totalCount;
 
         public DevicePagingResultDto(List<ElectronicDevice> devicePagingList, Long totalCount) {
-            this.devicePagingDtoList = devicePagingList
+            this.deviceList = devicePagingList
                     .stream()
                     .map(DevicePagingDto::new)
                     .toList();
@@ -86,13 +86,13 @@ public class AdminElectronicDeviceController {
     public static class DevicePagingDto {
         private final Long id;
         private final String name;
-        private final CategoryDto categoryDto;
+        private final CategoryDto category;
         private final Long imageId;
 
         public DevicePagingDto(ElectronicDevice device) {
             this.id = device.getId();
             this.name = device.getName();
-            this.categoryDto = new CategoryDto(
+            this.category = new CategoryDto(
                     device.getCategory().getId(),
                     device.getCategory().getName());
             this.imageId = device.getImage()
