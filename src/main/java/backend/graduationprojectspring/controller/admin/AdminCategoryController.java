@@ -64,10 +64,10 @@ public class AdminCategoryController {
     @Getter
     @ToString
     public static class categoryAllResultDto{
-        List<CategoryAllDto> categoryAllDtoList;
+        List<CategoryAllDto> categoryList;
 
         public categoryAllResultDto(List<Category> categoryAllList) {
-            this.categoryAllDtoList = categoryAllList
+            this.categoryList = categoryAllList
                     .stream()
                     .map(CategoryAllDto::new)
                     .toList();
@@ -89,11 +89,11 @@ public class AdminCategoryController {
     @Getter
     @ToString
     public static class categoryPagingResultDto {
-        List<CategoryPagingDto> categoryPagingDtoList;
+        List<CategoryPagingDto> categoryList;
         Long totalCount;
 
         public categoryPagingResultDto(List<Category> categoryPagingList, Long totalCount) {
-            this.categoryPagingDtoList = categoryPagingList
+            this.categoryList = categoryPagingList
                     .stream()
                     .map(CategoryPagingDto::new)
                     .toList();
