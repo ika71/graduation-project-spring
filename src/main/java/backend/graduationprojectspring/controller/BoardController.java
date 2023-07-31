@@ -82,11 +82,11 @@ public class BoardController {
     @Getter
     @ToString
     public static class BoardPagingResultDto{
-        private final List<BoardPagingDto> boardPagingDtoList;
+        private final List<BoardPagingDto> boardList;
         private final Long totalCount;
 
         public BoardPagingResultDto(List<Board> boardList, Long totalCount) {
-            this.boardPagingDtoList = boardList
+            this.boardList = boardList
                     .stream()
                     .map(BoardPagingDto::new)
                     .toList();
@@ -99,14 +99,12 @@ public class BoardController {
     public static class BoardPagingDto{
         private final Long id;
         private final String title;
-        private final String content;
         private final String nickName;
         private final String createdTime;
 
         public BoardPagingDto(Board board) {
             this.id = board.getId();
             this.title = board.getTitle();
-            this.content = board.getContent();
             this.nickName = board.getMember().getName();
             this.createdTime = board.getCreatedTime().toString();
         }

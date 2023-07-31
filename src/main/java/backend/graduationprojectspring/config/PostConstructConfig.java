@@ -3,6 +3,7 @@ package backend.graduationprojectspring.config;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Member;
+import backend.graduationprojectspring.service.BoardService;
 import backend.graduationprojectspring.service.impl.CategoryServiceImpl;
 import backend.graduationprojectspring.service.impl.ElectronicDeviceServiceImpl;
 import backend.graduationprojectspring.service.impl.EvaluationItemServiceImpl;
@@ -20,6 +21,7 @@ public class PostConstructConfig {
     private final CategoryServiceImpl categoryService;
     private final ElectronicDeviceServiceImpl deviceService;
     private final EvaluationItemServiceImpl itemService;
+    private final BoardService boardService;
 
     @PostConstruct
     public void post(){
@@ -47,5 +49,8 @@ public class PostConstructConfig {
         itemService.create("가격", device1.getId());
         itemService.create("디스플레이", device1.getId());
         itemService.create("성능", device1.getId());
+
+        //테스트용 게시글
+        boardService.create("test", "test", 1L, 1L);
     }
 }
