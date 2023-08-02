@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -108,7 +108,8 @@ public class BoardController {
             this.title = board.getTitle();
             this.nickName = board.getMember().getName();
             this.view = board.getView();
-            this.createdTime = board.getCreatedTime().toString();
+            this.createdTime = board.getCreatedTime()
+                    .format(DateTimeFormatter.ofPattern("MM-dd / HH:mm"));
         }
     }
     @Getter
@@ -118,14 +119,15 @@ public class BoardController {
         private final String title;
         private final String content;
         private final String createdBy;
-        private final LocalDateTime createdTime;
+        private final String createdTime;
 
         public BoardDetailDto(Board board) {
             this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
             this.createdBy = board.getMember().getName();
-            this.createdTime = board.getCreatedTime();
+            this.createdTime = board.getCreatedTime()
+                    .format(DateTimeFormatter.ofPattern("MM-dd / HH:mm"));
         }
     }
     @Getter

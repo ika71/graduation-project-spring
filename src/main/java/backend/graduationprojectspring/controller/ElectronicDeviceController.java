@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +61,7 @@ public class ElectronicDeviceController {
         private final String name;
         private final String categoryName;
         private final Long imageId;
-        private final LocalDateTime createdTime;
+        private final String createdTime;
         private final List<String> evaluationItemList;
 
         public DevicePagingDto(ElectronicDevice device) {
@@ -71,7 +71,8 @@ public class ElectronicDeviceController {
             this.imageId = device.getImage()
                     .map(Image::getId)
                     .orElse(null);
-            this.createdTime = device.getCreatedTime();
+            this.createdTime = device.getCreatedTime()
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM"));
             this.evaluationItemList = device.getEvaluationItemList()
                     .stream()
                     .map(EvaluationItem::getName)
@@ -85,7 +86,7 @@ public class ElectronicDeviceController {
         private final String name;
         private final String categoryName;
         private final Long imageId;
-        private final LocalDateTime createdTime;
+        private final String createdTime;
         private final List<EvalItemAvgDto> evalItemAvgList;
 
         public DeviceDetailDto(ElectronicDevice device, Map<Long, Double> avgGroupByEvalItemMap) {
@@ -95,7 +96,8 @@ public class ElectronicDeviceController {
             this.imageId = device.getImage()
                     .map(Image::getId)
                     .orElse(null);
-            this.createdTime = device.getCreatedTime();
+            this.createdTime = device.getCreatedTime()
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             this.evalItemAvgList = device.getEvaluationItemList()
                     .stream()
                     .map((evalItem)-> new EvalItemAvgDto(
