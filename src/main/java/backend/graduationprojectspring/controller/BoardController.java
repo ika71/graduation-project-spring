@@ -100,12 +100,14 @@ public class BoardController {
         private final Long id;
         private final String title;
         private final String nickName;
+        private final long view;
         private final String createdTime;
 
         public BoardPagingDto(Board board) {
             this.id = board.getId();
             this.title = board.getTitle();
             this.nickName = board.getMember().getName();
+            this.view = board.getView();
             this.createdTime = board.getCreatedTime().toString();
         }
     }
