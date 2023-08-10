@@ -3,6 +3,7 @@ package backend.graduationprojectspring.service.impl;
 import backend.graduationprojectspring.config.security.TokenProvider;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.exception.DuplicateException;
+import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.MemberRepo;
 import backend.graduationprojectspring.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,16 @@ public class MemberServiceImpl implements MemberService {
             return tokenProvider.createToken(findMember);
         }
         return null;
+    }
+
+    /**
+     * id에 해당하는 member를 반환
+     * @param id
+     * @return
+     */
+    @Override
+    public Member findById(Long id) {
+        return memberRepo.findById(id)
+                .orElseThrow(() -> new NotExistsException("해당 하는 유저가 없습니다."));
     }
 }

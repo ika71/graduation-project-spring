@@ -19,4 +19,11 @@ public interface MemberService {
      * @return JWT or null
      */
     String getToken(String email, String password);
+
+    /**
+     * id에 해당 하는 member를 반환
+     * @param id
+     * @return
+     */
+    Member findById(Long id);
 }
