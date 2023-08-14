@@ -29,7 +29,7 @@ public class SecurityConfig {
 
         //먼저 지정된 규칙이 우선 적용
         http.authorizeHttpRequests()
-                .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.toString())
+                .requestMatchers("/admin/**").hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.GET, "/member/**").authenticated()
                 .requestMatchers("/member/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/evaluation").authenticated()
