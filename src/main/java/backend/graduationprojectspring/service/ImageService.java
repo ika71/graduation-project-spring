@@ -12,7 +12,7 @@ public interface ImageService {
      * @return 데이터베이스에 저장한 Image
      * @throws ImageStoreFailException 파일 저장 과정 중에 IOException 발생 시 예외 던짐
      */
-    Image storeFile(MultipartFile multipartFile);
+    Image storeFile(MultipartFile multipartFile) throws ImageStoreFailException;
 
     /**
      * id에 해당하는 이미지의 저장 경로를 반환
@@ -20,5 +20,5 @@ public interface ImageService {
      * @return 이미지의 저장 경로
      * @throws NotExistsException 해당하는 이미지가 없으면 발생
      */
-    String fullPath(Long id);
+    String fullPath(Long id) throws NotExistsException;
 }

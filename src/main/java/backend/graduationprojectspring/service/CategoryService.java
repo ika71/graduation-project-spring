@@ -13,7 +13,7 @@ public interface CategoryService {
      * @return 생성된 카테고리 반환
      * @throws DuplicateException 같은 이름으로 존재하는 카테고리가 있을 경우 발생
      */
-    Category create(String name);
+    Category create(String name) throws DuplicateException;
 
     /**
      * 카테고리 페이지 조회<br>
@@ -36,14 +36,14 @@ public interface CategoryService {
      * @throws NotExistsException id에 해당하는 카테고리가 없으면 예외 발생
      * @throws DuplicateException 수정할 이름으로 존재하는 카테고리가 이미 존재하면 발생
      */
-    void updateName(Long id, String updateName);
+    void updateName(Long id, String updateName) throws NotExistsException, DuplicateException;
 
     /**
      * 카테고리 삭제
      * @param id 삭제할 카테고리의 id
      * @throws IllegalArgumentException id가 null이 들어올 경우 예외 반환
      */
-    void delete(Long id);
+    void delete(Long id) throws IllegalArgumentException;
 
     /**
      * 모든 카테고리 반환

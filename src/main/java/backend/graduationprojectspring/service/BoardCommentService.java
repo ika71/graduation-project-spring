@@ -36,5 +36,5 @@ public interface BoardCommentService {
      * @param requestMemberId 삭제를 요청하는 Member의 id
      * @throws NotExistsException 대상이 되는 댓글이 존재하지 않는다면 발생
      */
-    void delete(Long id, Long requestMemberId);
+    void delete(Long id, Long requestMemberId) throws NotExistsException;
 }

@@ -14,7 +14,7 @@ public interface EvaluationItemService {
      * @return 저장된 평가항목
      * @throws DuplicateException 전자제품에 같은 이름으로 평가항목이 이미 있을 경우
      */
-    EvaluationItem create(String name, Long deviceId);
+    EvaluationItem create(String name, Long deviceId) throws DuplicateException;
 
     /**
      * 전자제품 Id를 외래키로 갖는 모든 평가 항목 반환<br>
@@ -30,12 +30,12 @@ public interface EvaluationItemService {
      * @throws NotExistsException 해당하는 평가항목이 없으면 발생
      * @throws DuplicateException 이미 존재하는 이름의 평가항목으로 수정하려 할 때 발생
      */
-    void updateName(Long id, String name);
+    void updateName(Long id, String name) throws NotExistsException, DuplicateException;
 
     /**
      * 평가항목 삭제
      * @param id 삭제할 평가항목의 id
      * @throws IllegalArgumentException id가 null일 경우 발생
      */
-    void delete(Long id);
+    void delete(Long id) throws IllegalArgumentException;
 }

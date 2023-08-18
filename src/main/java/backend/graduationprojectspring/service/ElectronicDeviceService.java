@@ -15,7 +15,7 @@ public interface ElectronicDeviceService {
      * @return 저장된 전자제품
      * @throws DuplicateException 같은 이름으로 존재하는 전자제품이 이미 있을 경우
      */
-    ElectronicDevice create(String name, Long categoryId);
+    ElectronicDevice create(String name, Long categoryId) throws DuplicateException;
 
     /**
      * 전자제품 페이지 조회<br>
@@ -50,7 +50,7 @@ public interface ElectronicDeviceService {
      * @throws NotExistsException 전자제품이나 카테고리가 이미 없으면 발생
      * @throws DuplicateException 수정할 이름을 전자제품이 이미 존재하면 발생
      */
-    void update(Long deviceId, String updateDeviceName, Long updateCategoryId);
+    void update(Long deviceId, String updateDeviceName, Long updateCategoryId) throws NotExistsException, DuplicateException;
 
     /**
      * 전자제품 삭제
@@ -64,7 +64,7 @@ public interface ElectronicDeviceService {
      * @param imageId 설정할 이미지의 id
      * @throws NotExistsException 해당하는 전자제품이나 이미지가 없으면 발생
      */
-    void setImage(Long deviceId, Long imageId);
+    void setImage(Long deviceId, Long imageId) throws NotExistsException;
 
     /**
      * 전자제품 하나 조회<br>
@@ -76,5 +76,5 @@ public interface ElectronicDeviceService {
      * @return 조회된 결과는 Dto로 반환
      * @throws NotExistsException 해당하는 전자제품이 없으면 발생
      */
-    DeviceDetailAndAvgDto findOneDetail(Long id);
+    DeviceDetailAndAvgDto findOneDetail(Long id) throws NotExistsException;
 }

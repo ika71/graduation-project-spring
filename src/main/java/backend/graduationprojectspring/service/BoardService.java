@@ -46,7 +46,7 @@ public interface BoardService {
      * @param requestMemberId 수정을 요청하는 member의 id
      * @throws NotExistsException 수정할 게시글이 존재하지 않으면 발생
      */
-    void update(Long boardId, String title, String content, Long requestMemberId);
+    void update(Long boardId, String title, String content, Long requestMemberId) throws NotExistsException;
 
     /**
      * 게시글을 삭제한다.
@@ -54,5 +54,5 @@ public interface BoardService {
      * @param requestMemberId 삭제를 요청하는 member의 id
      * @throws NotExistsException 삭제할 게시글이 존재하지 않으면 발생
      */
-    void delete(Long boardId, Long requestMemberId);
+    void delete(Long boardId, Long requestMemberId) throws NotExistsException;
 }
