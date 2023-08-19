@@ -9,6 +9,7 @@ import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.format.DateTimeFormatter;
@@ -35,7 +36,7 @@ public class BoardCommentController {
     @PostMapping
     public ResponseEntity<?> boardCommentCreate(
             @PathVariable(name = "id")Long boardId,
-            @RequestBody BoardCommentCreateDto boardCommentCreateDto){
+            @RequestBody @Validated  BoardCommentCreateDto boardCommentCreateDto){
         String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         boardCommentService.create(
@@ -77,11 +78,13 @@ public class BoardCommentController {
     @Getter
     @ToString
     public static class BoardCommentPagingDto{
+        private final Long id;
         private final String comment;
         private final String createdBy;
         private final String createdTime;
 
         public BoardCommentPagingDto(BoardComment boardComment) {
+            this.id = boardComment.getId();
             this.comment = boardComment.getComment();
             this.createdBy = boardComment.getMember().getName();
             this.createdTime = boardComment.getCreatedTime()
