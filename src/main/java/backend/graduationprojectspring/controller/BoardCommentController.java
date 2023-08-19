@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -63,11 +63,11 @@ public class BoardCommentController {
     @Getter
     @ToString
     public static class BoardCommentPagingResultDto{
-        private final List<BoardCommentPagingDto> boardCommentPagingDtoList;
+        private final List<BoardCommentPagingDto> boardCommentList;
         private final Long totalCount;
 
         public BoardCommentPagingResultDto(List<BoardComment> boardCommentList, Long totalCount) {
-            this.boardCommentPagingDtoList = boardCommentList
+            this.boardCommentList = boardCommentList
                     .stream()
                     .map(BoardCommentPagingDto::new)
                     .toList();
@@ -79,12 +79,13 @@ public class BoardCommentController {
     public static class BoardCommentPagingDto{
         private final String comment;
         private final String createdBy;
-        private final LocalDateTime createdTime;
+        private final String createdTime;
 
         public BoardCommentPagingDto(BoardComment boardComment) {
             this.comment = boardComment.getComment();
             this.createdBy = boardComment.getMember().getName();
-            this.createdTime = boardComment.getCreatedTime();
+            this.createdTime = boardComment.getCreatedTime()
+                    .format(DateTimeFormatter.ofPattern("MM-dd / HH:mm"));
         }
     }
     @Getter
