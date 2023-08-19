@@ -49,8 +49,9 @@ public class BoardCommentServiceImpl implements BoardCommentService {
     public void delete(Long id, Long requestMemberId) {
         BoardComment findComment = boardCommentRepo.findById(id)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 댓글 입니다."));
+
         if(findComment.getMember().getId().equals(requestMemberId)){
-            boardRepo.deleteById(id);
+            boardCommentRepo.deleteById(id);
         }
     }
 }
