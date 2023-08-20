@@ -23,7 +23,8 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors()//WebConfig에서 이미 설정했으므로 기본 cors로 설정
                 .and()
-                .csrf().disable()//쿠키가 아닌 로컬 스토리지를 사용하므로 csrf 비활성화
+                .csrf().disable()
+                .formLogin().disable()
                 .httpBasic().disable()//token을 사용하므로 basic 인증 비활성화
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);//jwt를 사용하므로 세션 비활성화
