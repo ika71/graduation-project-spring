@@ -1,6 +1,6 @@
 package backend.graduationprojectspring.service.impl;
 
-import backend.graduationprojectspring.config.security.TokenProvider;
+import backend.graduationprojectspring.security.TokenProvider;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.exception.NotExistsException;

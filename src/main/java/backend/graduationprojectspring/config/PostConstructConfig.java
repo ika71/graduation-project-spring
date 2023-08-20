@@ -11,10 +11,10 @@ import backend.graduationprojectspring.service.impl.EvaluationItemServiceImpl;
 import backend.graduationprojectspring.service.impl.MemberServiceImpl;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 @Profile("dev")
 @RequiredArgsConstructor
 public class PostConstructConfig {

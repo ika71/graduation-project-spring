@@ -1,6 +1,7 @@
-package backend.graduationprojectspring.config.security;
+package backend.graduationprojectspring.config;
 
 import backend.graduationprojectspring.constant.Role;
+import backend.graduationprojectspring.security.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

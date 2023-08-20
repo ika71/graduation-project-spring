@@ -1,5 +1,6 @@
-package backend.graduationprojectspring.config.security;
+package backend.graduationprojectspring.security.filter;
 
+import backend.graduationprojectspring.security.TokenProvider;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
