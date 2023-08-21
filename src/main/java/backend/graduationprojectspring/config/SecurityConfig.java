@@ -30,10 +30,12 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);//jwt를 사용하므로 세션 비활성화
 
         //먼저 지정된 규칙이 우선 적용
+        //TODO 경로 설정 제대로 되었는지 나중에 확인
         http.authorizeHttpRequests()
                 .requestMatchers("/admin/**").hasRole(Role.ADMIN.toString())
-                .requestMatchers(HttpMethod.GET, "/member/**").authenticated()
-                .requestMatchers("/member/**").permitAll()
+                .requestMatchers("/member/signup").permitAll()
+                .requestMatchers("/member/signin").permitAll()
+                .requestMatchers("/member/**").authenticated()
                 .requestMatchers(HttpMethod.GET, "/evaluation").authenticated()
                 .requestMatchers(HttpMethod.GET, "/**").permitAll()
                 .requestMatchers("/**").authenticated();
