@@ -15,11 +15,29 @@ import java.util.Date;
 
 @Component
 public class TokenProvider {
-    private final Key key;
+    private final Key accessKey;
+    private final Key refreshKey;
 
-    private TokenProvider(@Value("${secretkey}") final String SECRET_KEY) {
-        byte[] keyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
-        this.key = Keys.hmacShaKeyFor(keyBytes);
+    private TokenProvider(@Value("${accessSecretkey}") final String ACCESS_SECRET_KEY,
+                          @Value("${refreshSecretKey}") final String REFRESH_SECRET_KEY) {
+        byte[] accessKeyBytes = ACCESS_SECRET_KEY.getBytes(StandardCharsets.UTF_8);
+        byte[] refreshKeyBytes = REFRESH_SECRET_KEY.getBytes(StandardCharsets.UTF_8);
+        this.accessKey = Keys.hmacShaKeyFor(accessKeyBytes);
+        this.refreshKey = Keys.hmacShaKeyFor(refreshKeyBytes);
+    }
+
+    public String createAccessToken(Member member){
+        return createToken(member, accessKey);
+    }
+    public Claims validateAccessToken(String token){
+        return validateToken(token, accessKey);
+    }
+
+    public String createRefreshToken(Member member){
+        return createToken(member, refreshKey);
+    }
+    public Claims validateRefreshToken(String token){
+        return validateToken(token, refreshKey);
     }
 
     /**
@@ -27,7 +45,7 @@ public class TokenProvider {
      * @param member
      * @return
      */
-    public String createToken(Member member){
+    private String createToken(Member member, Key key){
         //기한 하루
         Date expiryDate = Date.from(Instant.now().plus(1, ChronoUnit.DAYS));
 
@@ -50,7 +68,7 @@ public class TokenProvider {
      * @param token
      * @return Claims
      */
-    public Claims validateToken(String token){
+    private Claims validateToken(String token, Key key){
         return (Claims) Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

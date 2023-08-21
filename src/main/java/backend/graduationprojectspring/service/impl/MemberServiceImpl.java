@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
         Member findMember = memberRepo.findByEmail(email);
 
         if(findMember != null && passwordEncoder.matches(password, findMember.getPassword())){
-            return tokenProvider.createToken(findMember);
+            return tokenProvider.createAccessToken(findMember);
         }
         return null;
     }
