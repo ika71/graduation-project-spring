@@ -1,6 +1,5 @@
 package backend.graduationprojectspring.security;
 
-import backend.graduationprojectspring.entity.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -26,32 +25,27 @@ public class TokenProvider {
         this.refreshKey = Keys.hmacShaKeyFor(refreshKeyBytes);
     }
 
-    public String createAccessToken(Member member){
-        return createToken(member, accessKey);
+    public String createAccessToken(String id, String role){
+        return createToken(id, role, accessKey);
     }
     public Claims validateAccessToken(String token){
         return validateToken(token, accessKey);
     }
 
-    public String createRefreshToken(Member member){
-        return createToken(member, refreshKey);
+    public String createRefreshToken(String id, String role){
+        return createToken(id, role, refreshKey);
     }
     public Claims validateRefreshToken(String token){
         return validateToken(token, refreshKey);
     }
 
-    /**
-     * member 정보를 토대로 토큰 생성
-     * @param member
-     * @return
-     */
-    private String createToken(Member member, Key key){
+    private String createToken(String id, String role, Key key){
         //기한 하루
         Date expiryDate = Date.from(Instant.now().plus(1, ChronoUnit.DAYS));
 
         Claims claims = Jwts.claims();
-        claims.setSubject(String.valueOf(member.getId()));
-        claims.put("role", member.getRole());
+        claims.setSubject(id);
+        claims.put("role", role);
 
         return Jwts.builder()
                 .setClaims(claims)

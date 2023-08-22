@@ -50,8 +50,12 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> findMember = memberRepo.findByEmail(email);
 
         if(findMember.isPresent() && passwordEncoder.matches(password, findMember.get().getPassword())){
-            String refreshToken = tokenProvider.createRefreshToken(findMember.get());
-            String accessToken = tokenProvider.createAccessToken(findMember.get());
+            String refreshToken = tokenProvider.createRefreshToken(
+                    findMember.get().getId().toString(),
+                    findMember.get().getRole().toString());
+            String accessToken = tokenProvider.createAccessToken(
+                    findMember.get().getId().toString(),
+                    findMember.get().getRole().toString());
             return Optional.of(new SigninDto(refreshToken, accessToken));
         }
         return Optional.empty();
