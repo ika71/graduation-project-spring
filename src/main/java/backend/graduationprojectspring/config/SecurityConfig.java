@@ -42,8 +42,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/**").permitAll()
                 .requestMatchers("/**").authenticated();
 
-        http.addFilterAfter(refreshJwtAuthenticationFilter, CorsFilter.class);
-        http.addFilterAfter(accessJwtAuthenticationFilter, RefreshJwtAuthenticationFilter.class);
+        http.addFilterAfter(accessJwtAuthenticationFilter, CorsFilter.class);
+        http.addFilterAfter(refreshJwtAuthenticationFilter, AccessJwtAuthenticationFilter.class);
 
         return http.build();
     }
