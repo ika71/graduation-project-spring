@@ -29,4 +29,6 @@ public interface MemberService {
      * @return
      */
     Member findById(Long id);
+
+    String createAccessToken(String id, String role);
 }

@@ -71,4 +71,9 @@ public class MemberServiceImpl implements MemberService {
         return memberRepo.findById(id)
                 .orElseThrow(() -> new NotExistsException("해당 하는 유저가 없습니다."));
     }
+
+    @Override
+    public String createAccessToken(String id, String role) {
+        return tokenProvider.createAccessToken(id, role);
+    }
 }

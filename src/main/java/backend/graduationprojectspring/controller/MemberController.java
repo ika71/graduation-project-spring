@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,22 @@ public class MemberController {
         }
         return ResponseEntity.ok().body(new LoginSuccessDto(signinDto.get()));
     }
+    @PostMapping("/refresh")
+    public TokenRefreshDto tokenRefresh(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+        String role = authentication.getAuthorities()
+                .stream()
+                .toList()
+                .get(0)
+                .toString()
+                .substring(5);
+
+        String accessToken = memberService.createAccessToken(id, role);
+
+        return new TokenRefreshDto(accessToken);
+    }
+
     @Getter
     @ToString
     public static class MemberInfoDto{
@@ -93,5 +110,14 @@ public class MemberController {
         public String email;
         @NotEmpty
         public String password;
+    }
+    @Getter
+    @ToString
+    public static class TokenRefreshDto{
+        private final String accessToken;
+
+        public TokenRefreshDto(String accessToken) {
+            this.accessToken = accessToken;
+        }
     }
 }
