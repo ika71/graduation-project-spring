@@ -21,7 +21,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class RefreshJwtAuthenticationFilter extends OncePerRequestFilter {
     private final TokenProvider tokenProvider;
 
     @Override
@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = parseBearerToken(request);
 
         if(token != null && !token.equalsIgnoreCase("null")){
-            Claims claims = tokenProvider.validateAccessToken(token);//토큰이 유효하지 않을 경우 에러 발생
+            Claims claims = tokenProvider.validateRefreshToken(token);//토큰이 유효하지 않을 경우 에러 발생
             String memberId = claims.getSubject();
             String role = (String) claims.get("role");
 
@@ -54,5 +54,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return bearerToken.substring(7);
         }
         return null;
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+
+        return !request.getServletPath().equals("/member/refresh");
     }
 }

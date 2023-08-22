@@ -1,7 +1,8 @@
 package backend.graduationprojectspring.config;
 
 import backend.graduationprojectspring.constant.Role;
-import backend.graduationprojectspring.security.filter.JwtAuthenticationFilter;
+import backend.graduationprojectspring.security.filter.AccessJwtAuthenticationFilter;
+import backend.graduationprojectspring.security.filter.RefreshJwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,8 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AccessJwtAuthenticationFilter accessJwtAuthenticationFilter;
+    private final RefreshJwtAuthenticationFilter refreshJwtAuthenticationFilter;
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors()//WebConfig에서 이미 설정했으므로 기본 cors로 설정
@@ -40,7 +42,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/**").permitAll()
                 .requestMatchers("/**").authenticated();
 
-        http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class);
+        http.addFilterAfter(refreshJwtAuthenticationFilter, CorsFilter.class);
+        http.addFilterAfter(accessJwtAuthenticationFilter, RefreshJwtAuthenticationFilter.class);
 
         return http.build();
     }
