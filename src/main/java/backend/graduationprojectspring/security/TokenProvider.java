@@ -26,23 +26,26 @@ public class TokenProvider {
     }
 
     public String createAccessToken(String id, String role){
-        return createToken(id, role, accessKey);
+        //30분
+        Date expiryDate = Date.from(Instant.now().plus(30, ChronoUnit.MINUTES));
+
+        return createToken(id, role, accessKey, expiryDate);
     }
     public Claims validateAccessToken(String token){
         return validateToken(token, accessKey);
     }
 
     public String createRefreshToken(String id, String role){
-        return createToken(id, role, refreshKey);
+        //14일
+        Date expiryDate = Date.from(Instant.now().plus(14, ChronoUnit.DAYS));
+
+        return createToken(id, role, refreshKey, expiryDate);
     }
     public Claims validateRefreshToken(String token){
         return validateToken(token, refreshKey);
     }
 
-    private String createToken(String id, String role, Key key){
-        //기한 하루
-        Date expiryDate = Date.from(Instant.now().plus(1, ChronoUnit.DAYS));
-
+    private String createToken(String id, String role, Key key, Date expiryDate){
         Claims claims = Jwts.claims();
         claims.setSubject(id);
         claims.put("role", role);
