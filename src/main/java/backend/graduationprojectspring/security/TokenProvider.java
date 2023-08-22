@@ -59,12 +59,6 @@ public class TokenProvider {
                 .compact();
     }
 
-    /**
-     * 토큰의 유효성을 확인 유효하지 않을 시 에러 발생<br>
-     * TODO 토큰이 유효하지 않을 시 프론트에 응답을 보내 재로그인을 유도해야 함
-     * @param token
-     * @return Claims
-     */
     private Claims validateToken(String token, Key key){
         return (Claims) Jwts.parserBuilder()
                 .setSigningKey(key)

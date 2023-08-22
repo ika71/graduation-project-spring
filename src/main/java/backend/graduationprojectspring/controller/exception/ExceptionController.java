@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @Slf4j
 public class ExceptionController {
+    /**
+     * TODO 잘못된 METHOD로 호출 시 405가 아니라 500번으로 반환되어버림
+     * @param e
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> exception(Exception e){
         log.error("error", e);
