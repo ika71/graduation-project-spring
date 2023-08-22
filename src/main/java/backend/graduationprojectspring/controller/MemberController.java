@@ -3,6 +3,7 @@ package backend.graduationprojectspring.controller;
 import backend.graduationprojectspring.constant.Role;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.service.MemberService;
+import backend.graduationprojectspring.service.dto.SigninDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/member")
@@ -38,12 +41,12 @@ public class MemberController {
     }
     @PostMapping("/signin")
     public ResponseEntity<?> memberLogin(@RequestBody @Validated MemberLoginDto memberLoginDto){
-        String token = memberService.getToken(memberLoginDto.getEmail(), memberLoginDto.password);
+        Optional<SigninDto> signinDto = memberService.signin(memberLoginDto.getEmail(), memberLoginDto.password);
 
-        if(token == null){
+        if(signinDto.isEmpty()){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증 실패");
         }
-        return ResponseEntity.ok().body(new LoginSuccessDto(token));
+        return ResponseEntity.ok().body(new LoginSuccessDto(signinDto.get()));
     }
     @Getter
     @ToString
@@ -59,10 +62,12 @@ public class MemberController {
     @Getter
     @ToString
     public static class LoginSuccessDto{
-        private final String token;
+        private final String refreshToken;
+        private final String accessToken;
 
-        public LoginSuccessDto(String token) {
-            this.token = token;
+        public LoginSuccessDto(SigninDto signinDto) {
+            this.refreshToken = signinDto.getRefreshToken();
+            this.accessToken = signinDto.getAccessToken();
         }
     }
 

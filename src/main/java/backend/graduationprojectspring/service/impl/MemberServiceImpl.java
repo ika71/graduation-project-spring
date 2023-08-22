@@ -1,15 +1,18 @@
 package backend.graduationprojectspring.service.impl;
 
-import backend.graduationprojectspring.security.TokenProvider;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.MemberRepo;
+import backend.graduationprojectspring.security.TokenProvider;
 import backend.graduationprojectspring.service.MemberService;
+import backend.graduationprojectspring.service.dto.SigninDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -43,13 +46,15 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     @Transactional(readOnly = true)
-    public String getToken(String email, String password){
-        Member findMember = memberRepo.findByEmail(email);
+    public Optional<SigninDto> signin(String email, String password){
+        Optional<Member> findMember = memberRepo.findByEmail(email);
 
-        if(findMember != null && passwordEncoder.matches(password, findMember.getPassword())){
-            return tokenProvider.createAccessToken(findMember);
+        if(findMember.isPresent() && passwordEncoder.matches(password, findMember.get().getPassword())){
+            String refreshToken = tokenProvider.createRefreshToken(findMember.get());
+            String accessToken = tokenProvider.createAccessToken(findMember.get());
+            return Optional.of(new SigninDto(refreshToken, accessToken));
         }
-        return null;
+        return Optional.empty();
     }
 
     /**

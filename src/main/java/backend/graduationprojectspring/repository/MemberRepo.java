@@ -5,6 +5,8 @@ import backend.graduationprojectspring.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface MemberRepo extends JpaRepository<Member, Long> {
     /**
@@ -12,7 +14,7 @@ public interface MemberRepo extends JpaRepository<Member, Long> {
      * @param email 조건에 사용될 email 문자열
      * @return 조회된 Member를 반환한다.
      */
-    Member findByEmail(String email);
+    Optional<Member> findByEmail(String email);
 
     /**
      * email 또는 name으로 이미 생성된 member가 있는지 확인한다.

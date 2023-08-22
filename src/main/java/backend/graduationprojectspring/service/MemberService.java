@@ -2,6 +2,9 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.exception.DuplicateException;
+import backend.graduationprojectspring.service.dto.SigninDto;
+
+import java.util.Optional;
 
 public interface MemberService {
     /**
@@ -18,7 +21,7 @@ public interface MemberService {
      * @param password
      * @return JWT or null
      */
-    String getToken(String email, String password);
+    Optional<SigninDto> signin(String email, String password);
 
     /**
      * id에 해당 하는 member를 반환
