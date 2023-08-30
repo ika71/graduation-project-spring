@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,24 +26,21 @@ public class SecurityConfig {
     private final JwtExceptionHandlerFilter jwtExceptionHandlerFilter;
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors()//WebConfig에서 이미 설정했으므로 기본 cors로 설정
-                .and()
-                .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable()//token을 사용하므로 basic 인증 비활성화
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);//jwt를 사용하므로 세션 비활성화
+        http.cors(Customizer.withDefaults());
+        http.csrf(csrf->csrf.disable());
+        http.formLogin(login->login.disable());
+        http.httpBasic(basic->basic.disable());
+        http.sessionManagement(session->
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        //먼저 지정된 규칙이 우선 적용
-        //TODO 경로 설정 제대로 되었는지 나중에 확인
-        http.authorizeHttpRequests()
+        http.authorizeHttpRequests(request-> request
                 .requestMatchers("/admin/**").hasRole(Role.ADMIN.toString())
-                .requestMatchers("/member/signup").permitAll()
-                .requestMatchers("/member/signin").permitAll()
-                .requestMatchers("/member/**").authenticated()
-                .requestMatchers(HttpMethod.GET, "/evaluation").authenticated()
-                .requestMatchers(HttpMethod.GET, "/**").permitAll()
-                .requestMatchers("/**").authenticated();
+                .requestMatchers(HttpMethod.POST, "/member/signup").permitAll()
+                .requestMatchers(HttpMethod.POST, "/member/signin").permitAll()
+                .requestMatchers(HttpMethod.GET, "/image/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/device/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/board/**").permitAll()
+                .requestMatchers("/**").authenticated());
 
         http.addFilterAfter(jwtExceptionHandlerFilter, CorsFilter.class);
         http.addFilterAfter(accessJwtAuthenticationFilter, JwtExceptionHandlerFilter.class);
