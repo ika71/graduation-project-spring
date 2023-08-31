@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * 게시글
+ */
 @Entity
 @Getter
 @ToString
@@ -17,20 +20,20 @@ public class Board extends Base{
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String title; //게시글 제목
 
     @Column(nullable = false)
     @Lob
-    private String content;
+    private String content; //게시글 내용
 
     @Column
-    private long view;
+    private long view; //조회수
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ElectronicDevice electronicDevice;
+    private ElectronicDevice electronicDevice; //게시글과 연결되어 있는 전자제품
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private Member member; //게시글 작성자
 
     public Board(String title, String content, ElectronicDevice electronicDevice, Member member) {
         this.title = title;
@@ -39,10 +42,19 @@ public class Board extends Base{
         this.member = member;
     }
 
+    /**
+     * 제목과 내용을 수정한다.
+     * @param title 수정된 후에 제목
+     * @param content 수정된 후에 내용
+     */
     public void update(String title, String content){
         this.title = title;
         this.content = content;
     }
+
+    /**
+     * 조회수를 1 증가시킨다.
+     */
     public void increaseView(){
         this.view = view + 1;
     }

@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * 게시글의 댓글
+ */
 @Entity
 @Getter
 @ToString
@@ -17,13 +20,13 @@ public class BoardComment extends Base{
     private Long id;
 
     @Column(nullable = false)
-    private String comment;
+    private String comment; //댓글 내용
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Board board;
+    private Board board; //댓글이 달린 게시글
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private Member member; //댓글을 작성한 유저
 
     public BoardComment(String comment, Board board, Member member) {
         this.comment = comment;

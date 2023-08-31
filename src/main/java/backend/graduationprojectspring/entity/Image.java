@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * 이미지
+ */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,10 +20,10 @@ public class Image extends Base {
     private Long id;
 
     @Column(nullable = false, updatable = false)
-    private String originName;
+    private String originName; //이미지의 원래 이름
 
     @Column(nullable = false, unique = true, updatable = false)
-    private String storeName;
+    private String storeName; //파일로 저장된 이미지의 이름
 
     public Image(String originName, String storeName) {
         this.originName = originName;

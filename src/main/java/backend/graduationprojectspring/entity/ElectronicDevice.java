@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 전자제품
+ */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,7 +24,7 @@ public class ElectronicDevice extends Base {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private String name; //전자제품 이름
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
