@@ -89,7 +89,7 @@ public class MemberController {
     }
 
     @Getter
-    @ToString
+    @ToString(exclude = "password")
     public static class MemberCreateDto {
         @Email
         private String email;
@@ -104,7 +104,7 @@ public class MemberController {
     }
 
     @Getter
-    @ToString
+    @ToString(exclude = "password")
     public static class MemberLoginDto {
         @Email
         public String email;
