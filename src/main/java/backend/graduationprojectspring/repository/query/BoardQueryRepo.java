@@ -23,8 +23,9 @@ public interface BoardQueryRepo {
     Long totalCountByDeviceId(Long deviceId);
 
     /**
-     * Board를 하나 조회 한다.
-     * <br> 작성자 정보가 필요하기 때문에 Member와 join 한다.
+     * Board를 하나 조회 한다.<br>
+     * 작성자 정보가 필요하기 때문에 Member와 join 한다.<br>
+     * 게시글에 올라간 이미지가 필요하기 때문에 Image와 left join한다.
      * @param boardId 조회할 board의 id
      * @return 조회한 Board를 Optinal로 반환한다.
      */

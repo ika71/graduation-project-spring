@@ -14,7 +14,7 @@ import java.util.Optional;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
+@ToString(exclude = "board")
 public class Image extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +28,7 @@ public class Image extends Base {
     private String storeName; //파일로 저장된 이미지의 이름
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Board board;
+    private Board board; //게시글에 사용되는 이미지
 
     public Image(String originName, String storeName) {
         this.originName = originName;

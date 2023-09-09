@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static backend.graduationprojectspring.entity.QBoard.board;
+import static backend.graduationprojectspring.entity.QImage.image;
 import static backend.graduationprojectspring.entity.QMember.member;
 
 @Repository
@@ -50,6 +51,8 @@ public class BoardQueryRepoImpl implements BoardQueryRepo {
         Board fetchBoard = queryFactory
                 .selectFrom(board)
                 .join(board.member, member)
+                .fetchJoin()
+                .leftJoin(board.imageList, image)
                 .fetchJoin()
                 .where(board.id.eq(boardId))
                 .fetchOne();

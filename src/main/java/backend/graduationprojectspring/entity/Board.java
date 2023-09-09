@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 게시글
  */
@@ -34,6 +37,9 @@ public class Board extends Base{
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member; //게시글 작성자
+
+    @OneToMany(mappedBy = "board")
+    private List<Image> imageList = new ArrayList<>(); //게시글에 올라간 이미지
 
     public Board(String title, String content, ElectronicDevice electronicDevice, Member member) {
         this.title = title;

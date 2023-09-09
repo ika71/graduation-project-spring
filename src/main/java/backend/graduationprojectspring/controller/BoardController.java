@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Board;
+import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.service.BoardService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -121,6 +122,7 @@ public class BoardController {
         private final String content;
         private final String createdBy;
         private final String createdTime;
+        private final List<Long> imageList;
 
         public BoardDetailDto(Board board) {
             this.id = board.getId();
@@ -129,6 +131,10 @@ public class BoardController {
             this.createdBy = board.getMember().getName();
             this.createdTime = board.getCreatedTime()
                     .format(DateTimeFormatter.ofPattern("MM-dd / HH:mm"));
+            this.imageList = board.getImageList()
+                    .stream()
+                    .map(Image::getId)
+                    .toList();
         }
     }
     @Getter
