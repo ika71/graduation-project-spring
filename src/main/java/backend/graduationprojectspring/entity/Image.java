@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Optional;
+
 /**
  * 이미지
  */
@@ -25,8 +27,19 @@ public class Image extends Base {
     @Column(nullable = false, unique = true, updatable = false)
     private String storeName; //파일로 저장된 이미지의 이름
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Board board;
+
     public Image(String originName, String storeName) {
         this.originName = originName;
         this.storeName = storeName;
+    }
+
+    public Optional<Board> getBoard() {
+        return Optional.ofNullable(this.board);
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 }

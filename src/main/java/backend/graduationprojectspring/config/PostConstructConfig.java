@@ -53,7 +53,7 @@ public class PostConstructConfig {
         itemService.create("성능", device1.getId());
 
         //테스트용 게시글
-        boardService.create("test", "test", 1L, 1L);
+        boardService.create("test", "test", 1L, 1L, null);
         //테스트용 댓글
         commentService.create("댓글1", 1L, 1L);
         commentService.create("댓글2", 1L, 1L);

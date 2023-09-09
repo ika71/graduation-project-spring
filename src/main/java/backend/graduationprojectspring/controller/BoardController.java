@@ -47,7 +47,8 @@ public class BoardController {
                 boardCreateDto.getTitle(),
                 boardCreateDto.getContent(),
                 deviceId,
-                Long.valueOf(memberId));
+                Long.valueOf(memberId),
+                boardCreateDto.getImageIdList());
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -137,6 +138,7 @@ public class BoardController {
         private String title;
         @NotBlank
         private String content;
+        private List<Long> imageIdList;
     }
     @Getter
     @ToString

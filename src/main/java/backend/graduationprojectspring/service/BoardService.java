@@ -34,9 +34,10 @@ public interface BoardService {
      * @param content 게시글 내용
      * @param deviceId 게시글이 기록되는 전자제품의 id
      * @param memberId 게시글을 생성하는 member의 id
+     * @param imageIdList 게시글에 설정할 이미지의 id List
      * @return 생성된 게시글 반환
      */
-    Board create(String title, String content, Long deviceId, Long memberId);
+    Board create(String title, String content, Long deviceId, Long memberId, List<Long> imageIdList);
 
     /**
      * 게시 글을 수정한다.
