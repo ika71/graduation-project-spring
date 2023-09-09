@@ -5,14 +5,16 @@ import backend.graduationprojectspring.exception.ImageStoreFailException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface ImageService {
     /**
      * 파일 저장
-     * @param multipartFile 저장할 파일
+     * @param multipartFileList 저장할 파일
      * @return 데이터베이스에 저장한 Image
      * @throws ImageStoreFailException 파일 저장 과정 중에 IOException 발생 시 예외 던짐
      */
-    Image storeFile(MultipartFile multipartFile) throws ImageStoreFailException;
+    List<Image> storeFileList(List<MultipartFile> multipartFileList) throws ImageStoreFailException;
 
     /**
      * id에 해당하는 이미지의 저장 경로를 반환

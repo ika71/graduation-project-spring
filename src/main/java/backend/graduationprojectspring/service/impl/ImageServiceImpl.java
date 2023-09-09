@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -24,22 +26,26 @@ public class ImageServiceImpl implements ImageService {
 
     /**
      * 파일 저장
-     * @param multipartFile 저장할 파일
+     * @param multipartFileList 저장할 파일
      * @return 데이터베이스에 저장한 Image
      * @throws ImageStoreFailException 파일 저장 과정 중에 IOException 발생 시 예외 던짐
      */
     @Override
     @Transactional
-    public Image storeFile(MultipartFile multipartFile) {
-        String originName = multipartFile.getOriginalFilename();
-        String storeName = createStoreName(originName);
+    public List<Image> storeFileList(List<MultipartFile> multipartFileList) {
+        List<Image> imageList = new ArrayList<>();
+        for (MultipartFile multipartFile : multipartFileList) {
+            String originName = multipartFile.getOriginalFilename();
+            String storeName = createStoreName(originName);
 
-        try {
-            multipartFile.transferTo(new File(storePath(storeName)));
-        } catch (IOException e) {
-            throw new ImageStoreFailException("이미지 저장에 실패 하였습니다.", e);
+            try {
+                multipartFile.transferTo(new File(storePath(storeName)));
+            } catch (IOException e) {
+                throw new ImageStoreFailException("이미지 저장에 실패 하였습니다.", e);
+            }
+            imageList.add(new Image(originName, storeName));
         }
-        return imageRepo.save(new Image(originName, storeName));
+        return imageRepo.saveAll(imageList);
     }
 
     /**
