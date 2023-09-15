@@ -123,6 +123,7 @@ public class BoardController {
         private final String createdBy;
         private final String createdTime;
         private final List<Long> imageList;
+        private final Long view;
 
         public BoardDetailDto(Board board) {
             this.id = board.getId();
@@ -135,6 +136,7 @@ public class BoardController {
                     .stream()
                     .map(Image::getId)
                     .toList();
+            this.view = board.getView();
         }
     }
     @Getter
