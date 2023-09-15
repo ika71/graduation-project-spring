@@ -45,9 +45,11 @@ public interface BoardService {
      * @param title 수정된 제목
      * @param content 수정된 내용
      * @param requestMemberId 수정을 요청하는 member의 id
+     * @param addImageIdList 수정할 때 추가된 이미지의 id
+     * @param deleteImageIdList 수정할 때 삭제된 이미지의 id
      * @throws NotExistsException 수정할 게시글이 존재하지 않으면 발생
      */
-    void update(Long boardId, String title, String content, Long requestMemberId) throws NotExistsException;
+    void update(Long boardId, String title, String content, Long requestMemberId, List<Long> addImageIdList, List<Long> deleteImageIdList) throws NotExistsException;
 
     /**
      * 게시글을 삭제한다.

@@ -54,24 +54,18 @@ public class BoardServiceImpl implements BoardService {
 
         Board savedBoard = boardRepo.save(board);
 
-        //생성된 게시글을 이미지들의 외래키로 설정함
-        if(imageIdList != null){ //imageIdList가 null이면 이미지 설정을 하지 않음
-            List<Image> findImageList = imageRepo.findAllById(imageIdList);
-            for (Image image : findImageList) {
-                if(image.getBoard().isEmpty()){ //이미지의 게시글이 null일 때만 게시글을 설정
-                    image.setBoard(savedBoard);
-                }
-            }
-        }
+        boardImageSet(imageIdList, savedBoard);
         return savedBoard;
     }
 
     @Override
-    public void update(Long boardId, String title, String content, Long requestMemberId) {
+    public void update(Long boardId, String title, String content, Long requestMemberId, List<Long> addImageIdList, List<Long> deleteImageIdList) {
         Board findBoard = boardRepo.findById(boardId)
                 .orElseThrow(() -> new NotExistsException("해당하는 게시글이 존재하지 않습니다."));
         if(findBoard.getMember().getId().equals(requestMemberId)){
             findBoard.update(title, content);
+            boardImageSet(addImageIdList, findBoard);
+            boardImageDelete(deleteImageIdList);
         }
     }
 
@@ -81,6 +75,31 @@ public class BoardServiceImpl implements BoardService {
                 .orElseThrow(() -> new NotExistsException("해당하는 게시글이 없습니다."));
         if(findBoard.getMember().getId().equals(requestMemberId)){
             boardRepo.deleteById(boardId);
+        }
+    }
+
+    /**
+     * 생성된 게시글을 이미지들의 외래키로 설정함
+     */
+    private void boardImageSet(List<Long> imageIdList, Board savedBoard) {
+        if(imageIdList != null){ //imageIdList가 null이면 이미지 설정을 하지 않음
+            List<Image> findImageList = imageRepo.findAllById(imageIdList);
+            for (Image image : findImageList) {
+                if(image.getBoard().isEmpty()){ //이미지의 게시글이 null일 때만 게시글을 설정
+                    image.setBoard(savedBoard);
+                }
+            }
+        }
+    }
+    /**
+     * 이미지들의 외래키를 null로 설정함
+     */
+    private void boardImageDelete(List<Long> imageIdList) {
+        if(imageIdList != null){ //imageIdList가 null이면 이미지 설정을 하지 않음
+            List<Image> findImageList = imageRepo.findAllById(imageIdList);
+            for (Image image : findImageList) {
+                image.setBoard(null);
+            }
         }
     }
 }

@@ -65,7 +65,9 @@ public class BoardController {
         boardService.update(id,
                 boardUpdateDto.getTitle(),
                 boardUpdateDto.getContent(),
-                Long.valueOf(memberId));
+                Long.valueOf(memberId),
+                boardUpdateDto.getAddImageIdList(),
+                boardUpdateDto.getDeleteImageIdList());
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
@@ -155,5 +157,7 @@ public class BoardController {
         private String title;
         @NotBlank
         private String content;
+        private List<Long> addImageIdList;
+        private List<Long> deleteImageIdList;
     }
 }
