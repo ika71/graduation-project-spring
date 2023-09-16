@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Entity
 @Getter
-@ToString(exclude = "imageList")
+@ToString(exclude = {"imageList", "boardCommentList"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board extends Base{
     @Id
@@ -38,8 +38,11 @@ public class Board extends Base{
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member; //게시글 작성자
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Image> imageList = new ArrayList<>(); //게시글에 올라간 이미지
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<BoardComment> boardCommentList = new ArrayList<>(); //게시글에 달린 댓글
 
     public Board(String title, String content, ElectronicDevice electronicDevice, Member member) {
         this.title = title;

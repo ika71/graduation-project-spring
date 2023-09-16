@@ -16,7 +16,7 @@ import java.util.Optional;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(exclude = {"evaluationItemList"})
+@ToString(exclude = {"evaluationItemList", "boardList"})
 public class ElectronicDevice extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,14 +28,17 @@ public class ElectronicDevice extends Base {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    private Category category; //전자제품이 속한 카테고리
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "image_id")
-    private Image image;
+    private Image image; //전자제품의 대표 이미지
 
-    @OneToMany(mappedBy = "electronicDevice")
-    private List<EvaluationItem> evaluationItemList = new ArrayList<>();
+    @OneToMany(mappedBy = "electronicDevice", cascade = CascadeType.REMOVE)
+    private List<EvaluationItem> evaluationItemList = new ArrayList<>(); //전자제품의 평가항목
+
+    @OneToMany(mappedBy = "electronicDevice", cascade = CascadeType.REMOVE)
+    private List<Board> boardList = new ArrayList<>(); //전자제품에 달린 리뷰 글
 
     public ElectronicDevice(String name, Category category) {
         this.name = name;

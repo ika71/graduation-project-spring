@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 평가요소
@@ -11,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(exclude = "evaluationList")
 public class EvaluationItem extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +28,9 @@ public class EvaluationItem extends Base {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "electronic_device_id", nullable = false)
     private ElectronicDevice electronicDevice; //평가요소가 속해 있는 전자제품
+
+    @OneToMany(mappedBy = "evaluationItem", cascade = CascadeType.REMOVE)
+    private List<Evaluation> evaluationList = new ArrayList<>(); //평가항목에 달린 평점
 
     public EvaluationItem(String name, ElectronicDevice electronicDevice) {
         this.name = name;
