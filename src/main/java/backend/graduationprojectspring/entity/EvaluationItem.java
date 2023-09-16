@@ -38,13 +38,4 @@ public class EvaluationItem extends Base {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "EvaluationItem{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", electronicDevice=" + electronicDevice.getId() +
-                " " + electronicDevice.getName() +
-                '}';
-    }
 }

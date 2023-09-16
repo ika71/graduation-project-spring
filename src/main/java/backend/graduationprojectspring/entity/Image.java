@@ -14,7 +14,7 @@ import java.util.Optional;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(exclude = "board")
+@ToString
 public class Image extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

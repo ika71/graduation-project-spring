@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Entity
 @Getter
-@ToString
+@ToString(exclude = "imageList")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board extends Base{
     @Id

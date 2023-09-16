@@ -16,7 +16,7 @@ import java.util.Optional;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
+@ToString(exclude = {"evaluationItemList"})
 public class ElectronicDevice extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
