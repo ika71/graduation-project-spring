@@ -9,6 +9,7 @@ import backend.graduationprojectspring.repository.BoardRepo;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepo;
 import backend.graduationprojectspring.repository.ImageRepo;
 import backend.graduationprojectspring.repository.MemberRepo;
+import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 import backend.graduationprojectspring.repository.query.BoardQueryRepo;
 import backend.graduationprojectspring.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Board> paging(int page, int size, Long deviceId){
+    public List<PreviewBoardDto> paging(int page, int size, Long deviceId){
         return boardQueryRepo.paging(page, size, deviceId);
     }
     @Override

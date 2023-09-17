@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.repository.query;
 
 import backend.graduationprojectspring.entity.Board;
+import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public interface BoardQueryRepo {
      * @param deviceId Board들이 관련된 ElectronicDevice의 id
      * @return 조회한 Board List
      */
-    List<Board> paging(int page, int size, Long deviceId);
+    List<PreviewBoardDto> paging(int page, int size, Long deviceId);
 
     /**
      * 하나의 ElectronicDevice에 대한 Board 개수를 조회한다.

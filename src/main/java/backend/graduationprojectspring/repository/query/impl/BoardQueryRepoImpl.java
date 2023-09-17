@@ -1,7 +1,9 @@
 package backend.graduationprojectspring.repository.query.impl;
 
 import backend.graduationprojectspring.entity.Board;
+import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 import backend.graduationprojectspring.repository.query.BoardQueryRepo;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -18,21 +20,22 @@ import static backend.graduationprojectspring.entity.QMember.member;
 public class BoardQueryRepoImpl implements BoardQueryRepo {
     private final JPAQueryFactory queryFactory;
 
-    /**
-     * TODO 게시 글을 페이징 할 때 게시글 내용도 가져옴 최적화를 해야함
-     * @param page
-     * @param size
-     * @param deviceId
-     * @return
-     */
-    public List<Board> paging(int page, int size, Long deviceId){
+    @Override
+    public List<PreviewBoardDto> paging(int page, int size, Long deviceId){
         return queryFactory
-                .selectFrom(board)
+                .select(Projections.constructor(
+                        PreviewBoardDto.class,
+                        board.id,
+                        board.title,
+                        board.member.name,
+                        board.view,
+                        board.createdTime
+                ))
+                .from(board)
                 .join(board.member, member)
-                .fetchJoin()
                 .where(board.electronicDevice.id.eq(deviceId))
                 .orderBy(board.id.desc())
-                .offset((long)(page - 1)*size)
+                .offset((long) (page - 1) * size)
                 .limit(size)
                 .fetch();
     }

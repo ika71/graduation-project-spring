@@ -2,6 +2,7 @@ package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Board;
 import backend.graduationprojectspring.entity.Image;
+import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 import backend.graduationprojectspring.service.BoardService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class BoardController {
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size,
             @RequestParam(name = "deviceId")Long deviceId){
-        List<Board> pagingBoardList = boardService.paging(page, size, deviceId);
+        List<PreviewBoardDto> pagingBoardList = boardService.paging(page, size, deviceId);
         Long totalCount = boardService.totalCountByDeviceId(deviceId);
 
         return new BoardPagingResultDto(pagingBoardList, totalCount);
@@ -89,7 +90,7 @@ public class BoardController {
         private final List<BoardPagingDto> boardList;
         private final Long totalCount;
 
-        public BoardPagingResultDto(List<Board> boardList, Long totalCount) {
+        public BoardPagingResultDto(List<PreviewBoardDto> boardList, Long totalCount) {
             this.boardList = boardList
                     .stream()
                     .map(BoardPagingDto::new)
@@ -107,12 +108,12 @@ public class BoardController {
         private final long view;
         private final String createdTime;
 
-        public BoardPagingDto(Board board) {
-            this.id = board.getId();
-            this.title = board.getTitle();
-            this.nickName = board.getMember().getName();
-            this.view = board.getView();
-            this.createdTime = board.getCreatedTime()
+        public BoardPagingDto(PreviewBoardDto previewBoardDto) {
+            this.id = previewBoardDto.getId();
+            this.title = previewBoardDto.getTitle();
+            this.nickName = previewBoardDto.getNickName();
+            this.view = previewBoardDto.getView();
+            this.createdTime = previewBoardDto.getCreatedTime()
                     .format(DateTimeFormatter.ofPattern("MM-dd / HH:mm"));
         }
     }
@@ -125,7 +126,7 @@ public class BoardController {
         private final String createdBy;
         private final String createdTime;
         private final List<Long> imageList;
-        private final Long view;
+        private final long view;
 
         public BoardDetailDto(Board board) {
             this.id = board.getId();

@@ -2,6 +2,7 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Board;
 import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface BoardService {
      * @param deviceId 게시글들이 관련된 전자제품의 id
      * @return 조회한 게시글 List
      */
-    List<Board> paging(int page, int size, Long deviceId);
+    List<PreviewBoardDto> paging(int page, int size, Long deviceId);
     /**
      * 하나의 전자제품에 대한 게시글들의 개수
      * @param deviceId 게시글들이 관련된 전자제품의 id
