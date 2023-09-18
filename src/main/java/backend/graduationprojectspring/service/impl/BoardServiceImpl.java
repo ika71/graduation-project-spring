@@ -67,8 +67,8 @@ public class BoardServiceImpl implements BoardService {
                 .orElseThrow(() -> new NotExistsException("해당하는 게시글이 존재하지 않습니다."));
         if(findBoard.getMember().getId().equals(requestMemberId)){
             findBoard.update(title, content);
-            boardImageSet(addImageIdList, findBoard);
             boardImageDelete(deleteImageIdList);
+            boardImageSet(addImageIdList, findBoard);
         }
     }
 
@@ -99,15 +99,13 @@ public class BoardServiceImpl implements BoardService {
         }
     }
     /**
-     * 이미지들의 외래키를 null로 설정함
+     * 이미지들을 삭제함
      */
     private void boardImageDelete(List<Long> imageIdList) {
         if(imageIdList == null) {//imageIdList가 null이면 이미지 설정을 하지 않음
             return;
         }
         List<Image> findImageList = imageRepo.findAllById(imageIdList);
-        for (Image image : findImageList) {
-            image.setBoard(null);
-        }
+        imageRepo.deleteAllInBatch(findImageList);
     }
 }
