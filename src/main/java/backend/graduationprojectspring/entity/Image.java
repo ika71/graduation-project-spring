@@ -30,6 +30,9 @@ public class Image extends Base {
     @ManyToOne(fetch = FetchType.LAZY)
     private Board board; //게시글에 사용되는 이미지
 
+    @Column
+    private boolean visible = false; //이미지를 노출 할지 말지 결정 여부
+
     public Image(String originName, String storeName) {
         this.originName = originName;
         this.storeName = storeName;
@@ -41,5 +44,9 @@ public class Image extends Base {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }

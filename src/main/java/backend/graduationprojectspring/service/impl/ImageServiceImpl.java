@@ -59,7 +59,9 @@ public class ImageServiceImpl implements ImageService {
     public String fullPath(Long id){
         Image image = imageRepo.findById(id)
                 .orElseThrow(() -> new NotExistsException("해당하는 이미지가 없습니다."));
-
+        if(!image.isVisible()){
+            throw new NotExistsException("해당하는 이미지가 없습니다.");
+        }
         return storePath(image.getStoreName());
     }
     /**

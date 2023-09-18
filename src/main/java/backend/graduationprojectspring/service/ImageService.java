@@ -20,7 +20,7 @@ public interface ImageService {
      * id에 해당하는 이미지의 저장 경로를 반환
      * @param id 저장 경로를 확인할 이미지의 id
      * @return 이미지의 저장 경로
-     * @throws NotExistsException 해당하는 이미지가 없으면 발생
+     * @throws NotExistsException 해당하는 이미지가 없으면 발생 or visible 속성이 false면 발생
      */
     String fullPath(Long id) throws NotExistsException;
 }
