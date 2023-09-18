@@ -4,7 +4,7 @@ package backend.graduationprojectspring.exception;
  * 직접 정의한 예외는 해당 클래스를 상속한다.
  * message에 설정된 내용은 컨트롤러 밖으로 반환된다.
  */
-public abstract class CustomRunTimeException extends RuntimeException{
+public class CustomRunTimeException extends RuntimeException{
 
     public CustomRunTimeException(String message) {
         super(message);

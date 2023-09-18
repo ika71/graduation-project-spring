@@ -4,6 +4,7 @@ import backend.graduationprojectspring.entity.Board;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.entity.Member;
+import backend.graduationprojectspring.exception.CustomRunTimeException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.BoardRepo;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepo;
@@ -27,6 +28,7 @@ public class BoardServiceImpl implements BoardService {
     private final ElectronicDeviceRepo deviceRepo;
     private final MemberRepo memberRepo;
     private final ImageRepo imageRepo;
+    private final int MAX_IMAGE = 5;
 
     @Override
     @Transactional(readOnly = true)
@@ -83,12 +85,16 @@ public class BoardServiceImpl implements BoardService {
      * 생성된 게시글을 이미지들의 외래키로 설정함
      */
     private void boardImageSet(List<Long> imageIdList, Board savedBoard) {
-        if(imageIdList != null){ //imageIdList가 null이면 이미지 설정을 하지 않음
-            List<Image> findImageList = imageRepo.findAllById(imageIdList);
-            for (Image image : findImageList) {
-                if(image.getBoard().isEmpty()){ //이미지의 게시글이 null일 때만 게시글을 설정
-                    image.setBoard(savedBoard);
-                }
+        if(imageIdList == null) { //imageIdList가 null이면 이미지 설정을 하지 않음
+            return;
+        }
+        if(imageRepo.countByBoardId(savedBoard.getId()) + imageIdList.size() > MAX_IMAGE){
+            throw new CustomRunTimeException("게시글 최대 이미지 개수를 넘어섰습니다.");
+        }
+        List<Image> findImageList = imageRepo.findAllById(imageIdList);
+        for (Image image : findImageList) {
+            if(image.getBoard().isEmpty()){ //이미지의 게시글이 null일 때만 게시글을 설정
+                image.setBoard(savedBoard);
             }
         }
     }
@@ -96,11 +102,12 @@ public class BoardServiceImpl implements BoardService {
      * 이미지들의 외래키를 null로 설정함
      */
     private void boardImageDelete(List<Long> imageIdList) {
-        if(imageIdList != null){ //imageIdList가 null이면 이미지 설정을 하지 않음
-            List<Image> findImageList = imageRepo.findAllById(imageIdList);
-            for (Image image : findImageList) {
-                image.setBoard(null);
-            }
+        if(imageIdList == null) {//imageIdList가 null이면 이미지 설정을 하지 않음
+            return;
+        }
+        List<Image> findImageList = imageRepo.findAllById(imageIdList);
+        for (Image image : findImageList) {
+            image.setBoard(null);
         }
     }
 }
