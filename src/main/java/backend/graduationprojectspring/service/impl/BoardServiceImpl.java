@@ -37,8 +37,8 @@ public class BoardServiceImpl implements BoardService {
     }
     @Override
     @Transactional(readOnly = true)
-    public Long totalCountByDeviceId(Long deviceId){
-        return boardQueryRepo.totalCountByDeviceId(deviceId);
+    public long totalCountByDeviceId(Long deviceId){
+        return boardRepo.countByElectronicDeviceId(deviceId);
     }
 
     @Override

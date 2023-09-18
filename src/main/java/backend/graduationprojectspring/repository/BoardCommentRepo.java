@@ -4,4 +4,5 @@ import backend.graduationprojectspring.entity.BoardComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BoardCommentRepo extends JpaRepository<BoardComment, Long> {
+    long countByBoardId(Long boardId);
 }

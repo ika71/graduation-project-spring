@@ -20,7 +20,7 @@ public interface BoardService {
      * @param deviceId 게시글들이 관련된 전자제품의 id
      * @return 조회한 게시글 개수
      */
-    Long totalCountByDeviceId(Long deviceId);
+    long totalCountByDeviceId(Long deviceId);
 
     /**
      * 하나의 게시글을 조회한다. 게시글의 조회 수는 하나 늘어나야 한다.<br>

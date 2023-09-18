@@ -29,8 +29,8 @@ public class BoardCommentServiceImpl implements BoardCommentService {
     }
 
     @Override
-    public Long totalCountByBoardId(Long boardId) {
-        return boardCommentQueryRepo.totalCountByBoardId(boardId);
+    public long totalCountByBoardId(Long boardId) {
+        return boardCommentRepo.countByBoardId(boardId);
     }
 
     @Override

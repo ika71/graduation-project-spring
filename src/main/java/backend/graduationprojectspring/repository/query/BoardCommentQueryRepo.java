@@ -13,11 +13,4 @@ public interface BoardCommentQueryRepo {
      * @return 조회한 BoardComment List
      */
     List<BoardComment> paging(int page, int size, Long boardId);
-
-    /**
-     * 하나의 Board에 대한 BoardComment의 개수
-     * @param boardId BoardComment들이 관련된 Board의 id
-     * @return 조회한 BoardComment 개수
-     */
-    Long totalCountByBoardId(Long boardId);
 }

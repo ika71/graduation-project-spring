@@ -29,7 +29,7 @@ public class BoardController {
             @RequestParam(name = "size", defaultValue = "10")int size,
             @RequestParam(name = "deviceId")Long deviceId){
         List<PreviewBoardDto> pagingBoardList = boardService.paging(page, size, deviceId);
-        Long totalCount = boardService.totalCountByDeviceId(deviceId);
+        long totalCount = boardService.totalCountByDeviceId(deviceId);
 
         return new BoardPagingResultDto(pagingBoardList, totalCount);
     }
@@ -88,7 +88,7 @@ public class BoardController {
     @ToString
     public static class BoardPagingResultDto{
         private final List<BoardPagingDto> boardList;
-        private final Long totalCount;
+        private final long totalCount;
 
         public BoardPagingResultDto(List<PreviewBoardDto> boardList, Long totalCount) {
             this.boardList = boardList

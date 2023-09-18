@@ -39,16 +39,6 @@ public class BoardQueryRepoImpl implements BoardQueryRepo {
                 .limit(size)
                 .fetch();
     }
-
-    @Override
-    public Long totalCountByDeviceId(Long deviceId) {
-        return queryFactory
-                .select(board.count())
-                .from(board)
-                .where(board.electronicDevice.id.eq(deviceId))
-                .fetchOne();
-    }
-
     @Override
     public Optional<Board> findOneDetail(Long boardId) {
         Board fetchBoard = queryFactory

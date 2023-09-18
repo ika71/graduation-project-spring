@@ -19,7 +19,7 @@ public interface BoardCommentService {
      * @param boardId 댓글들이 관련된 게시글의 id
      * @return 조회한 댓글 개수
      */
-    Long totalCountByBoardId(Long boardId);
+    long totalCountByBoardId(Long boardId);
 
     /**
      * 댓글을 생성한다.

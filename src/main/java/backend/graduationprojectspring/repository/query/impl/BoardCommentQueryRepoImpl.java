@@ -27,13 +27,4 @@ public class BoardCommentQueryRepoImpl implements BoardCommentQueryRepo {
                 .limit(size)
                 .fetch();
     }
-
-    @Override
-    public Long totalCountByBoardId(Long boardId) {
-        return queryFactory
-                .select(boardComment.count())
-                .from(boardComment)
-                .where(boardComment.board.id.eq(boardId))
-                .fetchOne();
-    }
 }

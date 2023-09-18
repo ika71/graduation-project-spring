@@ -27,7 +27,7 @@ public class BoardCommentController {
             @RequestParam(name = "size", defaultValue = "10")int size,
             @PathVariable(name = "id")Long boardId){
         List<BoardComment> pagingCommentList = boardCommentService.paging(page, size, boardId);
-        Long totalCountByBoardId = boardCommentService.totalCountByBoardId(boardId);
+        long totalCountByBoardId = boardCommentService.totalCountByBoardId(boardId);
 
         return new BoardCommentPagingResultDto(
                 pagingCommentList,
@@ -65,7 +65,7 @@ public class BoardCommentController {
     @ToString
     public static class BoardCommentPagingResultDto{
         private final List<BoardCommentPagingDto> boardCommentList;
-        private final Long totalCount;
+        private final long totalCount;
 
         public BoardCommentPagingResultDto(List<BoardComment> boardCommentList, Long totalCount) {
             this.boardCommentList = boardCommentList
