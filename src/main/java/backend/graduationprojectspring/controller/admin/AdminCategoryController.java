@@ -30,7 +30,7 @@ public class AdminCategoryController {
             @RequestParam(name = "page", defaultValue = "1")int page,
             @RequestParam(name = "size", defaultValue = "10")int size){
         List<Category> categoryPagingList = categoryService.paging(page, size);
-        Long categoryTotalCount = categoryService.totalCount();
+        long categoryTotalCount = categoryService.totalCount();
         return new categoryPagingResultDto(categoryPagingList, categoryTotalCount);
     }
 
@@ -89,8 +89,8 @@ public class AdminCategoryController {
     @Getter
     @ToString
     public static class categoryPagingResultDto {
-        List<CategoryPagingDto> categoryList;
-        Long totalCount;
+        private final List<CategoryPagingDto> categoryList;
+        private final long totalCount;
 
         public categoryPagingResultDto(List<Category> categoryPagingList, Long totalCount) {
             this.categoryList = categoryPagingList

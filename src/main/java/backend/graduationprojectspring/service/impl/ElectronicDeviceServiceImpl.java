@@ -79,7 +79,7 @@ public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Long totalCount(){
+    public long totalCount(){
         return deviceRepo.count();
     }
 

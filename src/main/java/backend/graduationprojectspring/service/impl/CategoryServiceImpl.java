@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Long totalCount(){
+    public long totalCount(){
         return categoryRepo.count();
     }
 

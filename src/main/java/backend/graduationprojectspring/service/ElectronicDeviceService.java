@@ -40,7 +40,7 @@ public interface ElectronicDeviceService {
      * 전자제품 전체 개수 반환
      * @return 전자제품 전체 수
      */
-    Long totalCount();
+    long totalCount();
 
     /**
      * 전자제품 수정

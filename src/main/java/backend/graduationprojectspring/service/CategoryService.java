@@ -27,7 +27,7 @@ public interface CategoryService {
      * 카테고리 전체 개수 반환
      * @return 카테고리 전체 수
      */
-    Long totalCount();
+    long totalCount();
 
     /**
      * 카테고리 이름 수정
