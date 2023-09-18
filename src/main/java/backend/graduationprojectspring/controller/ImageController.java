@@ -1,10 +1,12 @@
 package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Image;
+import backend.graduationprojectspring.exception.CustomRunTimeException;
 import backend.graduationprojectspring.service.ImageService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.apache.tika.Tika;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
@@ -21,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImageController {
     private final ImageService imageService;
+    private final Tika tika;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> imageView(@PathVariable(name = "id")Long id) throws MalformedURLException {
@@ -39,7 +43,13 @@ public class ImageController {
 
     @PostMapping
     public ResponseEntity<?> imageCreate(
-            @RequestParam(name = "imageFile") List<MultipartFile> imageFile) {
+            @RequestParam(name = "imageFile") List<MultipartFile> imageFile) throws IOException {
+        for (MultipartFile multipartFile : imageFile) {
+            String mimeType = tika.detect(multipartFile.getInputStream());
+            if(!mimeType.startsWith("image")){
+                throw new CustomRunTimeException("이미지 파일이 아닌 파일을 업로드 하였습니다.");
+            }
+        }
         List<Image> savedImageList = imageService.storeFileList(imageFile);
 
         return ResponseEntity
