@@ -22,9 +22,11 @@ public class ElectronicDeviceController {
     @GetMapping
     public PagingResultDto electronicDevicePaging(
             @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10")int size){
-        List<ElectronicDevice> deviceList = deviceService.pagingJoinCategoryAndEvalItem(page, size);
-        long totalCount = deviceService.totalCount();
+            @RequestParam(name = "size", defaultValue = "10")int size,
+            @RequestParam(required = false) String nameCondition,
+            @RequestParam(required = false) String categoryCondition){
+        List<ElectronicDevice> deviceList = deviceService.pagingJoinCategoryAndEvalItem(page, size, nameCondition, categoryCondition);
+        Long totalCount = deviceService.countByCondition(nameCondition, categoryCondition);
 
         return new PagingResultDto(deviceList, totalCount);
     }
@@ -43,7 +45,7 @@ public class ElectronicDeviceController {
     @ToString
     public static class PagingResultDto {
         private final List<DevicePagingDto> deviceList;
-        private final long totalCount;
+        private final Long totalCount;
 
         public PagingResultDto(List<ElectronicDevice> deviceList, Long totalCount) {
             this.deviceList = deviceList

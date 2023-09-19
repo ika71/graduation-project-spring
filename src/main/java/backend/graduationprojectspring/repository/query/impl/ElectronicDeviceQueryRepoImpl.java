@@ -2,6 +2,7 @@ package backend.graduationprojectspring.repository.query.impl;
 
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.repository.query.ElectronicDeviceQueryRepo;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -46,19 +47,17 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
      * ElectronicDevice.createdTime으로 내림차순 정렬된다
      * @param page 현재 보여줄 페이지 위치
      * @param size 한 페이지의 사이즈
+     * @param nameCondition 이름으로 검색하고 싶을 때 사용, null이면 검색조건 없음
+     * @param categoryCondition 카테고리로 검색하고 싶을 때 사용, null이면 검색조건 없음
      * @return 조회된 ElectronicDevice List 반환
      */
     @Override
-    public List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size){
-        /*
-        ElectronicDevice와 EvaluationItem은 일대다 관계이기에 페이징과 fetch join을
-        2개의 쿼리로 나눠서 처리한다.
-         */
-
+    public List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size, String nameCondition, String categoryCondition){
         List<ElectronicDevice> deviceList = queryFactory
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)
                 .fetchJoin()
+                .where(deviceNameEq(nameCondition), categoryEq(categoryCondition))
                 .orderBy(electronicDevice.id.desc())
                 .offset((long) (page - 1) * size)
                 .limit(size)
@@ -71,6 +70,15 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
                 .where(electronicDevice.in(deviceList))
                 .orderBy(electronicDevice.id.desc())
                 .fetch();
+    }
+
+    @Override
+    public Long countByCondition(String nameCondition, String categoryCondition){
+        return queryFactory
+                .select(electronicDevice.count())
+                .from(electronicDevice)
+                .where(deviceNameEq(nameCondition), categoryEq(categoryCondition))
+                .fetchOne();
     }
 
     /**
@@ -92,5 +100,12 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
                 .where(electronicDevice.id.eq(id))
                 .fetchOne();
         return Optional.ofNullable(findDevice);
+    }
+
+    private BooleanExpression deviceNameEq(String deviceName) {
+        return deviceName != null ? electronicDevice.name.contains(deviceName) : null;
+    }
+    private BooleanExpression categoryEq(String category) {
+        return category != null ? electronicDevice.category.name.contains(category) : null;
     }
 }

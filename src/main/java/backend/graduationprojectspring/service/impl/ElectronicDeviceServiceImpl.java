@@ -69,8 +69,8 @@ public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size){
-        return deviceQueryRepo.pagingJoinCategoryAndEvalItem(page, size);
+    public List<ElectronicDevice> pagingJoinCategoryAndEvalItem(int page, int size, String nameCondition, String categoryCondition){
+        return deviceQueryRepo.pagingJoinCategoryAndEvalItem(page, size, nameCondition, categoryCondition);
     }
 
     /**
@@ -153,5 +153,10 @@ public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
         Map<Long, Double> avgGroupByEvalItemMap = evalQueryRepo.avgGroupByEvalItem(evalItemIdList);
 
         return new DeviceDetailAndAvgDto(device, avgGroupByEvalItemMap);
+    }
+
+    @Override
+    public Long countByCondition(String nameCondition, String categoryCondition) {
+        return deviceQueryRepo.countByCondition(nameCondition, categoryCondition);
     }
 }
