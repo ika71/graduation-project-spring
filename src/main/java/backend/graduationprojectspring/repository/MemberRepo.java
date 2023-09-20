@@ -17,10 +17,16 @@ public interface MemberRepo extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
 
     /**
-     * email 또는 name으로 이미 생성된 member가 있는지 확인한다.
+     * email으로 이미 생성된 member가 있는지 확인한다.
      * @param email 검색 조건으로 쓰일 email
+     * @return 이미 생성된 member가 있으면 true 없으면 false를 반환한다.
+     */
+    boolean existsByEmail(String email);
+
+    /**
+     * name으로 이미 생성된 member가 있는지 확인한다.
      * @param name  검색 조건으로 쓰일 name
      * @return 이미 생성된 member가 있으면 true 없으면 false를 반환한다.
      */
-    Boolean existsByEmailOrName(String email, String name);
+    boolean existsByName(String name);
 }

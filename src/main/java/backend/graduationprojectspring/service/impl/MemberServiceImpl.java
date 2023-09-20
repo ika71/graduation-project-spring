@@ -30,8 +30,11 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public Member create(Member member){
-        if(memberRepo.existsByEmailOrName(member.getEmail(), member.getName())){
-            throw new DuplicateException("이미 존재하는 이메일 또는 이름으로 회원가입을 시도하고 있습니다.");
+        if(memberRepo.existsByEmail(member.getEmail())){
+            throw new DuplicateException("이미 존재하는 이메일로 회원가입을 시도하고 있습니다.");
+        }
+        if(memberRepo.existsByName(member.getName())){
+            throw new DuplicateException("이미 존재하는 닉네임으로 회원가입을 시도하고 있습니다.");
         }
 
         member.passwordEncode(passwordEncoder);
