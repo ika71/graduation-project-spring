@@ -16,7 +16,7 @@ public interface CategoryService {
     Category create(String name) throws DuplicateException;
 
     /**
-     * 카테고리 페이지 조회<br>
+     * 카테고리 페이지 조회(카테고리 이름으로 정렬됨)<br>
      * @param page 현재 보여줄 페이지 위치
      * @param size 한 페이지의 크기
      * @return 조회된 category List 반환
