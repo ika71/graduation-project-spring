@@ -1,0 +1,48 @@
+#Encoding UTF-8
+spring:
+  profiles:
+    active: test
+  #h2 데이터 베이스 설정
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+  #jpa 설정
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+    #jpa 쿼리 로그 보기
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+  #업로드 파일 용량 제한
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+
+#jpa 쿼리 로그 보기
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+
+#프론트 서버 주소
+frontend: http://localhost:3000
+
+#jwt 비밀키 설정
+jwt:
+  secretkey:
+    access: myacesskeyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    refresh: myrefreshkeyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+#업로드 파일 저장 위치
+file:
+  dir: C:/Users/ika71/OneDrive/바탕 화면/upload

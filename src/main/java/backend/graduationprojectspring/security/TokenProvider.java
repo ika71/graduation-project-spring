@@ -17,8 +17,8 @@ public class TokenProvider {
     private final Key accessKey;
     private final Key refreshKey;
 
-    private TokenProvider(@Value("${accessSecretkey}") final String ACCESS_SECRET_KEY,
-                          @Value("${refreshSecretKey}") final String REFRESH_SECRET_KEY) {
+    private TokenProvider(@Value("${jwt.secretkey.access}") final String ACCESS_SECRET_KEY,
+                          @Value("${jwt.secretkey.refresh}") final String REFRESH_SECRET_KEY) {
         byte[] accessKeyBytes = ACCESS_SECRET_KEY.getBytes(StandardCharsets.UTF_8);
         byte[] refreshKeyBytes = REFRESH_SECRET_KEY.getBytes(StandardCharsets.UTF_8);
         this.accessKey = Keys.hmacShaKeyFor(accessKeyBytes);
