@@ -18,7 +18,7 @@ public interface ElectronicDeviceService {
     ElectronicDevice create(String name, Long categoryId) throws DuplicateException;
 
     /**
-     * 전자제품 페이지 조회<br>
+     * 전자제품 페이지 조회(이름으로 정렬됨)<br>
      * 카테고리와 join<br>
      * @param page 현재 보여줄 페이지 위치
      * @param size 한 페이지의 크기
@@ -27,7 +27,7 @@ public interface ElectronicDeviceService {
     List<ElectronicDevice> pagingJoinCategory(int page, int size);
 
     /**
-     * 전자제품 페이지 조회<br>
+     * 전자제품 페이지 조회(id 내림차순 정렬)<br>
      * 카테고리와 join<br>
      * 평가항목과 left join
      * @param page 현재 보여줄 페이지 위치
