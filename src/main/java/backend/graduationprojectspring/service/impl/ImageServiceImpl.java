@@ -24,12 +24,6 @@ public class ImageServiceImpl implements ImageService {
     private String fileDir; //저장될 폴더 위치
     private final ImageRepo imageRepo;
 
-    /**
-     * 파일 저장
-     * @param multipartFileList 저장할 파일
-     * @return 데이터베이스에 저장한 Image
-     * @throws ImageStoreFailException 파일 저장 과정 중에 IOException 발생 시 예외 던짐
-     */
     @Override
     @Transactional
     public List<Image> storeFileList(List<MultipartFile> multipartFileList) {
@@ -48,12 +42,6 @@ public class ImageServiceImpl implements ImageService {
         return imageRepo.saveAll(imageList);
     }
 
-    /**
-     * id에 해당하는 이미지의 저장 경로를 반환
-     * @param id 저장 경로를 확인할 이미지의 id
-     * @return 이미지의 저장 경로
-     * @throws NotExistsException 해당하는 이미지가 없으면 발생
-     */
     @Override
     @Transactional
     public String fullPath(Long id){

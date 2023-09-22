@@ -22,12 +22,6 @@ public class MemberServiceImpl implements MemberService {
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
 
-    /**
-     * 회원가입
-     * @param member email이나 name이 데이터 베이스에 중복이 없어야 함
-     * @return 저장된 member
-     * @throws DuplicateException email이나 name이 데이터 베이스에 중복
-     */
     @Override
     public Member create(Member member){
         if(memberRepo.existsByEmail(member.getEmail())){
@@ -42,12 +36,6 @@ public class MemberServiceImpl implements MemberService {
         return memberRepo.save(member);
     }
 
-    /**
-     * email을 가지고 있는 아이디가 존재하고 비밀번호가 일치하면 토큰을 반환
-     * @param email
-     * @param password
-     * @return JWT or null
-     */
     @Override
     @Transactional(readOnly = true)
     public Optional<SigninDto> signin(String email, String password){
@@ -65,11 +53,6 @@ public class MemberServiceImpl implements MemberService {
         return Optional.empty();
     }
 
-    /**
-     * id에 해당하는 member를 반환
-     * @param id
-     * @return
-     */
     @Override
     public Member findById(Long id) {
         return memberRepo.findById(id)
