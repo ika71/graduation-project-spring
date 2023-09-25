@@ -52,9 +52,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long id){
-        if(id == null){
-            throw new IllegalArgumentException("id가 null이 올 수 없습니다.");
-        }
         categoryRepo.deleteById(id);
     }
 

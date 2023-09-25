@@ -104,11 +104,7 @@ class CategoryServiceTest {
         em.clear();
 
         Optional<Category> expectedNull = categoryRepo.findById(laptop.getId());
-        assertThat(expectedNull.isPresent()).isFalse();
-
-        //id가 null일 경우 예외가 발생해야 한다.
-        assertThatThrownBy(()-> categoryService.delete(null))
-                .isInstanceOf(IllegalArgumentException.class);
+        assertThat(expectedNull.isEmpty()).isTrue();
     }
 
     @Test

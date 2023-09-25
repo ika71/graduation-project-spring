@@ -41,9 +41,8 @@ public interface CategoryService {
     /**
      * 카테고리 삭제
      * @param id 삭제할 카테고리의 id
-     * @throws IllegalArgumentException id가 null이 들어올 경우 예외 반환
      */
-    void delete(Long id) throws IllegalArgumentException;
+    void delete(Long id);
 
     /**
      * 모든 카테고리 반환
