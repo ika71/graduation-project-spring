@@ -40,7 +40,7 @@ public class EvaluationItemServiceImpl implements EvaluationItemService {
     public void updateName(Long id, String name){
         EvaluationItem findEvaluationItem = evalItemRepository.findById(id)
                 .orElseThrow(() -> new NotExistsException("해당하는 평가 항목이 없습니다."));
-        if(evalItemRepository.existsByNameAndElectronicDeviceId(name, id)){
+        if(evalItemRepository.existsByNameAndElectronicDeviceId(name, findEvaluationItem.getElectronicDevice().getId())){
             throw new DuplicateException("이미 존재하는 평가 항목입니다.");
         }
         findEvaluationItem.updateName(name);

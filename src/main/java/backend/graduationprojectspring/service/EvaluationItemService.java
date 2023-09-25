@@ -35,7 +35,6 @@ public interface EvaluationItemService {
     /**
      * 평가항목 삭제
      * @param id 삭제할 평가항목의 id
-     * @throws IllegalArgumentException id가 null일 경우 발생
      */
-    void delete(Long id) throws IllegalArgumentException;
+    void delete(Long id);
 }
