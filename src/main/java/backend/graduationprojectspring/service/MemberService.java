@@ -2,6 +2,7 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.exception.DuplicateException;
+import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.service.dto.SigninDto;
 
 import java.util.Optional;
@@ -25,10 +26,18 @@ public interface MemberService {
 
     /**
      * id에 해당 하는 member를 반환
-     * @param id
-     * @return
+     * @param id member의 id
+     * @return 찾아온 member 객체
+     * @throws NotExistsException id에 해당하는 member가 없으면 반환
      */
-    Member findById(Long id);
+    Member findById(Long id) throws NotExistsException;
+
+    /**
+     * 유저의 권한을 확인할 수 있는 jwt 토큰을 발급한다.
+     * @param id member의 id
+     * @param role member의 Role
+     * @return jwt 토큰
+     */
 
     String createAccessToken(String id, String role);
 }
