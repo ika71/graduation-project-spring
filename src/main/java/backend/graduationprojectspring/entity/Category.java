@@ -18,7 +18,7 @@ import java.util.List;
 @ToString(exclude = "electronicDeviceList")
 public class Category extends Base {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private Long id;
 

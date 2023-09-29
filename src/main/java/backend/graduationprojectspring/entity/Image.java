@@ -17,7 +17,7 @@ import java.util.Optional;
 @ToString
 public class Image extends Base {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
     private Long id;
 
@@ -28,9 +28,11 @@ public class Image extends Base {
     private String storeName; //파일로 저장된 이미지의 이름
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
     private Board board; //게시글에 사용되는 이미지
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "electronic_device_id")
     private ElectronicDevice electronicDevice;
 
     @Column

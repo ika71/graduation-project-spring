@@ -58,6 +58,13 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
+  #jpa 설정
+  jpa:
+    hibernate:
+      ddl-auto: create
+  sql:
+    init:
+      mode: never
 ---
 #운영환경
 spring:
@@ -71,10 +78,13 @@ spring:
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
   #jpa 설정
-  #TODO 이 옵션은 나중에 sql 파일로 대체해야함
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
+  #resources/schema.sql, data.sql 자동실행
+  sql:
+    init:
+      mode: always
 
 #프론트 서버 주소
 frontend: ${FRONT_SERVER}

@@ -19,7 +19,7 @@ import java.util.Optional;
 @ToString(exclude = {"evaluationItemList", "boardList", "image"})
 public class ElectronicDevice extends Base {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "electronic_device_id")
     private Long id;
 

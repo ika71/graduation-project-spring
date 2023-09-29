@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board extends Base{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long id;
 
@@ -26,16 +26,17 @@ public class Board extends Base{
     private String title; //게시글 제목
 
     @Column(nullable = false)
-    @Lob
     private String content; //게시글 내용
 
     @Column
     private long view; //조회수
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "electronic_device_id")
     private ElectronicDevice electronicDevice; //게시글과 연결되어 있는 전자제품
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member; //게시글 작성자
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)

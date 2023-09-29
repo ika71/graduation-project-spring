@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 public class Evaluation extends Base {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "evaluation_id")
     private Long id;
 

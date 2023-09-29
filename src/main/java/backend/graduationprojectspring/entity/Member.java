@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ToString(exclude = "password")
 public class Member extends Base {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
     

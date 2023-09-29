@@ -18,7 +18,7 @@ import java.util.List;
 @ToString(exclude = "evaluationList")
 public class EvaluationItem extends Base {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "evaluation_item_id")
     private Long id;
 
