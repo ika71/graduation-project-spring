@@ -88,7 +88,7 @@ public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
         Image image = imageRepo.findById(imageId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 이미지 입니다."));
         image.setVisible(true);
-        device.setImage(image);
+        image.setElectronicDevice(device);
     }
 
     @Override

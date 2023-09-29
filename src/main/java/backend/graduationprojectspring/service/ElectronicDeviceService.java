@@ -20,6 +20,7 @@ public interface ElectronicDeviceService {
     /**
      * 전자제품 페이지 조회(이름으로 정렬됨)<br>
      * 카테고리와 join<br>
+     * 이미지와 left join 한다.
      * @param page 현재 보여줄 페이지 위치
      * @param size 한 페이지의 크기
      * @return 조회된 ElectronicDevice List 반환
@@ -29,7 +30,8 @@ public interface ElectronicDeviceService {
     /**
      * 전자제품 페이지 조회(id 내림차순 정렬)<br>
      * 카테고리와 join<br>
-     * 평가항목과 left join
+     * 평가항목과 left join<br>
+     * 이미지와 left join 한다.
      * @param page 현재 보여줄 페이지 위치
      * @param size 한 페이지의 크기
      * @param nameCondition 이름으로 검색하고 싶을 때 사용, null이면 검색조건 없음
@@ -72,6 +74,7 @@ public interface ElectronicDeviceService {
      * 전자제품 하나 조회<br>
      * 카테고리와 join<br>
      * 평가항목과 left join<br>
+     * 이미지와 left join<br>
      * 전자제품이 가지고 있는 평가항목을 group by하여 평점 score의 평균을 계산함<br>
      * 계산 결과는 Map으로 반환 key = 평가항목 Id, value = score의 평균
      * @param id 조회할 전자제품 Id
