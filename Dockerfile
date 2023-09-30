@@ -8,7 +8,7 @@ RUN mkdir -p images
 
 RUN chmod +x gradlew
 
-RUN ./gradlew build
+RUN ./gradlew clean build
 
 EXPOSE 8080
 
