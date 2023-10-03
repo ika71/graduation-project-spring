@@ -7,9 +7,6 @@ spring:
       max-file-size: 20MB
       max-request-size: 100MB
 
-#프론트 서버 주소
-frontend: http://localhost:3000
-
 #jwt 비밀키 설정
 jwt:
   secretkey:
@@ -85,9 +82,6 @@ spring:
   sql:
     init:
       mode: always
-
-#프론트 서버 주소
-frontend: ${FRONT_SERVER}
 
 #jwt 비밀키 설정
 jwt:
