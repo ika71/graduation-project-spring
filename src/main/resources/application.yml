@@ -91,7 +91,7 @@ jwt:
 
 #업로드 파일 저장 위치
 file:
-  dir: ${UPLOAD_FILE_DIR}
+  dir: /app/images
 
 #어드민 계정
 admin:
