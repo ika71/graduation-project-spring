@@ -3,12 +3,7 @@ package backend.graduationprojectspring.config;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Member;
-import backend.graduationprojectspring.service.BoardCommentService;
-import backend.graduationprojectspring.service.BoardService;
-import backend.graduationprojectspring.service.impl.CategoryServiceImpl;
-import backend.graduationprojectspring.service.impl.ElectronicDeviceServiceImpl;
-import backend.graduationprojectspring.service.impl.EvaluationItemServiceImpl;
-import backend.graduationprojectspring.service.impl.MemberServiceImpl;
+import backend.graduationprojectspring.service.*;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
@@ -18,10 +13,10 @@ import org.springframework.stereotype.Component;
 @Profile("dev")
 @RequiredArgsConstructor
 public class PostConstructConfig {
-    private final MemberServiceImpl memberService;
-    private final CategoryServiceImpl categoryService;
-    private final ElectronicDeviceServiceImpl deviceService;
-    private final EvaluationItemServiceImpl itemService;
+    private final MemberService memberService;
+    private final CategoryService categoryService;
+    private final ElectronicDeviceService deviceService;
+    private final EvaluationItemService itemService;
     private final BoardService boardService;
     private final BoardCommentService commentService;
 
