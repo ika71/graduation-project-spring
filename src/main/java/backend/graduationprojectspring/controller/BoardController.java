@@ -5,6 +5,7 @@ import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 import backend.graduationprojectspring.service.BoardService;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -146,6 +147,7 @@ public class BoardController {
     @ToString
     public static class BoardCreateDto{
         @NotBlank
+        @Size(max = 20, message = "제목은 20자 이상을 쓸 수 없습니다.")
         private String title;
         @NotBlank
         private String content;
@@ -155,6 +157,7 @@ public class BoardController {
     @ToString
     public static class BoardUpdateDto{
         @NotBlank
+        @Size(max = 20, message = "제목은 20자 이상을 쓸 수 없습니다.")
         private String title;
         @NotBlank
         private String content;

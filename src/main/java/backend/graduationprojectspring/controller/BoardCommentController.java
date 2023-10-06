@@ -3,6 +3,7 @@ package backend.graduationprojectspring.controller;
 import backend.graduationprojectspring.entity.BoardComment;
 import backend.graduationprojectspring.service.BoardCommentService;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -95,6 +96,7 @@ public class BoardCommentController {
     @ToString
     public static class BoardCommentCreateDto{
         @NotBlank
+        @Size(max = 255, message = "댓글은 255자 이상을 넘을 수 없습니다.")
         private String comment;
     }
 }
