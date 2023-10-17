@@ -1,6 +1,7 @@
 package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Board;
+import backend.graduationprojectspring.exception.CustomRunTimeException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 
@@ -49,6 +50,7 @@ public interface BoardService {
      * @param addImageIdList 수정할 때 추가된 이미지의 id
      * @param deleteImageIdList 수정할 때 삭제된 이미지의 id
      * @throws NotExistsException 수정할 게시글이 존재하지 않으면 발생
+     * @throws CustomRunTimeException 자신이 작성한 게시글이 아니면 발생
      */
     void update(Long boardId, String title, String content, Long requestMemberId, List<Long> addImageIdList, List<Long> deleteImageIdList) throws NotExistsException;
 
@@ -57,6 +59,7 @@ public interface BoardService {
      * @param boardId 삭제할 게시글의 id
      * @param requestMemberId 삭제를 요청하는 member의 id
      * @throws NotExistsException 삭제할 게시글이 존재하지 않으면 발생
+     * @throws CustomRunTimeException 자신이 작성한 게시글이 아니면 발생
      */
     void delete(Long boardId, Long requestMemberId) throws NotExistsException;
 }

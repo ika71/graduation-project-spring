@@ -65,20 +65,22 @@ public class BoardServiceImpl implements BoardService {
     public void update(Long boardId, String title, String content, Long requestMemberId, List<Long> addImageIdList, List<Long> deleteImageIdList) {
         Board findBoard = boardRepo.findById(boardId)
                 .orElseThrow(() -> new NotExistsException("해당하는 게시글이 존재하지 않습니다."));
-        if(findBoard.getMember().getId().equals(requestMemberId)){
-            findBoard.update(title, content);
-            boardImageDelete(deleteImageIdList, requestMemberId);
-            boardImageSet(addImageIdList, findBoard, requestMemberId);
+        if(!findBoard.getMember().getId().equals(requestMemberId)){
+            throw new CustomRunTimeException("본인의 글만 수정할 수 있습니다.");
         }
+        findBoard.update(title, content);
+        boardImageDelete(deleteImageIdList, requestMemberId);
+        boardImageSet(addImageIdList, findBoard, requestMemberId);
     }
 
     @Override
     public void delete(Long boardId, Long requestMemberId) {
         Board findBoard = boardRepo.findById(boardId)
                 .orElseThrow(() -> new NotExistsException("해당하는 게시글이 없습니다."));
-        if(findBoard.getMember().getId().equals(requestMemberId)){
-            boardRepo.deleteById(boardId);
+        if(!findBoard.getMember().getId().equals(requestMemberId)){
+            throw new CustomRunTimeException("본인의 글만 삭제할 수 있습니다.");
         }
+        boardRepo.deleteById(boardId);
     }
 
     /**
