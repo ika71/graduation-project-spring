@@ -2,6 +2,7 @@ package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.BoardComment;
 import backend.graduationprojectspring.service.BoardCommentService;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -25,7 +26,7 @@ public class BoardCommentController {
     @GetMapping
     public BoardCommentPagingResultDto boardCommentPaging(
             @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10")int size,
+            @RequestParam(name = "size", defaultValue = "10") @Max(50) int size,
             @PathVariable(name = "id")Long boardId){
         List<BoardComment> pagingCommentList = boardCommentService.paging(page, size, boardId);
         long totalCountByBoardId = boardCommentService.totalCountByBoardId(boardId);

@@ -5,6 +5,7 @@ import backend.graduationprojectspring.entity.EvaluationItem;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
+import jakarta.validation.constraints.Max;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -22,7 +23,7 @@ public class ElectronicDeviceController {
     @GetMapping
     public PagingResultDto electronicDevicePaging(
             @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10")int size,
+            @RequestParam(name = "size", defaultValue = "10") @Max(50) int size,
             @RequestParam(required = false) String nameCondition,
             @RequestParam(required = false) String categoryCondition){
         List<ElectronicDevice> deviceList = deviceService.pagingJoinCategoryAndEvalItem(page, size, nameCondition, categoryCondition);

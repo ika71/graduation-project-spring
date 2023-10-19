@@ -4,6 +4,7 @@ import backend.graduationprojectspring.entity.Board;
 import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 import backend.graduationprojectspring.service.BoardService;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class BoardController {
     @GetMapping
     public BoardPagingResultDto boardPaging(
             @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10")int size,
+            @RequestParam(name = "size", defaultValue = "10") @Max(50) int size,
             @RequestParam(name = "deviceId")Long deviceId){
         List<PreviewBoardDto> pagingBoardList = boardService.paging(page, size, deviceId);
         long totalCount = boardService.totalCountByDeviceId(deviceId);
