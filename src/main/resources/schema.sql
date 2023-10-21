@@ -46,8 +46,7 @@ CREATE TABLE IF NOT EXISTS evaluation_item(
     modified_by VARCHAR(255) NOT NULL,
     PRIMARY KEY (evaluation_item_id),
     FOREIGN KEY (electronic_device_id)
-    REFERENCES electronic_device(electronic_device_id),
-    UNIQUE KEY (name)
+    REFERENCES electronic_device(electronic_device_id)
 );
 
 CREATE TABLE IF NOT EXISTS evaluation(
