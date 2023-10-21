@@ -63,7 +63,7 @@ public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
         Category updateCategory = categoryRepo.findById(updateCategoryId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 카테고리 입니다."));
-        if(deviceRepo.existsByName(updateDeviceName)){
+        if(!findDevice.getName().equals(updateDeviceName) && deviceRepo.existsByName(updateDeviceName)){
             throw new DuplicateException("해당 이름으로 이미 존재하는 전자제품이 있습니다.");
         }
 
