@@ -4,6 +4,7 @@ import backend.graduationprojectspring.entity.Board;
 import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface BoardQueryRepo {
@@ -24,4 +25,13 @@ public interface BoardQueryRepo {
      * @return 조회한 Board를 Optinal로 반환한다.
      */
     Optional<Board> findOneDetail(Long boardId);
+
+    /**
+     * 전자제품 별로 그룹화 하여 게시글 개수를 가져옴
+     * @param deviceIdList 검색할 device의 id를 모아둔 List
+     * @return Map 자료구조로 반환한다.<br>
+     * key = ElectronicDevice의 id
+     * value = 전자제품이 가지고 있는 리뷰 글의 개수<br>
+     */
+    Map<Long, Long> countGroupByDevice(List<Long> deviceIdList);
 }

@@ -7,6 +7,7 @@ import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.exception.DuplicateException;
 import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.repository.*;
+import backend.graduationprojectspring.repository.query.BoardQueryRepo;
 import backend.graduationprojectspring.repository.query.ElectronicDeviceQueryRepo;
 import backend.graduationprojectspring.repository.query.EvaluationQueryRepo;
 import backend.graduationprojectspring.service.ElectronicDeviceService;
@@ -27,6 +28,7 @@ public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
     private final CategoryRepo categoryRepo;
     private final ImageRepo imageRepo;
     private final EvaluationQueryRepo evalQueryRepo;
+    private final BoardQueryRepo boardQueryRepo;
 
     @Override
     public ElectronicDevice create(String name, Long categoryId){
@@ -116,5 +118,10 @@ public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
     @Override
     public Map<Long, Double> avgGroupByDevice(List<Long> deviceIdList) {
         return evalQueryRepo.avgGroupByDevice(deviceIdList);
+    }
+
+    @Override
+    public Map<Long, Long> countBoardGroupByDevice(List<Long> deviceIdList) {
+        return boardQueryRepo.countGroupByDevice(deviceIdList);
     }
 }

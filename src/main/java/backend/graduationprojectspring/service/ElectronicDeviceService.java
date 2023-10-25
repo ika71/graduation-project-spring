@@ -101,4 +101,13 @@ public interface ElectronicDeviceService {
      * <b>Evaluation.score가 없다면 value는 null 된다.</b>
      */
     Map<Long, Double> avgGroupByDevice(List<Long> deviceIdList);
+
+    /**
+     * 전자제품 별로 그룹화 하여 게시글 개수를 가져옴
+     * @param deviceIdList 검색할 device의 id를 모아둔 List
+     * @return Map 자료구조로 반환한다.<br>
+     * key = ElectronicDevice의 id
+     * value = 전자제품이 가지고 있는 리뷰 글의 개수<br>
+     */
+    Map<Long, Long> countBoardGroupByDevice(List<Long> deviceIdList);
 }

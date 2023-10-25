@@ -35,8 +35,9 @@ public class ElectronicDeviceController {
                 .toList();
 
         Map<Long, Double> totalAvgMap = deviceService.avgGroupByDevice(deviceIdList);
+        Map<Long, Long> countBoardGroupByDeviceMap = deviceService.countBoardGroupByDevice(deviceIdList);
 
-        return new PagingResultDto(deviceList, totalCount, totalAvgMap);
+        return new PagingResultDto(deviceList, totalCount, totalAvgMap, countBoardGroupByDeviceMap);
     }
 
     @GetMapping("/{id}")
@@ -55,10 +56,13 @@ public class ElectronicDeviceController {
         private final List<DevicePagingDto> deviceList;
         private final Long totalCount;
 
-        public PagingResultDto(List<ElectronicDevice> deviceList, Long totalCount, Map<Long, Double> totalAvgMap) {
+        public PagingResultDto(List<ElectronicDevice> deviceList, Long totalCount, Map<Long, Double> totalAvgMap, Map<Long, Long> countBoardGroupByDeviceMap) {
             this.deviceList = deviceList
                     .stream()
-                    .map(device -> new DevicePagingDto(device, totalAvgMap.get(device.getId())))
+                    .map(device -> new DevicePagingDto(
+                            device,
+                            totalAvgMap.get(device.getId()),
+                            countBoardGroupByDeviceMap.get(device.getId())))
                     .toList();
             this.totalCount = totalCount;
         }
@@ -74,8 +78,9 @@ public class ElectronicDeviceController {
         private final String createdTime;
         private final List<String> evaluationItemList;
         private final Optional<Double> totalAvg;
+        private final Long boardCount;
 
-        public DevicePagingDto(ElectronicDevice device, Double totalAvg) {
+        public DevicePagingDto(ElectronicDevice device, Double totalAvg, Long boardCount) {
             this.id = device.getId();
             this.name = device.getName();
             this.categoryName = device.getCategory().getName();
@@ -89,6 +94,7 @@ public class ElectronicDeviceController {
                     .map(EvaluationItem::getName)
                     .toList();
             this.totalAvg = Optional.ofNullable(totalAvg);
+            this.boardCount = boardCount;
         }
 
         public Double getTotalAvg() {
