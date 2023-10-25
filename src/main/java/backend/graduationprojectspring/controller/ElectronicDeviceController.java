@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/device")
@@ -72,7 +73,7 @@ public class ElectronicDeviceController {
         private final Long imageId;
         private final String createdTime;
         private final List<String> evaluationItemList;
-        private final Double totalAvg;
+        private final Optional<Double> totalAvg;
 
         public DevicePagingDto(ElectronicDevice device, Double totalAvg) {
             this.id = device.getId();
@@ -87,7 +88,12 @@ public class ElectronicDeviceController {
                     .stream()
                     .map(EvaluationItem::getName)
                     .toList();
-            this.totalAvg = totalAvg;
+            this.totalAvg = Optional.ofNullable(totalAvg);
+        }
+
+        public Double getTotalAvg() {
+            if(totalAvg.isEmpty())return null;
+            return Math.round(totalAvg.get()*10) / 10.0;
         }
     }
     @Getter
@@ -122,12 +128,16 @@ public class ElectronicDeviceController {
     public static class EvalItemAvgDto{
         private final Long id;
         private final String name;
-        private final Double avg;
+        private final Optional<Double> avg;
 
         public EvalItemAvgDto(EvaluationItem evalItem, Double avg) {
             this.id = evalItem.getId();
             this.name = evalItem.getName();
-            this.avg = avg;
+            this.avg = Optional.ofNullable(avg);
+        }
+        public Double getAvg() {
+            if(avg.isEmpty())return null;
+            return Math.round(avg.get()*10) / 10.0;
         }
     }
 }
