@@ -112,4 +112,9 @@ public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
     public Long countByCondition(String nameCondition, String categoryCondition) {
         return deviceQueryRepo.countByCondition(nameCondition, categoryCondition);
     }
+
+    @Override
+    public Map<Long, Double> avgGroupByDevice(List<Long> deviceIdList) {
+        return evalQueryRepo.avgGroupByDevice(deviceIdList);
+    }
 }

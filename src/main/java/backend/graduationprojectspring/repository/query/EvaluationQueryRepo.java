@@ -24,4 +24,14 @@ public interface EvaluationQueryRepo {
      * <b>Evaluation.score가 없다면 value는 null 된다.</b>
      */
     Map<Long, Double> avgGroupByEvalItem(List<Long> evalItemIdList);
+
+    /**
+     * 전자제품 별로 그룹화 하여 전자제품이 가지고 있는 모든 평점의 평균을 계산한다.
+     * @param deviceIdList 검색할 device의 id를 모아둔 List
+     * @return Map 자료구조로 반환한다.<br>
+     * key = ElectronicDevice의 id
+     * value = Evaluation.score 그룹 평균<br>
+     * <b>Evaluation.score가 없다면 value는 null 된다.</b>
+     */
+    Map<Long, Double> avgGroupByDevice(List<Long> deviceIdList);
 }

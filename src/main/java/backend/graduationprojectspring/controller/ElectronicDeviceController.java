@@ -28,8 +28,14 @@ public class ElectronicDeviceController {
             @RequestParam(required = false) String categoryCondition){
         List<ElectronicDevice> deviceList = deviceService.pagingJoinCategoryAndEvalItem(page, size, nameCondition, categoryCondition);
         Long totalCount = deviceService.countByCondition(nameCondition, categoryCondition);
+        List<Long> deviceIdList = deviceList
+                .stream()
+                .map(ElectronicDevice::getId)
+                .toList();
 
-        return new PagingResultDto(deviceList, totalCount);
+        Map<Long, Double> totalAvgMap = deviceService.avgGroupByDevice(deviceIdList);
+
+        return new PagingResultDto(deviceList, totalCount, totalAvgMap);
     }
 
     @GetMapping("/{id}")
@@ -48,10 +54,10 @@ public class ElectronicDeviceController {
         private final List<DevicePagingDto> deviceList;
         private final Long totalCount;
 
-        public PagingResultDto(List<ElectronicDevice> deviceList, Long totalCount) {
+        public PagingResultDto(List<ElectronicDevice> deviceList, Long totalCount, Map<Long, Double> totalAvgMap) {
             this.deviceList = deviceList
                     .stream()
-                    .map(DevicePagingDto::new)
+                    .map(device -> new DevicePagingDto(device, totalAvgMap.get(device.getId())))
                     .toList();
             this.totalCount = totalCount;
         }
@@ -66,8 +72,9 @@ public class ElectronicDeviceController {
         private final Long imageId;
         private final String createdTime;
         private final List<String> evaluationItemList;
+        private final Double totalAvg;
 
-        public DevicePagingDto(ElectronicDevice device) {
+        public DevicePagingDto(ElectronicDevice device, Double totalAvg) {
             this.id = device.getId();
             this.name = device.getName();
             this.categoryName = device.getCategory().getName();
@@ -80,6 +87,7 @@ public class ElectronicDeviceController {
                     .stream()
                     .map(EvaluationItem::getName)
                     .toList();
+            this.totalAvg = totalAvg;
         }
     }
     @Getter

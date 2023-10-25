@@ -6,6 +6,7 @@ import backend.graduationprojectspring.exception.NotExistsException;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ElectronicDeviceService {
     /**
@@ -90,4 +91,14 @@ public interface ElectronicDeviceService {
      * @return 검색 조건에 걸린 ElectronicDevice 개수
      */
     Long countByCondition(String nameCondition, String categoryCondition);
+
+    /**
+     * 전자제품 별로 그룹화 하여 전자제품이 가지고 있는 모든 평점의 평균을 계산한다.
+     * @param deviceIdList 검색할 device의 id를 모아둔 List
+     * @return Map 자료구조로 반환한다.<br>
+     * key = ElectronicDevice의 id
+     * value = Evaluation.score 그룹 평균<br>
+     * <b>Evaluation.score가 없다면 value는 null 된다.</b>
+     */
+    Map<Long, Double> avgGroupByDevice(List<Long> deviceIdList);
 }
