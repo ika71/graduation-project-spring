@@ -1,7 +1,6 @@
 package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Board;
-import backend.graduationprojectspring.entity.Image;
 import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 import backend.graduationprojectspring.service.BoardService;
 import jakarta.validation.constraints.Max;
@@ -51,8 +50,7 @@ public class BoardController {
                 boardCreateDto.getTitle(),
                 boardCreateDto.getContent(),
                 deviceId,
-                Long.valueOf(memberId),
-                boardCreateDto.getImageIdList());
+                Long.valueOf(memberId));
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -68,9 +66,7 @@ public class BoardController {
         boardService.update(id,
                 boardUpdateDto.getTitle(),
                 boardUpdateDto.getContent(),
-                Long.valueOf(memberId),
-                boardUpdateDto.getAddImageIdList(),
-                boardUpdateDto.getDeleteImageIdList());
+                Long.valueOf(memberId));
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
@@ -127,7 +123,6 @@ public class BoardController {
         private final String content;
         private final String createdBy;
         private final String createdTime;
-        private final List<Long> imageList;
         private final long view;
 
         public BoardDetailDto(Board board) {
@@ -137,10 +132,6 @@ public class BoardController {
             this.createdBy = board.getMember().getName();
             this.createdTime = board.getCreatedTime()
                     .format(DateTimeFormatter.ofPattern("MM-dd / HH:mm"));
-            this.imageList = board.getImageList()
-                    .stream()
-                    .map(Image::getId)
-                    .toList();
             this.view = board.getView();
         }
     }
@@ -152,7 +143,6 @@ public class BoardController {
         private String title;
         @NotBlank
         private String content;
-        private List<Long> imageIdList;
     }
     @Getter
     @ToString
@@ -162,7 +152,5 @@ public class BoardController {
         private String title;
         @NotBlank
         private String content;
-        private List<Long> addImageIdList;
-        private List<Long> deleteImageIdList;
     }
 }

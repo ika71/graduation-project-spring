@@ -97,15 +97,12 @@ CREATE TABLE IF NOT EXISTS image(
     image_id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
     origin_name VARCHAR(255) NOT NULL,
     store_name VARCHAR(255) NOT NULL,
-    visible BOOLEAN NOT NULL,
     created_time DATETIME(6) NOT NULL,
     updated_time DATETIME(6) NOT NULL,
     created_by VARCHAR(255) NOT NULL,
     modified_by VARCHAR(255) NOT NULL,
-    board_id BIGINT UNSIGNED,
     electronic_device_id BIGINT UNSIGNED,
     PRIMARY KEY (image_id),
-    FOREIGN KEY (board_id) REFERENCES board(board_id),
     FOREIGN KEY (electronic_device_id)
     REFERENCES electronic_device(electronic_device_id),
     UNIQUE KEY (store_name)

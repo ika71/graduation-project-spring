@@ -36,10 +36,9 @@ public interface BoardService {
      * @param content 게시글 내용
      * @param deviceId 게시글이 기록되는 전자제품의 id
      * @param memberId 게시글을 생성하는 member의 id
-     * @param imageIdList 게시글에 설정할 이미지의 id List
      * @return 생성된 게시글 반환
      */
-    Board create(String title, String content, Long deviceId, Long memberId, List<Long> imageIdList);
+    Board create(String title, String content, Long deviceId, Long memberId);
 
     /**
      * 게시 글을 수정한다.
@@ -47,12 +46,10 @@ public interface BoardService {
      * @param title 수정된 제목
      * @param content 수정된 내용
      * @param requestMemberId 수정을 요청하는 member의 id
-     * @param addImageIdList 수정할 때 추가된 이미지의 id
-     * @param deleteImageIdList 수정할 때 삭제된 이미지의 id
      * @throws NotExistsException 수정할 게시글이 존재하지 않으면 발생
      * @throws CustomRunTimeException 자신이 작성한 게시글이 아니면 발생
      */
-    void update(Long boardId, String title, String content, Long requestMemberId, List<Long> addImageIdList, List<Long> deleteImageIdList) throws NotExistsException;
+    void update(Long boardId, String title, String content, Long requestMemberId) throws NotExistsException;
 
     /**
      * 게시글을 삭제한다.
