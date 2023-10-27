@@ -47,7 +47,9 @@ public class ElectronicDeviceController {
         Map<Long, Double> avgGroupByEvalItemMap =
                 findOneDetailDto.getAvgGroupByEvalItemMap();
 
-        return new DeviceDetailDto(device, avgGroupByEvalItemMap);
+        Long relationDeviceCount = deviceService.countByCondition(null, device.getCategory().getName());
+
+        return new DeviceDetailDto(device, avgGroupByEvalItemMap, relationDeviceCount);
     }
 
     @Getter
@@ -111,8 +113,9 @@ public class ElectronicDeviceController {
         private final Long imageId;
         private final String createdTime;
         private final List<EvalItemAvgDto> evalItemAvgList;
+        private final Long relationDeviceCount;
 
-        public DeviceDetailDto(ElectronicDevice device, Map<Long, Double> avgGroupByEvalItemMap) {
+        public DeviceDetailDto(ElectronicDevice device, Map<Long, Double> avgGroupByEvalItemMap, Long relationDeviceCount) {
             this.id = device.getId();
             this.name = device.getName();
             this.categoryName = device.getCategory().getName();
@@ -127,6 +130,7 @@ public class ElectronicDeviceController {
                             evalItem,
                             avgGroupByEvalItemMap.get(evalItem.getId())))
                     .toList();
+            this.relationDeviceCount = relationDeviceCount;
         }
     }
     @Getter
