@@ -25,17 +25,9 @@ public class Image extends Base {
     @Column(nullable = false, unique = true, updatable = false)
     private String storeName; //파일로 저장된 이미지의 이름
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "electronic_device_id")
-    private ElectronicDevice electronicDevice;
-
-
     public Image(String originName, String storeName) {
         this.originName = originName;
         this.storeName = storeName;
     }
 
-    public void setElectronicDevice(ElectronicDevice electronicDevice) {
-        this.electronicDevice = electronicDevice;
-    }
 }

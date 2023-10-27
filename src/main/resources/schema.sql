@@ -12,6 +12,18 @@ CREATE TABLE IF NOT EXISTS member(
     UNIQUE KEY (email, name)
 );
 
+CREATE TABLE IF NOT EXISTS image(
+    image_id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
+    origin_name VARCHAR(255) NOT NULL,
+    store_name VARCHAR(255) NOT NULL,
+    created_time DATETIME(6) NOT NULL,
+    updated_time DATETIME(6) NOT NULL,
+    created_by VARCHAR(255) NOT NULL,
+    modified_by VARCHAR(255) NOT NULL,
+    PRIMARY KEY (image_id),
+    UNIQUE KEY (store_name)
+);
+
 CREATE TABLE IF NOT EXISTS category(
     category_id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
     name VARCHAR(255) NOT NULL,
@@ -26,6 +38,7 @@ CREATE TABLE IF NOT EXISTS category(
 CREATE TABLE IF NOT EXISTS electronic_device(
     electronic_device_id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
     category_id BIGINT UNSIGNED NOT NULL,
+    image_id BIGINT UNSIGNED,
     name VARCHAR(255) NOT NULL,
     created_time DATETIME(6) NOT NULL,
     updated_time DATETIME(6) NOT NULL,
@@ -33,6 +46,7 @@ CREATE TABLE IF NOT EXISTS electronic_device(
     modified_by VARCHAR(255) NOT NULL,
     PRIMARY KEY (electronic_device_id),
     FOREIGN KEY (category_id) REFERENCES category(category_id),
+    FOREIGN KEY (image_id) REFERENCES image(image_id),
     UNIQUE KEY (name)
 );
 
@@ -91,19 +105,4 @@ CREATE TABLE IF NOT EXISTS board_comment(
     PRIMARY KEY (board_comment_id),
     FOREIGN KEY (board_id) REFERENCES board(board_id),
     FOREIGN KEY (member_id) REFERENCES member(member_id)
-);
-
-CREATE TABLE IF NOT EXISTS image(
-    image_id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
-    origin_name VARCHAR(255) NOT NULL,
-    store_name VARCHAR(255) NOT NULL,
-    created_time DATETIME(6) NOT NULL,
-    updated_time DATETIME(6) NOT NULL,
-    created_by VARCHAR(255) NOT NULL,
-    modified_by VARCHAR(255) NOT NULL,
-    electronic_device_id BIGINT UNSIGNED,
-    PRIMARY KEY (image_id),
-    FOREIGN KEY (electronic_device_id)
-    REFERENCES electronic_device(electronic_device_id),
-    UNIQUE KEY (store_name)
 );

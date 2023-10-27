@@ -13,7 +13,6 @@ import java.util.Optional;
 import static backend.graduationprojectspring.entity.QCategory.category;
 import static backend.graduationprojectspring.entity.QElectronicDevice.electronicDevice;
 import static backend.graduationprojectspring.entity.QEvaluationItem.evaluationItem;
-import static backend.graduationprojectspring.entity.QImage.image;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,8 +25,6 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)
                 .fetchJoin()
-                .leftJoin(electronicDevice.image, image)
-                .fetchJoin()
                 .orderBy(electronicDevice.name.asc())
                 .offset((long)(page - 1)*size)
                 .limit(size)
@@ -39,8 +36,6 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
         List<ElectronicDevice> deviceList = queryFactory
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)
-                .fetchJoin()
-                .leftJoin(electronicDevice.image, image)
                 .fetchJoin()
                 .where(deviceNameEq(nameCondition), categoryEq(categoryCondition))
                 .orderBy(electronicDevice.id.desc())
@@ -71,8 +66,6 @@ public class ElectronicDeviceQueryRepoImpl implements ElectronicDeviceQueryRepo 
         ElectronicDevice findDevice = queryFactory
                 .selectFrom(electronicDevice)
                 .join(electronicDevice.category, category)
-                .fetchJoin()
-                .leftJoin(electronicDevice.image, image)
                 .fetchJoin()
                 .leftJoin(electronicDevice.evaluationItemList, evaluationItem)
                 .fetchJoin()

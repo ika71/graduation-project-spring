@@ -89,7 +89,7 @@ public class ElectronicDeviceServiceImpl implements ElectronicDeviceService {
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 전자제품 입니다."));
         Image image = imageRepo.findById(imageId)
                 .orElseThrow(() -> new NotExistsException("존재 하지 않는 이미지 입니다."));
-        image.setElectronicDevice(device);
+        device.setImage(image);
     }
 
     @Override
