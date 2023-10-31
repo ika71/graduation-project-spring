@@ -57,7 +57,7 @@ public class BoardController {
                 .build();
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> boardUpdate(
             @PathVariable(name = "id")Long id,
             @RequestBody @Validated BoardUpdateDto boardUpdateDto){

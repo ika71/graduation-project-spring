@@ -37,7 +37,7 @@ public class AdminEvaluationItemController {
                 .status(HttpStatus.CREATED)
                 .build();
     }
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> evaluationItemUpdateName(
             @PathVariable(name = "id")Long id,
             @RequestBody @Validated EvaluationItemUpdateDto updateDto){

@@ -43,7 +43,7 @@ public class AdminCategoryController {
                 .body(createdCategory.getName());
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> categoryUpdate(
             @PathVariable(name = "id")Long id,
             @RequestBody @Validated CategoryUpdateDto categoryUpdateDto){

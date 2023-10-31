@@ -47,7 +47,7 @@ public class AdminElectronicDeviceController {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> deviceUpdate(
             @PathVariable(name = "id")Long id,
             @RequestBody @Validated DeviceUpdateDto deviceUpdateDto){
