@@ -1,0 +1,9 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: ika71-azurefile
+provisioner: file.csi.azure.com
+allowVolumeExpansion: true
+parameters:
+  skuName: Standard_LRS
+  shareName: spring-images

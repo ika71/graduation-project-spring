@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: next-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: next
+  template:
+    metadata:
+      labels:
+        app: next
+    spec:
+      containers:
+        - name: next
+          image: ika71/graduation-next:latest
+          volumeMounts:
+            - name: next-cache
+              mountPath: /app/.next/cache
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+
+      volumes:
+        - name: next-cache
+          persistentVolumeClaim:
+            claimName: ika71-azurefile

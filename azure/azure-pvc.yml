@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ika71-azurefile
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ika71-azurefile
+  resources:
+    requests:
+      storage: 1Gi
