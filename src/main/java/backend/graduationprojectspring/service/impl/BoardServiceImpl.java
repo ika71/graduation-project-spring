@@ -1,5 +1,6 @@
 package backend.graduationprojectspring.service.impl;
 
+import backend.graduationprojectspring.constant.Role;
 import backend.graduationprojectspring.entity.Board;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Member;
@@ -68,6 +69,16 @@ public class BoardServiceImpl implements BoardService {
     public void delete(Long boardId, Long requestMemberId) {
         Board findBoard = boardRepo.findById(boardId)
                 .orElseThrow(() -> new NotExistsException("해당하는 게시글이 없습니다."));
+
+        Member requestMember = memberRepo.findById(requestMemberId)
+                .orElseThrow(() -> new NotExistsException("존재 하지 않는 유저입니다."));
+        
+        //게시 글 삭제 요청자가 어드민일 경우 삭제를 무조건 실행
+        if(requestMember.getRole().equals(Role.ADMIN)){
+            boardRepo.deleteById(boardId);
+            return;
+        }
+
         if(!findBoard.getMember().getId().equals(requestMemberId)){
             throw new CustomRunTimeException("본인의 글만 삭제할 수 있습니다.");
         }
