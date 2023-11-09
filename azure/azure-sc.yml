@@ -6,4 +6,4 @@ provisioner: file.csi.azure.com
 allowVolumeExpansion: true
 parameters:
   skuName: Standard_LRS
-  shareName: spring-images
+  shareName: graduation-file
