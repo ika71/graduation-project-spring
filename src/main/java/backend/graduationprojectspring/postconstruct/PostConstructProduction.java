@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.config;
+package backend.graduationprojectspring.postconstruct;
 
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.repository.MemberRepo;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Profile("prod")
 @RequiredArgsConstructor
-public class PostConstructProductionConfig {
+public class PostConstructProduction {
     private final MemberService memberService;
     private final MemberRepo memberRepo;
     @Value("${admin.email}")

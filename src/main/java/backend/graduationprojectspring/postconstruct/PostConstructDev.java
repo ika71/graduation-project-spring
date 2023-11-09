@@ -1,4 +1,4 @@
-package backend.graduationprojectspring.config;
+package backend.graduationprojectspring.postconstruct;
 
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Profile("dev")
 @RequiredArgsConstructor
-public class PostConstructConfig {
+public class PostConstructDev {
     private final MemberService memberService;
     private final CategoryService categoryService;
     private final ElectronicDeviceService deviceService;
