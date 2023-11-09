@@ -46,7 +46,6 @@ public class PostConstructProduction {
 
             //전자제품 데이터 추가
             List<ElectronicDevice> deviceList = new ArrayList<>();
-            deviceList.add(deviceService.create("갤럭시", savedCategory1.getId()));
             deviceList.add(deviceService.create("아이폰 15", savedCategory1.getId()));
             deviceList.add(deviceService.create("아이폰 14", savedCategory1.getId()));
             deviceList.add(deviceService.create("아이폰 13", savedCategory1.getId()));
