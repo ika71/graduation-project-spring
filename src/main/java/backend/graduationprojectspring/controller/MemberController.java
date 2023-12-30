@@ -107,9 +107,9 @@ public class MemberController {
     @ToString(exclude = "password")
     public static class MemberLoginDto {
         @Email
-        public String email;
+        private String email;
         @NotEmpty
-        public String password;
+        private String password;
     }
     @Getter
     @ToString
