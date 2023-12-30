@@ -5,7 +5,7 @@ import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.service.MemberService;
 import backend.graduationprojectspring.service.dto.SigninDto;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -93,9 +93,9 @@ public class MemberController {
     public static class MemberCreateDto {
         @Email
         private String email;
-        @NotEmpty
+        @NotBlank
         private String name;
-        @NotEmpty
+        @NotBlank
         private String password;
 
         public Member toMember(){
@@ -108,7 +108,7 @@ public class MemberController {
     public static class MemberLoginDto {
         @Email
         private String email;
-        @NotEmpty
+        @NotBlank
         private String password;
     }
     @Getter
