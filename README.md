@@ -1,6 +1,6 @@
 # 전자제품 리뷰사이트 
 어드민은 전자제품과 평가할 수 있는 항목을 등록하고  
-사용자들은 그 전자제품에 평점과 리뷰(게시판 CRUD, 이미지 업로드, 댓글 구현)를 작성할 수 있는 웹사이트 입니다.  
+사용자들은 그 전자제품에 평점 등록과 리뷰(게시판 CRUD, 이미지 업로드, 댓글 구현)를 작성할 수 있는 웹사이트 입니다.  
 Spring boot, JPA, query dsl, Spring Security를 이용해 REST API 웹 서버를 구축하였으며    
 프론트 엔드는 Next.js로 구현하였습니다.  
 프론트엔드의 소스코드는 https://github.com/ika71/graduation-project-next 에 있습니다.  
