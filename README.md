@@ -1,7 +1,14 @@
-# graduation-project-spring
-졸업작품-전자제품리뷰사이트-스프링백엔드  
-스프링부트, JPA를 이용해 REST API 웹 서버를 구축한 프로젝트입니다  
-프론트 https://github.com/ika71/graduation-project-next
+# 전자제품 리뷰사이트 
+어드민은 전자제품과 평가할 수 있는 항목을 등록하고  
+사용자들은 그 전자제품에 평점과 리뷰(게시판 CRUD, 이미지 업로드, 댓글 구현)를 작성할 수 있는 웹사이트 입니다.  
+Spring boot, JPA, query dsl, Spring Security를 이용해 REST API 웹 서버를 구축하였으며    
+프론트 엔드는 Next.js로 구현하였습니다.  
+프론트엔드의 소스코드는 https://github.com/ika71/graduation-project-next 에 있습니다.  
+Azure cloud 가상 머신과 docker-compose, docker hub를 이용하여 클라우드 배포를 하였고  
+배포된 사이트는 다음 주소에서 확인 하실 수 있습니다.
+http://40.82.152.168  
+어드민 계정(id = admin@admin.com, password = admin@)  
+일반 계정(id = test@test.com, password = test@)  
 
 # ERD
 ![ERD](/readme/ERD.png)
