@@ -12,3 +12,8 @@ http://40.82.152.168
 
 # ERD
 ![ERD](/readme/ERD.png)
+
+# 웹사이트 화면
+![그림1](/readme/그림1.png)
+![그림2](/readme/그림2.png)
+![그림3](/readme/그림3.png)
