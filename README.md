@@ -5,7 +5,7 @@ Spring boot, JPA, query dsl, Spring Security를 이용해 REST API 웹 서버를
 프론트 엔드는 Next.js로 구현하였습니다.  
 프론트엔드의 소스코드는 <a href="https://github.com/ika71/graduation-project-next" target="_blank">https://github.com/ika71/graduation-project-next</a> 에 있습니다.  
 Azure cloud 가상 머신과 docker-compose, docker hub를 이용하여 클라우드 배포를 하였고  
-배포된 사이트는 <a href="http://40.82.152.168" target="_blank">http://40.82.152.168</a> 에서 확인 하실 수 있습니다.  
+배포된 사이트는 <a href="http://20.39.188.135" target="_blank">http://20.39.188.135</a> 에서 확인 하실 수 있습니다.  
 어드민 계정(id = admin@admin.com, password = admin@)  
 일반 계정(id = test@test.com, password = test@)  
 
