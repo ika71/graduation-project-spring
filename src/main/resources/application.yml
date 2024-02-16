@@ -22,12 +22,12 @@ spring:
   config:
     activate:
       on-profile: dev
-  #h2 데이터 베이스 설정
+    #mysql 데이터 베이스 설정
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/graduation
-    username: sa
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE}?serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
   #jpa 설정
   jpa:
     hibernate:
@@ -38,6 +38,7 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
+
 #jpa 쿼리 로그 보기
 logging:
   level:
