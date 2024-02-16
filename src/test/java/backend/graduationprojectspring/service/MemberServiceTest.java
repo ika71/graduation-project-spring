@@ -2,7 +2,7 @@ package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.constant.Role;
 import backend.graduationprojectspring.entity.Member;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.security.TokenProvider;
 import backend.graduationprojectspring.service.dto.SigninDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,7 +52,7 @@ class MemberServiceTest {
         assertThat(member.getId()).isNotNull();
 
         assertThatThrownBy(()-> memberService.findById(999L))
-                .isInstanceOf(NotExistsException.class);
+                .isInstanceOf(HttpError.class);
 
     }
 

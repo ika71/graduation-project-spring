@@ -1,13 +1,13 @@
 package backend.graduationprojectspring.service.impl;
 
 import backend.graduationprojectspring.entity.Member;
-import backend.graduationprojectspring.exception.DuplicateException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.repository.MemberRepo;
 import backend.graduationprojectspring.security.TokenProvider;
 import backend.graduationprojectspring.service.MemberService;
 import backend.graduationprojectspring.service.dto.SigninDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +25,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member create(Member member){
         if(memberRepo.existsByEmail(member.getEmail())){
-            throw new DuplicateException("이미 존재하는 이메일로 회원가입을 시도하고 있습니다.");
+            throw new HttpError("이미 존재하는 이메일로 회원가입을 시도하고 있습니다.", HttpStatus.CONFLICT);
         }
         if(memberRepo.existsByName(member.getName())){
-            throw new DuplicateException("이미 존재하는 닉네임으로 회원가입을 시도하고 있습니다.");
+            throw new HttpError("이미 존재하는 닉네임으로 회원가입을 시도하고 있습니다.", HttpStatus.CONFLICT);
         }
 
         member.passwordEncode(passwordEncoder);
@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member findById(Long id) {
         return memberRepo.findById(id)
-                .orElseThrow(() -> new NotExistsException("해당 하는 유저가 없습니다."));
+                .orElseThrow(() -> new HttpError("해당 하는 유저가 없습니다.", HttpStatus.UNPROCESSABLE_ENTITY));
     }
 
     @Override

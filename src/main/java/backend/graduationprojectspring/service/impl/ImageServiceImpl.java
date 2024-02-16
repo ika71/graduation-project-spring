@@ -1,12 +1,12 @@
 package backend.graduationprojectspring.service.impl;
 
 import backend.graduationprojectspring.entity.Image;
-import backend.graduationprojectspring.exception.ImageStoreFailException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.repository.ImageRepo;
 import backend.graduationprojectspring.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +35,7 @@ public class ImageServiceImpl implements ImageService {
             try {
                 multipartFile.transferTo(new File(storePath(storeName)));
             } catch (IOException e) {
-                throw new ImageStoreFailException("이미지 저장에 실패 하였습니다.", e);
+                throw new HttpError("이미지 저장에 실패 하였습니다.", HttpStatus.INTERNAL_SERVER_ERROR, e);
             }
             imageList.add(new Image(originName, storeName));
         }
@@ -46,7 +46,7 @@ public class ImageServiceImpl implements ImageService {
     @Transactional
     public String fullPath(Long id){
         Image image = imageRepo.findById(id)
-                .orElseThrow(() -> new NotExistsException("해당하는 이미지가 없습니다."));
+                .orElseThrow(() -> new HttpError("해당하는 이미지가 없습니다.", HttpStatus.UNPROCESSABLE_ENTITY));
 
         return storePath(image.getStoreName());
     }

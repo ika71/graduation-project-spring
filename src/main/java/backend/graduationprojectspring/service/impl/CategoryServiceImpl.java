@@ -1,12 +1,12 @@
 package backend.graduationprojectspring.service.impl;
 
 import backend.graduationprojectspring.entity.Category;
-import backend.graduationprojectspring.exception.DuplicateException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.repository.CategoryRepo;
 import backend.graduationprojectspring.repository.query.CategoryQueryRepo;
 import backend.graduationprojectspring.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category create(String name){
         if(categoryRepo.existsByName(name)){
-            throw new DuplicateException("같은 이름으로 이미 존재하는 카테고리가 있습니다.");
+            throw new HttpError("같은 이름으로 이미 존재하는 카테고리가 있습니다.", HttpStatus.CONFLICT);
         }
         Category category = new Category(name);
         return categoryRepo.save(category);
@@ -43,9 +43,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void updateName(Long id, String updateName){
         Category findCategory = categoryRepo.findById(id)
-                .orElseThrow(() -> new NotExistsException("해당하는 카테고리가 존재하지 않습니다."));
+                .orElseThrow(() -> new HttpError("해당하는 카테고리가 존재하지 않습니다.", HttpStatus.UNPROCESSABLE_ENTITY));
         if(categoryRepo.existsByName(updateName)){
-            throw new DuplicateException("해당 이름으로 존재하는 카테고리가 이미 있습니다.");
+            throw new HttpError("해당 이름으로 존재하는 카테고리가 이미 있습니다.", HttpStatus.CONFLICT);
         }
         findCategory.updateName(updateName);
     }

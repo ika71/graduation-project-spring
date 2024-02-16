@@ -1,8 +1,7 @@
 package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.BoardComment;
-import backend.graduationprojectspring.exception.CustomRunTimeException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 
 import java.util.List;
 
@@ -35,8 +34,8 @@ public interface BoardCommentService {
      * 댓글을 삭제한다.
      * @param id 삭제할 댓글 id
      * @param requestMemberId 삭제를 요청하는 Member의 id
-     * @throws NotExistsException 대상이 되는 댓글이 존재하지 않는다면 발생
-     * @throws CustomRunTimeException 자신이 작성한 댓글이 아니면 발생
+     * @throws HttpError 대상이 되는 댓글이 존재하지 않는다면 발생
+     * @throws HttpError 자신이 작성한 댓글이 아니면 발생
      */
-    void delete(Long id, Long requestMemberId) throws NotExistsException;
+    void delete(Long id, Long requestMemberId) throws HttpError;
 }

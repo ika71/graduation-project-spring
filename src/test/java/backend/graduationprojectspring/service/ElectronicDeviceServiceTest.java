@@ -4,8 +4,7 @@ import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.Evaluation;
 import backend.graduationprojectspring.entity.EvaluationItem;
-import backend.graduationprojectspring.exception.DuplicateException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepo;
 import backend.graduationprojectspring.repository.EvaluationItemRepo;
 import backend.graduationprojectspring.repository.EvaluationRepo;
@@ -90,7 +89,7 @@ class ElectronicDeviceServiceTest {
 
         //중복된 전자제품이 있으면 예외가 발생해야 한다.
         assertThatThrownBy(()-> deviceService.create("맥북", smartPhone.getId()))
-                .isInstanceOf(DuplicateException.class);
+                .isInstanceOf(HttpError.class);
     }
 
     @Test
@@ -192,12 +191,12 @@ class ElectronicDeviceServiceTest {
         //이름 수정 시 이미 존재하는 전자제품이 있으면 예외가 발생해야 한다.
         assertThatThrownBy(()->
                 deviceService.update(galaxyBook.getId(), "갤럭시", laptop.getId()))
-                .isInstanceOf(DuplicateException.class);
+                .isInstanceOf(HttpError.class);
 
         //이름 수정 시 해당하는 전자제품이 없으면 예외가 발생해야 한다.
         assertThatThrownBy(()->
                 deviceService.update(999L, "픽셀", smartPhone.getId()))
-                .isInstanceOf(NotExistsException.class);
+                .isInstanceOf(HttpError.class);
     }
 
     @Test

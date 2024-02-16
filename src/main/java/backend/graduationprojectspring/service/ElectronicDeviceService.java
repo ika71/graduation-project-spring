@@ -1,8 +1,7 @@
 package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.ElectronicDevice;
-import backend.graduationprojectspring.exception.DuplicateException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.service.dto.DeviceDetailAndAvgDto;
 
 import java.util.List;
@@ -14,9 +13,9 @@ public interface ElectronicDeviceService {
      * @param name 저장할 전자제품 이름
      * @param categoryId 저장할 전자제품이 속하는 카테고리 Id
      * @return 저장된 전자제품
-     * @throws DuplicateException 같은 이름으로 존재하는 전자제품이 이미 있을 경우
+     * @throws HttpError 같은 이름으로 존재하는 전자제품이 이미 있을 경우
      */
-    ElectronicDevice create(String name, Long categoryId) throws DuplicateException;
+    ElectronicDevice create(String name, Long categoryId) throws HttpError;
 
     /**
      * 전자제품 페이지 조회(이름으로 정렬됨)<br>
@@ -52,10 +51,10 @@ public interface ElectronicDeviceService {
      * @param deviceId 수정할 전자제품의 Id
      * @param updateDeviceName 수정할 이름
      * @param updateCategoryId 전자제품이 수정 후에 속할 카테고리 Id
-     * @throws NotExistsException 전자제품이나 카테고리가 이미 없으면 발생
-     * @throws DuplicateException 수정할 이름을 전자제품이 이미 존재하면 발생
+     * @throws HttpError 전자제품이나 카테고리가 이미 없으면 발생
+     * @throws HttpError 수정할 이름을 전자제품이 이미 존재하면 발생
      */
-    void update(Long deviceId, String updateDeviceName, Long updateCategoryId) throws NotExistsException, DuplicateException;
+    void update(Long deviceId, String updateDeviceName, Long updateCategoryId) throws HttpError;
 
     /**
      * 전자제품 삭제
@@ -67,9 +66,9 @@ public interface ElectronicDeviceService {
      * 전자제품 이미지 설정
      * @param deviceId 이미지를 설정할 전자제품 id
      * @param imageId 설정할 이미지의 id
-     * @throws NotExistsException 해당하는 전자제품이나 이미지가 없으면 발생
+     * @throws HttpError 해당하는 전자제품이나 이미지가 없으면 발생
      */
-    void setImage(Long deviceId, Long imageId) throws NotExistsException;
+    void setImage(Long deviceId, Long imageId) throws HttpError;
 
     /**
      * 전자제품 하나 조회<br>
@@ -80,9 +79,9 @@ public interface ElectronicDeviceService {
      * 계산 결과는 Map으로 반환 key = 평가항목 Id, value = score의 평균
      * @param id 조회할 전자제품 Id
      * @return 조회된 결과는 Dto로 반환
-     * @throws NotExistsException 해당하는 전자제품이 없으면 발생
+     * @throws HttpError 해당하는 전자제품이 없으면 발생
      */
-    DeviceDetailAndAvgDto findOneDetail(Long id) throws NotExistsException;
+    DeviceDetailAndAvgDto findOneDetail(Long id) throws HttpError;
 
     /**
      * 검색 조건이 들어간 카운트 쿼리

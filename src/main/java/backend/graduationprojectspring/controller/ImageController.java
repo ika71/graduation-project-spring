@@ -1,7 +1,7 @@
 package backend.graduationprojectspring.controller;
 
 import backend.graduationprojectspring.entity.Image;
-import backend.graduationprojectspring.exception.CustomRunTimeException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.service.ImageService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +47,7 @@ public class ImageController {
         for (MultipartFile multipartFile : imageFile) {
             String mimeType = tika.detect(multipartFile.getInputStream());
             if(!mimeType.startsWith("image")){
-                throw new CustomRunTimeException("이미지 파일이 아닌 파일을 업로드 하였습니다.");
+                throw new HttpError("이미지 파일이 아닌 파일을 업로드 하였습니다.", HttpStatus.FORBIDDEN);
             }
         }
         List<Image> savedImageList = imageService.storeFileList(imageFile);

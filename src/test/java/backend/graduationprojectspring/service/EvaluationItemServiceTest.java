@@ -3,8 +3,7 @@ package backend.graduationprojectspring.service;
 import backend.graduationprojectspring.entity.Category;
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
-import backend.graduationprojectspring.exception.DuplicateException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.repository.EvaluationItemRepo;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +47,7 @@ class EvaluationItemServiceTest {
 
         assertThat(evalItem.getId()).isNotNull();
         assertThatThrownBy(()-> evalItemService.create("성능", galaxy.getId()))
-                .isInstanceOf(DuplicateException.class);
+                .isInstanceOf(HttpError.class);
     }
 
     @Test
@@ -74,9 +73,9 @@ class EvaluationItemServiceTest {
         evalItemService.create("디스플레이", galaxy.getId());
 
         assertThatThrownBy(()-> evalItemService.updateName(evalItem.getId(), "디스플레이"))
-                .isInstanceOf(DuplicateException.class);
+                .isInstanceOf(HttpError.class);
         assertThatThrownBy(()-> evalItemService.updateName(999L, "내구성"))
-                .isInstanceOf(NotExistsException.class);
+                .isInstanceOf(HttpError.class);
     }
 
     @Test

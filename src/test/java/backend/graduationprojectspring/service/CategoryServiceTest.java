@@ -1,8 +1,7 @@
 package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Category;
-import backend.graduationprojectspring.exception.DuplicateException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.repository.CategoryRepo;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,7 +55,7 @@ class CategoryServiceTest {
 
         //중복된 이름의 카테고리가 있을 시 예외가 발생해야 한다.
         assertThatThrownBy(()-> categoryService.create("노트북"))
-                .isInstanceOf(DuplicateException.class);
+                .isInstanceOf(HttpError.class);
     }
 
     @Test
@@ -90,11 +89,11 @@ class CategoryServiceTest {
 
         //중복된 이름이 이미 존재 시 예외가 발생해야 한다.
         assertThatThrownBy(()-> categoryService.updateName(laptop.getId(), "스마트폰"))
-                .isInstanceOf(DuplicateException.class);
+                .isInstanceOf(HttpError.class);
 
         //해당하는 카테고리가 존재하지 않으면 예외가 발생해야 한다.
         assertThatThrownBy(()-> categoryService.updateName(999L, "nothing"))
-                .isInstanceOf(NotExistsException.class);
+                .isInstanceOf(HttpError.class);
     }
 
     @Test

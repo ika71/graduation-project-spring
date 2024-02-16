@@ -1,8 +1,7 @@
 package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Category;
-import backend.graduationprojectspring.exception.DuplicateException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 
 import java.util.List;
 
@@ -11,9 +10,9 @@ public interface CategoryService {
      * 카테고리를 생성한다.
      * @param name 생성할 카테고리 이름
      * @return 생성된 카테고리 반환
-     * @throws DuplicateException 같은 이름으로 존재하는 카테고리가 있을 경우 발생
+     * @throws HttpError 같은 이름으로 존재하는 카테고리가 있을 경우 발생
      */
-    Category create(String name) throws DuplicateException;
+    Category create(String name) throws HttpError;
 
     /**
      * 카테고리 페이지 조회(카테고리 이름으로 정렬됨)<br>
@@ -33,10 +32,10 @@ public interface CategoryService {
      * 카테고리 이름 수정
      * @param id 이름을 수정할 카테고리의 id
      * @param updateName 수정할 이름
-     * @throws NotExistsException id에 해당하는 카테고리가 없으면 예외 발생
-     * @throws DuplicateException 수정할 이름으로 존재하는 카테고리가 이미 존재하면 발생
+     * @throws HttpError id에 해당하는 카테고리가 없으면 예외 발생
+     * @throws HttpError 수정할 이름으로 존재하는 카테고리가 이미 존재하면 발생
      */
-    void updateName(Long id, String updateName) throws NotExistsException, DuplicateException;
+    void updateName(Long id, String updateName) throws HttpError;
 
     /**
      * 카테고리 삭제

@@ -1,8 +1,7 @@
 package backend.graduationprojectspring.service;
 
 import backend.graduationprojectspring.entity.Board;
-import backend.graduationprojectspring.exception.CustomRunTimeException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.repository.dto.PreviewBoardDto;
 
 import java.util.List;
@@ -46,17 +45,17 @@ public interface BoardService {
      * @param title 수정된 제목
      * @param content 수정된 내용
      * @param requestMemberId 수정을 요청하는 member의 id
-     * @throws NotExistsException 수정할 게시글이 존재하지 않으면 발생
-     * @throws CustomRunTimeException 자신이 작성한 게시글이 아니면 발생
+     * @throws HttpError 수정할 게시글이 존재하지 않으면 발생
+     * @throws HttpError 자신이 작성한 게시글이 아니면 발생
      */
-    void update(Long boardId, String title, String content, Long requestMemberId) throws NotExistsException;
+    void update(Long boardId, String title, String content, Long requestMemberId) throws HttpError;
 
     /**
      * 게시글을 삭제한다.
      * @param boardId 삭제할 게시글의 id
      * @param requestMemberId 삭제를 요청하는 member의 id
-     * @throws NotExistsException 삭제할 게시글이 존재하지 않으면 발생
-     * @throws CustomRunTimeException 자신이 작성한 게시글이 아니면 발생
+     * @throws HttpError 삭제할 게시글이 존재하지 않으면 발생
+     * @throws HttpError 자신이 작성한 게시글이 아니면 발생
      */
-    void delete(Long boardId, Long requestMemberId) throws NotExistsException;
+    void delete(Long boardId, Long requestMemberId) throws HttpError;
 }

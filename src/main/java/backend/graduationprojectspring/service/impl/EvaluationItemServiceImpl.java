@@ -2,12 +2,12 @@ package backend.graduationprojectspring.service.impl;
 
 import backend.graduationprojectspring.entity.ElectronicDevice;
 import backend.graduationprojectspring.entity.EvaluationItem;
-import backend.graduationprojectspring.exception.DuplicateException;
-import backend.graduationprojectspring.exception.NotExistsException;
+import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.repository.ElectronicDeviceRepo;
 import backend.graduationprojectspring.repository.EvaluationItemRepo;
 import backend.graduationprojectspring.service.EvaluationItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,10 +23,10 @@ public class EvaluationItemServiceImpl implements EvaluationItemService {
     @Override
     public EvaluationItem create(String name, Long deviceId){
         if(evalItemRepository.existsByNameAndElectronicDeviceId(name, deviceId)){
-            throw new DuplicateException("이미 존재하는 평가 항목입니다.");
+            throw new HttpError("이미 존재하는 평가 항목입니다.", HttpStatus.CONFLICT);
         }
         ElectronicDevice device = deviceRepository.findById(deviceId)
-                .orElseThrow(() -> new NotExistsException("해당 하는 전자제품이 없습니다."));
+                .orElseThrow(() -> new HttpError("해당 하는 전자제품이 없습니다.", HttpStatus.UNPROCESSABLE_ENTITY));
         return evalItemRepository.save(new EvaluationItem(name, device));
     }
 
@@ -39,9 +39,9 @@ public class EvaluationItemServiceImpl implements EvaluationItemService {
     @Override
     public void updateName(Long id, String name){
         EvaluationItem findEvaluationItem = evalItemRepository.findById(id)
-                .orElseThrow(() -> new NotExistsException("해당하는 평가 항목이 없습니다."));
+                .orElseThrow(() -> new HttpError("해당하는 평가 항목이 없습니다.", HttpStatus.UNPROCESSABLE_ENTITY));
         if(evalItemRepository.existsByNameAndElectronicDeviceId(name, findEvaluationItem.getElectronicDevice().getId())){
-            throw new DuplicateException("이미 존재하는 평가 항목입니다.");
+            throw new HttpError("이미 존재하는 평가 항목입니다.", HttpStatus.CONFLICT);
         }
         findEvaluationItem.updateName(name);
     }
