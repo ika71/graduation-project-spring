@@ -27,7 +27,7 @@ public class ImageController {
     private final Tika tika;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> imageView(@PathVariable(name = "id")Long id) throws MalformedURLException {
+    public ResponseEntity<?> imageView(@PathVariable Long id) throws MalformedURLException {
         String fullPath = imageService.fullPath(id);
 
         UrlResource urlResource = new UrlResource("file:"+fullPath);
@@ -43,7 +43,7 @@ public class ImageController {
 
     @PostMapping
     public ResponseEntity<?> imageCreate(
-            @RequestParam(name = "imageFile") List<MultipartFile> imageFile) throws IOException {
+            @RequestParam List<MultipartFile> imageFile) throws IOException {
         for (MultipartFile multipartFile : imageFile) {
             String mimeType = tika.detect(multipartFile.getInputStream());
             if(!mimeType.startsWith("image")){

@@ -26,9 +26,9 @@ public class BoardController {
 
     @GetMapping
     public BoardPagingResultDto boardPaging(
-            @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10") @Max(50) int size,
-            @RequestParam(name = "deviceId")Long deviceId){
+            @RequestParam(defaultValue = "1")int page,
+            @RequestParam(defaultValue = "10") @Max(50) int size,
+            @RequestParam Long deviceId){
         List<PreviewBoardDto> pagingBoardList = boardService.paging(page, size, deviceId);
         long totalCount = boardService.totalCountByDeviceId(deviceId);
 
@@ -36,13 +36,13 @@ public class BoardController {
     }
     @GetMapping("/{id}")
     public BoardDetailDto boardDetail(
-            @PathVariable(name = "id")Long id){
+            @PathVariable Long id){
         Board findBoard = boardService.findOneDetail(id);
         return new BoardDetailDto(findBoard);
     }
     @PostMapping
     public ResponseEntity<?> boardCreate(
-            @RequestParam(name = "deviceId")Long deviceId,
+            @RequestParam Long deviceId,
             @RequestBody @Validated BoardCreateDto boardCreateDto){
         String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -59,7 +59,7 @@ public class BoardController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> boardUpdate(
-            @PathVariable(name = "id")Long id,
+            @PathVariable Long id,
             @RequestBody @Validated BoardUpdateDto boardUpdateDto){
         String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -74,7 +74,7 @@ public class BoardController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> boardDelete(
-            @PathVariable(name = "id")Long id){
+            @PathVariable Long id){
         String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
         boardService.delete(id, Long.valueOf(memberId));
         return ResponseEntity

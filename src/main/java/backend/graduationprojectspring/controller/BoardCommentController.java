@@ -25,8 +25,8 @@ public class BoardCommentController {
 
     @GetMapping
     public BoardCommentPagingResultDto boardCommentPaging(
-            @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10") @Max(50) int size,
+            @RequestParam(defaultValue = "1")int page,
+            @RequestParam(defaultValue = "10") @Max(50) int size,
             @PathVariable(name = "id")Long boardId){
         List<BoardComment> pagingCommentList = boardCommentService.paging(page, size, boardId);
         long totalCountByBoardId = boardCommentService.totalCountByBoardId(boardId);
@@ -53,7 +53,7 @@ public class BoardCommentController {
     @DeleteMapping("/{commentId}")
     public ResponseEntity<?> boardCommentDelete(
             @PathVariable(name = "id")Long boardId,
-            @PathVariable(name = "commentId")Long commentId){
+            @PathVariable Long commentId){
 
         String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
 

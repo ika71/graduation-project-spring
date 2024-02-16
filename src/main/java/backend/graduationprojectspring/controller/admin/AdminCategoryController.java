@@ -27,8 +27,8 @@ public class AdminCategoryController {
 
     @GetMapping
     public categoryPagingResultDto categoryPaging(
-            @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10")int size){
+            @RequestParam(defaultValue = "1")int page,
+            @RequestParam(defaultValue = "10")int size){
         List<Category> categoryPagingList = categoryService.paging(page, size);
         long categoryTotalCount = categoryService.totalCount();
         return new categoryPagingResultDto(categoryPagingList, categoryTotalCount);
@@ -45,7 +45,7 @@ public class AdminCategoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> categoryUpdate(
-            @PathVariable(name = "id")Long id,
+            @PathVariable Long id,
             @RequestBody @Validated CategoryUpdateDto categoryUpdateDto){
         categoryService.updateName(id, categoryUpdateDto.getName());
         return ResponseEntity
@@ -54,7 +54,7 @@ public class AdminCategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> categoryDelete(@PathVariable (name = "id")Long id){
+    public ResponseEntity<?> categoryDelete(@PathVariable Long id){
         categoryService.delete(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)

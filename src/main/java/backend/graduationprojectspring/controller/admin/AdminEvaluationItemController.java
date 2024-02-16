@@ -22,7 +22,7 @@ public class AdminEvaluationItemController {
 
     @GetMapping
     public EvaluationItemViewResult evaluationItemView(
-            @RequestParam(name = "deviceId") Long deviceId){
+            @RequestParam Long deviceId){
         List<EvaluationItem> findItemList = itemService.findAllByElectronicDeviceId(deviceId);
         return new EvaluationItemViewResult(findItemList);
     }
@@ -39,7 +39,7 @@ public class AdminEvaluationItemController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> evaluationItemUpdateName(
-            @PathVariable(name = "id")Long id,
+            @PathVariable Long id,
             @RequestBody @Validated EvaluationItemUpdateDto updateDto){
         itemService.updateName(id, updateDto.getName());
         return ResponseEntity
@@ -47,7 +47,7 @@ public class AdminEvaluationItemController {
                 .build();
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> evaluationItemDelete(@PathVariable(name = "id") Long id){
+    public ResponseEntity<?> evaluationItemDelete(@PathVariable Long id){
         itemService.delete(id);
 
         return ResponseEntity

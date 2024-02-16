@@ -23,8 +23,8 @@ public class ElectronicDeviceController {
     private final ElectronicDeviceService deviceService;
     @GetMapping
     public PagingResultDto electronicDevicePaging(
-            @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10") @Max(50) int size,
+            @RequestParam(defaultValue = "1")int page,
+            @RequestParam(defaultValue = "10") @Max(50) int size,
             @RequestParam(required = false) String nameCondition,
             @RequestParam(required = false) String categoryCondition){
         List<ElectronicDevice> deviceList = deviceService.pagingJoinCategoryAndEvalItem(page, size, nameCondition, categoryCondition);
@@ -41,7 +41,7 @@ public class ElectronicDeviceController {
     }
 
     @GetMapping("/{id}")
-    public DeviceDetailDto electronicDeviceDetail(@PathVariable(name = "id")Long id){
+    public DeviceDetailDto electronicDeviceDetail(@PathVariable Long id){
         DeviceDetailAndAvgDto findOneDetailDto = deviceService.findOneDetail(id);
         ElectronicDevice device = findOneDetailDto.getDevice();
         Map<Long, Double> avgGroupByEvalItemMap =

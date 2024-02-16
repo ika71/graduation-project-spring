@@ -23,7 +23,7 @@ public class EvaluationController {
     private final EvaluationService evaluationService;
 
     @GetMapping
-    public EvaluationFindResultDto evaluationFind(@RequestParam("deviceId")Long deviceId){
+    public EvaluationFindResultDto evaluationFind(@RequestParam Long deviceId){
         String memberId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         List<EvalItemAndEvaluationDto> evalItemAndEvaluationDtoList =

@@ -23,8 +23,8 @@ public class AdminElectronicDeviceController {
 
     @GetMapping
     public DevicePagingResultDto devicePaging(
-            @RequestParam(name = "page", defaultValue = "1")int page,
-            @RequestParam(name = "size", defaultValue = "10")int size){
+            @RequestParam(defaultValue = "1")int page,
+            @RequestParam(defaultValue = "10")int size){
         List<ElectronicDevice> devicePagingList = deviceService.pagingJoinCategory(page, size);
         long deviceTotalCount = deviceService.totalCount();
         return new DevicePagingResultDto(devicePagingList, deviceTotalCount);
@@ -49,7 +49,7 @@ public class AdminElectronicDeviceController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> deviceUpdate(
-            @PathVariable(name = "id")Long id,
+            @PathVariable Long id,
             @RequestBody @Validated DeviceUpdateDto deviceUpdateDto){
         deviceService.update(id,
                 deviceUpdateDto.getName(),
@@ -59,7 +59,7 @@ public class AdminElectronicDeviceController {
                 .build();
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deviceDelete(@PathVariable(name = "id")Long id){
+    public ResponseEntity<?> deviceDelete(@PathVariable Long id){
         deviceService.delete(id);
 
         return ResponseEntity
