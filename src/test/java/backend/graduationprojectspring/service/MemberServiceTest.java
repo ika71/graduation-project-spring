@@ -4,15 +4,12 @@ import backend.graduationprojectspring.constant.Role;
 import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.security.TokenProvider;
-import backend.graduationprojectspring.service.dto.SigninDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -39,11 +36,10 @@ class MemberServiceTest {
 
     @Test
     void signin() {
-        Optional<SigninDto> expectedNotNull = memberService.signin("email@email.com", "1234");
-        assertThat(expectedNotNull.isPresent()).isTrue();
+        memberService.signin("email@email.com", "1234");
 
-        Optional<SigninDto> expectedNull = memberService.signin("email@email.com", "12");
-        assertThat(expectedNull.isEmpty()).isTrue();
+        assertThatThrownBy(()->memberService.signin("email@email.com", "12"))
+                .isInstanceOf(HttpError.class);
     }
 
     @Test

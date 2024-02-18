@@ -4,8 +4,6 @@ import backend.graduationprojectspring.entity.Member;
 import backend.graduationprojectspring.exception.HttpError;
 import backend.graduationprojectspring.service.dto.SigninDto;
 
-import java.util.Optional;
-
 public interface MemberService {
     /**
      * 회원가입
@@ -17,11 +15,12 @@ public interface MemberService {
 
     /**
      * email을 가지고 있는 아이디가 존재하고 비밀번호가 일치하면 토큰을 반환
-     * @param email
-     * @param password
-     * @return JWT or null
+     * @param email 로그인 이메일
+     * @param password 로그인 비밀번호
+     * @return JWT
+     * @throws HttpError 로그인 실패 시 예외 발생
      */
-    Optional<SigninDto> signin(String email, String password);
+    SigninDto signin(String email, String password) throws HttpError;
 
     /**
      * id에 해당 하는 member를 반환

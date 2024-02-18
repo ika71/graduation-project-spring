@@ -38,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<SigninDto> signin(String email, String password){
+    public SigninDto signin(String email, String password){
         Optional<Member> findMember = memberRepo.findByEmail(email);
 
         if(findMember.isPresent() && passwordEncoder.matches(password, findMember.get().getPassword())){
@@ -48,9 +48,9 @@ public class MemberServiceImpl implements MemberService {
             String accessToken = tokenProvider.createAccessToken(
                     findMember.get().getId().toString(),
                     findMember.get().getRole().toString());
-            return Optional.of(new SigninDto(refreshToken, accessToken));
+            return new SigninDto(refreshToken, accessToken);
         }
-        return Optional.empty();
+        throw new HttpError("인증 실패", HttpStatus.UNAUTHORIZED);
     }
 
     @Override

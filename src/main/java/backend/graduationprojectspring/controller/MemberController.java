@@ -16,8 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -42,12 +40,9 @@ public class MemberController {
     }
     @PostMapping("/signin")
     public ResponseEntity<?> memberLogin(@RequestBody @Validated MemberLoginDto memberLoginDto){
-        Optional<SigninDto> signinDto = memberService.signin(memberLoginDto.getEmail(), memberLoginDto.password);
+        SigninDto signinDto = memberService.signin(memberLoginDto.getEmail(), memberLoginDto.password);
 
-        if(signinDto.isEmpty()){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증 실패");
-        }
-        return ResponseEntity.ok().body(new LoginSuccessDto(signinDto.get()));
+        return ResponseEntity.ok().body(new LoginSuccessDto(signinDto));
     }
     @PostMapping("/refresh")
     public TokenRefreshDto tokenRefresh(){
